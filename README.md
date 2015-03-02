@@ -47,7 +47,8 @@ React.render(
 
 ```js
 var React = require('react');
-var Helpers = require('../mixins/Helpers');
+var Scroll = require('react-scroll'); 
+var Helpers = Scroll.Helpers;
 
 var Element = React.createClass({
   mixins: [Helpers.Element],
