@@ -3,6 +3,11 @@
 Directive for basic scrolling and smooth scrolling ( work in progress )
 Feel free to contribute - everything is appreciated
 
+### Install
+```js
+$ I've not uploaded it to npm yet, I want to finish it first.
+```
+
 ### Run
 ```js
 $ npm install
