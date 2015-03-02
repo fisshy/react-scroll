@@ -89,6 +89,7 @@ var Link = React.createClass({
 - [x] Vertical scrolling
 - [x] Scroll to element
 - [x] Smooth scroll animation
+- [ ] Live examples
 - [ ] Pass scroll/animation duration as settings
 - [ ] Horizontal scrolling
 - [ ] Spy on scrolling/Highlight
