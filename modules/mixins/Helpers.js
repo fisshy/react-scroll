@@ -64,9 +64,6 @@ var startAnimateTopScroll = function(y) {
 	__targetPositionY = __targetPositionY + __currentPositionY
 	setDirection();
 
-
-	
-
 	requestAnimationFrame(animateTopScroll);
 };
 
