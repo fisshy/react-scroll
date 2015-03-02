@@ -14,9 +14,11 @@ $ npm install
 $ npm run examples
 ```
 
-### Usage
+### Examples
 Checkout examples
 > [basic](https://github.com/fisshy/react-scroll/blob/master/examples/basic/app.js)
+
+### Usage
 ```js
 
 var React = require('react');
