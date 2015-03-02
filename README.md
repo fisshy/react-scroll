@@ -15,6 +15,8 @@ $ npm run examples
 ```
 
 ### Usage
+Checkout examples
+> [basic](https://github.com/fisshy/react-scroll/blob/master/examples/basic/app.js)
 ```js
 
 var React = require('react');
