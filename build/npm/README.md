@@ -16,7 +16,8 @@ $ npm run examples
 
 ### Examples
 Checkout examples
-> [basic](https://github.com/fisshy/react-scroll/blob/master/examples/basic/app.js)
+> [Live basic](http://fisshy.github.io/react-scroll-example/basic/index.html)
+> [Code basic](https://github.com/fisshy/react-scroll/blob/master/examples/basic/app.js)
 
 ### Usage
 ```js
@@ -89,7 +90,7 @@ var Link = React.createClass({
 - [x] Vertical scrolling
 - [x] Scroll to element
 - [x] Smooth scroll animation
-- [ ] Live examples
+- [x] Live examples
 - [ ] Pass scroll/animation duration as settings
 - [ ] Horizontal scrolling
 - [ ] Spy on scrolling/Highlight
