@@ -5,7 +5,7 @@ Feel free to contribute - everything is appreciated
 
 ### Install
 ```js
-$ I've not uploaded it to npm yet, I want to finish it first.
+$ npm install react-scroll
 ```
 
 ### Run
