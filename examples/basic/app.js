@@ -20,8 +20,8 @@ var Section = React.createClass({
                 <li><Link to="test4" smooth={true}>Test 4</Link></li>
                 <li><Link to="test5" smooth={true}>Test 5</Link></li>
               </ul>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
+            </div>
+          </div>
         </nav>
 
         <Element name="test1" className="element">

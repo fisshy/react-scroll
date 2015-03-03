@@ -37,7 +37,6 @@ var animateTopScroll = function(y) {
       __currentPositionY = __currentPositionY + __speed;
     
       if(__currentPositionY >= __targetPositionY) {
-        console.log(__targetPositionY, __currentPositionY);
         window.scrollTo(0, __targetPositionY);
         return;
       }
@@ -46,7 +45,6 @@ var animateTopScroll = function(y) {
       __currentPositionY = __currentPositionY - __speed;
     
       if(__currentPositionY <= __targetPositionY) {
-        console.log(__targetPositionY, __currentPositionY);
         window.scrollTo(0, __targetPositionY);
         return;
       }
