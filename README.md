@@ -16,8 +16,10 @@ $ npm run examples
 
 ### Examples
 Checkout examples
-> [Live basic](http://fisshy.github.io/react-scroll-example/basic/index.html)
-> [Code basic](https://github.com/fisshy/react-scroll/blob/master/examples/basic/app.js)
+> Basic
+>> [Live](http://fisshy.github.io/react-scroll-example/basic/index.html)
+>> Or
+>> [Code](https://github.com/fisshy/react-scroll/blob/master/examples/basic/app.js)
 
 ### Usage
 ```js
