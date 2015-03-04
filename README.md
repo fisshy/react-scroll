@@ -77,7 +77,7 @@ var Link = React.createClass({
   mixins: [Helpers.Scroll],
   render: function () {
     return (
-      <a onClick={this.onClick} href="test">
+      <a onClick={this.onClick}>
         {this.props.children}
       </a>
     );
