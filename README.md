@@ -33,16 +33,16 @@ var Element = Scroll.Element;
 var Section = React.createClass({
   render: function () {
   	return (
-		<Link to="test1" smooth={true}>Test 1</Link>
-		<Link to="test2" smooth={true}>Test 2</Link>
+  		<Link to="test1" smooth={true} duration={2000} >Test 1</Link>
+  		<Link to="test2" smooth={true}>Test 2</Link>
 
-		<Element name="test1" className="element">
-		  test 1
-		</Element>
+  		<Element name="test1" className="element">
+  		  test 1
+  		</Element>
 
-		<Element name="test2" className="element">
-		  test 2
-		</Element>
+  		<Element name="test2" className="element">
+  		  test 2
+  		</Element>
 	);
   }
 });
@@ -93,7 +93,7 @@ var Link = React.createClass({
 - [x] Scroll to element
 - [x] Smooth scroll animation
 - [x] Live examples
-- [ ] Pass scroll/animation duration as settings
+- [x] Pass scroll/animation duration as settings
 - [ ] Horizontal scrolling
 - [ ] Spy on scrolling/Highlight
 - [ ] Write test

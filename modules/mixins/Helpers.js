@@ -2,6 +2,10 @@
 
 var React = require('react');
 
+var smooth = require('./smooth');
+
+var easing = smooth.defaultEasing;
+
 /* 
  * Helper function to never extend 60fps on the webpage.
  */ 
@@ -13,54 +17,54 @@ var requestAnimationFrame = (function () {
           };
 })();
 
-var __mapped = {};
-var __currentPositionY = 0;
-var __targetPositionY = 0;
-var __speed = 45;
-var __direction;
+var __mapped            = {};
+var __currentPositionY  = 0;
+var __startPositionY    = 0;
+var __targetPositionY   = 0;
+var __progress          = 0;
+var __duration          = 0;
+
+var __start;
+var __deltaTop;
+var __percent;
 
 var currentPositionY = function() {
   var supportPageOffset = window.pageXOffset !== undefined;
   var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
-  __currentPositionY = supportPageOffset ? window.pageYOffset : isCSS1Compat ? 
-                       document.documentElement.scrollTop : document.body.scrollTop;
-  return __currentPositionY;
+  return  supportPageOffset ? window.pageYOffset : isCSS1Compat ? 
+          document.documentElement.scrollTop : document.body.scrollTop;
 };
 
-var setDirection = function() {
-  __direction = __targetPositionY > __currentPositionY ? "down" : "up";
-};
+var animateTopScroll = function(timestamp) {
+  /*
+   * Set start time
+   */
 
-var animateTopScroll = function(y) {
-  switch(__direction) {
-    case "down":
-      __currentPositionY = __currentPositionY + __speed;
-    
-      if(__currentPositionY >= __targetPositionY) {
-        window.scrollTo(0, __targetPositionY);
-        return;
-      }
-      break;
-    case "up":
-      __currentPositionY = __currentPositionY - __speed;
-    
-      if(__currentPositionY <= __targetPositionY) {
-        window.scrollTo(0, __targetPositionY);
-        return;
-      }
-      break;
+  __deltaTop = Math.round(__targetPositionY - __startPositionY);
+
+  if (__start === null) {
+    __start = timestamp;
   }
+
+  __progress = timestamp - __start;
+
+  __percent = (__progress >= __duration ? 1 : easing(__progress/__duration));
+
+  __currentPositionY = __startPositionY + Math.ceil(__deltaTop * __percent);
 
   window.scrollTo(0, __currentPositionY);
 
-  requestAnimationFrame(animateTopScroll);
+  if(__percent < 1) {
+    requestAnimationFrame(animateTopScroll);
+  }
+
 };
 
-var startAnimateTopScroll = function(y) {
-  __targetPositionY = y;
-  currentPositionY();
-  __targetPositionY = __targetPositionY + __currentPositionY
-  setDirection();
+var startAnimateTopScroll = function(y, options) {
+  __start           = null;
+  __startPositionY  = currentPositionY();
+  __targetPositionY = y + __startPositionY;
+  __duration        = options.duration || 1000;
 
   requestAnimationFrame(animateTopScroll);
 };
@@ -88,7 +92,7 @@ var Helpers = {
        * if smooth is not provided just scroll into the view
        */
 
-      if(!this.props.smooth) { /* Should look into browser compability for this one*/
+      if(!this.props.smooth) { 
         window.scrollTo(0, cordinates.top);
         return;
       }
@@ -97,7 +101,9 @@ var Helpers = {
        * Animate scrolling
        */
       
-      var options = {};
+      var options = { 
+        duration : this.props.duration 
+      };
 
       startAnimateTopScroll(cordinates.top, options);
 
