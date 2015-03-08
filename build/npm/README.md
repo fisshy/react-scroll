@@ -33,8 +33,8 @@ var Element = Scroll.Element;
 var Section = React.createClass({
   render: function () {
   	return (
-  		<Link to="test1" smooth={true} duration={2000} >Test 1</Link>
-  		<Link to="test2" smooth={true}>Test 2</Link>
+  		<Link to="test1" spy={true} smooth={true} duration={500} >Test 1</Link>
+  		<Link to="test2" spy={true} smooth={true} duration={500} >Test 2</Link>
 
   		<Element name="test1" className="element">
   		  test 1
@@ -77,7 +77,7 @@ var Link = React.createClass({
   mixins: [Helpers.Scroll],
   render: function () {
     return (
-      <a onClick={this.onClick} href="test">
+      <a onClick={this.onClick}>
         {this.props.children}
       </a>
     );
@@ -95,5 +95,5 @@ var Link = React.createClass({
 - [x] Live examples
 - [x] Pass scroll/animation duration as settings
 - [ ] Horizontal scrolling
-- [ ] Spy on scrolling/Highlight
+- [x] Spy on scrolling/Highlight
 - [ ] Write test

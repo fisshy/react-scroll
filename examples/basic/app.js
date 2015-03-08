@@ -14,11 +14,11 @@ var Section = React.createClass({
           <div className="container-fluid">
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav">
-                <li><Link to="test1" smooth={true} duration={2000} >Test 1</Link></li>
-                <li><Link to="test2" smooth={true}>Test 2</Link></li>
-                <li><Link to="test3" smooth={true} duration={2000} >Test 3</Link></li>
-                <li><Link to="test4" smooth={true}>Test 4</Link></li>
-                <li><Link to="test5" smooth={true}>Test 5</Link></li>
+                <li><Link to="test1" spy={true} smooth={true} duration={500} >Test 1</Link></li>
+                <li><Link to="test2" spy={true} smooth={true} duration={500}>Test 2</Link></li>
+                <li><Link to="test3" spy={true} smooth={true} duration={500} >Test 3</Link></li>
+                <li><Link to="test4" spy={true} smooth={true} duration={500}>Test 4</Link></li>
+                <li><Link to="test5" spy={true} smooth={true} duration={500}>Test 5</Link></li>
               </ul>
             </div>
           </div>

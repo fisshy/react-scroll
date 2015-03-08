@@ -6,6 +6,29 @@ var smooth = require('./smooth');
 
 var easing = smooth.defaultEasing;
 
+var cancelEvents = require('./cancel-events');
+
+/*
+ * Sets the cancel trigger
+ */
+
+cancelEvents.register(function() {
+  __cancel = true;
+});
+
+/*
+ * Spy helper
+ */ 
+
+ var spyCallbacks = [];
+ var spySetState = [];
+
+ document.addEventListener('scroll', function() {
+  for(var i = 0; i < spyCallbacks.length; i = i + 1) {
+    spyCallbacks[i](currentPositionY());
+  }
+ });
+
 /* 
  * Helper function to never extend 60fps on the webpage.
  */ 
@@ -17,12 +40,14 @@ var requestAnimationFrame = (function () {
           };
 })();
 
+var __activeLink;
 var __mapped            = {};
 var __currentPositionY  = 0;
 var __startPositionY    = 0;
 var __targetPositionY   = 0;
 var __progress          = 0;
 var __duration          = 0;
+var __cancel            = false;
 
 var __start;
 var __deltaTop;
@@ -36,9 +61,9 @@ var currentPositionY = function() {
 };
 
 var animateTopScroll = function(timestamp) {
-  /*
-   * Set start time
-   */
+  // Cancel on specific events
+  if(__cancel) { return };
+
 
   __deltaTop = Math.round(__targetPositionY - __startPositionY);
 
@@ -62,6 +87,7 @@ var animateTopScroll = function(timestamp) {
 
 var startAnimateTopScroll = function(y, options) {
   __start           = null;
+  __cancel          = false;
   __startPositionY  = currentPositionY();
   __targetPositionY = y + __startPositionY;
   __duration        = options.duration || 1000;
@@ -133,7 +159,43 @@ var Helpers = {
 
     },
     componentDidMount: function() {
-      
+      if(this.props.spy) {
+        var to = this.props.to;
+        var element = __mapped[to];
+        var top = 0;
+        var height = 0;
+        var self = this;
+
+        spySetState.push(function() {
+          if(__activeLink != to) {
+            self.setState({ active : false });
+          }
+        });
+
+        spyCallbacks.push(function(y) {
+
+          if(!element) { 
+            element = __mapped[to]; 
+            var cords = element.getBoundingClientRect();
+            top = (cords.top + y);
+            height = top + cords.height;
+          }
+
+          if(y >= top && y <= height && __activeLink != to) {
+            
+            __activeLink = to;
+
+            self.setState({ active : true });
+
+            var length = spySetState.length;
+            
+            for(var i = 0; i < length; i = i + 1) {
+              spySetState[i]();
+            }
+
+          }
+        });
+      }
     }
   },
   Element: {
@@ -142,10 +204,6 @@ var Helpers = {
     },
     componentDidMount: function() {
       __mapped[this.props.name] = this.getDOMNode();
-    }
-  },
-  Spy: {
-    componentDidMount: function() {
     }
   }
 };
