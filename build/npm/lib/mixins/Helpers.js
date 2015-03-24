@@ -18,7 +18,7 @@ cancelEvents.register(function() {
 
 /*
  * Spy helper
- */ 
+ */
 
  var spyCallbacks = [];
  var spySetState = [];
@@ -29,12 +29,12 @@ cancelEvents.register(function() {
   }
  });
 
-/* 
+/*
  * Helper function to never extend 60fps on the webpage.
- */ 
+ */
 var requestAnimationFrame = (function () {
-  return  window.requestAnimationFrame       || 
-          window.webkitRequestAnimationFrame || 
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
           function (callback, element, delay) {
               window.setTimeout(callback, delay || (1000/60));
           };
@@ -56,7 +56,7 @@ var __percent;
 var currentPositionY = function() {
   var supportPageOffset = window.pageXOffset !== undefined;
   var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
-  return  supportPageOffset ? window.pageYOffset : isCSS1Compat ? 
+  return  supportPageOffset ? window.pageYOffset : isCSS1Compat ?
           document.documentElement.scrollTop : document.body.scrollTop;
 };
 
@@ -100,14 +100,17 @@ var Helpers = {
     propTypes: {
       to: React.PropTypes.string.isRequired
     },
+    getDefaultProps: function() {
+      return {offset: 0};
+    },
     scrollTo : function(to) {
-      
+
       /*
        * get the mapped DOM element
        */
 
       var target = __mapped[to];
-      
+
       if(!target) {
         throw new Error("target Element not found");
       }
@@ -118,7 +121,7 @@ var Helpers = {
        * if smooth is not provided just scroll into the view
        */
 
-      if(!this.props.smooth) { 
+      if(!this.props.smooth) {
         window.scrollTo(0, cordinates.top);
         return;
       }
@@ -126,20 +129,20 @@ var Helpers = {
       /*
        * Animate scrolling
        */
-      
-      var options = { 
-        duration : this.props.duration 
+
+      var options = {
+        duration : this.props.duration
       };
 
-      startAnimateTopScroll(cordinates.top, options);
+      startAnimateTopScroll(cordinates.top + this.props.offset, options);
 
     },
     onClick: function() {
-      
+
       /*
        * give the posibility to override onClick
        */
-      
+
       if(this.props.onClick) {
         this.props.onClick(event);
       }
@@ -174,21 +177,21 @@ var Helpers = {
 
         spyCallbacks.push(function(y) {
 
-          if(!element) { 
-            element = __mapped[to]; 
+          if(!element) {
+            element = __mapped[to];
             var cords = element.getBoundingClientRect();
             top = (cords.top + y);
             height = top + cords.height;
           }
 
           if(y >= top && y <= height && __activeLink != to) {
-            
+
             __activeLink = to;
 
             self.setState({ active : true });
 
             var length = spySetState.length;
-            
+
             for(var i = 0; i < length; i = i + 1) {
               spySetState[i]();
             }
@@ -204,6 +207,9 @@ var Helpers = {
     },
     componentDidMount: function() {
       __mapped[this.props.name] = this.getDOMNode();
+    },
+    componentWillUnmount: function() {
+      delete __mapped[this.props.name];
     }
   }
 };

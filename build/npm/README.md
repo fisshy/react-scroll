@@ -33,8 +33,8 @@ var Element = Scroll.Element;
 var Section = React.createClass({
   render: function () {
   	return (
-  		<Link to="test1" spy={true} smooth={true} duration={500} >Test 1</Link>
-  		<Link to="test2" spy={true} smooth={true} duration={500} >Test 2</Link>
+  		<Link to="test1" spy={true} smooth={true} offset={50} duration={500} >Test 1</Link>
+  		<Link to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Link>
 
   		<Element name="test1" className="element">
   		  test 1
