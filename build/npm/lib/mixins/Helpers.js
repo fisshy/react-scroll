@@ -137,8 +137,7 @@ var Helpers = {
       startAnimateTopScroll(cordinates.top + this.props.offset, options);
 
     },
-    onClick: function() {
-
+    onClick: function(event) {
       /*
        * give the posibility to override onClick
        */
