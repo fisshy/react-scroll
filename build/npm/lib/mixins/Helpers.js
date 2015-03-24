@@ -136,6 +136,7 @@ var Helpers = {
     },
     onClick: function() {
       
+    onClick: function(event) {
       /*
        * give the posibility to override onClick
        */
