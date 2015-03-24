@@ -100,6 +100,9 @@ var Helpers = {
     propTypes: {
       to: React.PropTypes.string.isRequired
     },
+    getDefaultProps: function() {
+      return {offset: 0};
+    },
     scrollTo : function(to) {
 
       /*
@@ -131,7 +134,7 @@ var Helpers = {
         duration : this.props.duration
       };
 
-      startAnimateTopScroll(cordinates.top, options);
+      startAnimateTopScroll(cordinates.top + this.props.offset, options);
 
     },
     onClick: function() {
