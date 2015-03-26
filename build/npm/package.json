@@ -26,6 +26,6 @@
     "scrolling  "
   ],
   "peerDependencies": {
-    "react": "0.12.x"
+    "react": ">=0.12.0"
   }
 }

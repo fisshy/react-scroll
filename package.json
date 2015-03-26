@@ -32,7 +32,7 @@
     "babel-loader": "^4.0.0",
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.2",
-    "react": "^0.12.2",
+    "react": ">=0.12.0",
     "webpack": "^1.6.0",
     "webpack-dev-server": "^1.7.0"
   }
