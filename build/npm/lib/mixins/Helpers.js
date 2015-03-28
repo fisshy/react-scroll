@@ -98,7 +98,8 @@ var startAnimateTopScroll = function(y, options) {
 var Helpers = {
   Scroll: {
     propTypes: {
-      to: React.PropTypes.string.isRequired
+      to: React.PropTypes.string.isRequired,
+      offset: React.PropTypes.number
     },
     getDefaultProps: function() {
       return {offset: 0};
@@ -183,7 +184,9 @@ var Helpers = {
             height = top + cords.height;
           }
 
-          if(y >= top && y <= height && __activeLink != to) {
+          var offsetY = y - self.props.offset;
+
+          if(offsetY >= top && offsetY <= height && __activeLink != to) {
 
             __activeLink = to;
 
