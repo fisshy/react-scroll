@@ -164,7 +164,7 @@ var Helpers = {
     componentDidMount: function() {
       if(this.props.spy) {
         var to = this.props.to;
-        var element = __mapped[to];
+        var element = null;
         var top = 0;
         var height = 0;
         var self = this;
