@@ -96,6 +96,11 @@ var startAnimateTopScroll = function(y, options) {
 };
 
 var Helpers = {
+  reset: function() {
+    __mapped = [];
+    spySetState = [];
+    spyCallbacks = [];
+  },
   Scroll: {
     propTypes: {
       to: React.PropTypes.string.isRequired,
