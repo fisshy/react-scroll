@@ -5,7 +5,7 @@ var assign = require('react/lib/Object.assign');
 var Helpers = require('../mixins/Helpers');
 
 var Link = React.createClass({
-  mixins: [Helpers.Scroll, Helpers.Spy],
+  mixins: [Helpers.Scroll],
   getInitialState : function() {
   	return { active : false};
   },
