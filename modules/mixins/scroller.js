@@ -48,7 +48,7 @@ module.exports = {
        */
 
       if(!animate) {
-        window.scrollTo(0, cordinates.top);
+        window.scrollTo(0, cordinates.top + (offset || 0));
         return;
       }
 

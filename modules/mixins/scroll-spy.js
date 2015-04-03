@@ -15,7 +15,7 @@ document.addEventListener('scroll', function() {
 });
 
 module.exports = {
-  umount: function(){
+  unmount: function(){
     spySetState = [];
     spyCallbacks = [];
   },
