@@ -84,6 +84,10 @@ var Helpers = {
     }
   },
 
+  componentWillUnmount: function(){
+    scrollSpy.unmount();
+  },
+
   Element: {
     propTypes: {
       name: React.PropTypes.string.isRequired
