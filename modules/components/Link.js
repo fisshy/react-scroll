@@ -7,16 +7,23 @@ var Helpers = require('../mixins/Helpers');
 var Link = React.createClass({
   mixins: [Helpers.Scroll],
   getInitialState : function() {
-  	return { active : false};
+    return { active : false};
+  },
+  getDefaultProps: function() {
+    return {
+      className: ""
+    };
   },
   render: function () {
 
-  	var props = assign({}, this.props, {
+    var activeClass = this.state.active ? "active" : "";
+
+    var props = assign({}, this.props, {
       onClick: this.onClick,
-      className : this.state.active ? "active" : ""
+      className : [this.props.className, activeClass].join(" ").trim()
     });
 
-  	return React.DOM.a(props, this.props.children);
+    return React.DOM.a(props, this.props.children);
   }
 });
 
