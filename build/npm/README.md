@@ -34,7 +34,7 @@ var Section = React.createClass({
   render: function () {
   	return (
   		<Link to="test1" spy={true} smooth={true} offset={50} duration={500} >Test 1</Link>
-  		<Link to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Link>
+		<Button className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Button>
 
   		<Element name="test1" className="element">
   		  test 1
