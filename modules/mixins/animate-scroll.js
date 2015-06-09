@@ -12,13 +12,20 @@ cancelEvents.register(function() {
   __cancel = true;
 });
 
+/*
+ * Wraps window properties to allow server side rendering
+ */
+var currentWindowProperties = function() {
+  if (typeof window !== 'undefined') {
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame;
+  }
+};
 
 /*
  * Helper function to never extend 60fps on the webpage.
  */
 var requestAnimationFrame = (function () {
-  return  window.requestAnimationFrame       ||
-          window.webkitRequestAnimationFrame ||
+  return  currentWindowProperties() ||
           function (callback, element, delay) {
               window.setTimeout(callback, delay || (1000/60));
           };
@@ -81,4 +88,3 @@ var startAnimateTopScroll = function(y, options) {
 module.exports = {
   animateTopScroll: startAnimateTopScroll
 };
-
