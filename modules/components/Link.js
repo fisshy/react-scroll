@@ -16,7 +16,7 @@ var Link = React.createClass({
   },
   render: function () {
 
-    var activeClass = this.state.active ? "active" : "";
+    var activeClass = this.state.active ? (this.props.activeClass || "active") : "";
 
     var props = assign({}, this.props, {
       onClick: this.onClick,

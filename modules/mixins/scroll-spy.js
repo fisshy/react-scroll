@@ -8,11 +8,13 @@ var currentPositionY = function() {
           document.documentElement.scrollTop : document.body.scrollTop;
 };
 
-document.addEventListener('scroll', function() {
-  for(var i = 0; i < spyCallbacks.length; i = i + 1) {
-    spyCallbacks[i](currentPositionY());
-  }
-});
+if (typeof document !== 'undefined') {
+  document.addEventListener('scroll', function() {
+    for(var i = 0; i < spyCallbacks.length; i = i + 1) {
+      spyCallbacks[i](currentPositionY());
+    }
+  });
+}
 
 module.exports = {
   unmount: function(){
