@@ -93,8 +93,8 @@ var Helpers = {
       name: React.PropTypes.string.isRequired
     },
     componentDidMount: function() {
-      //check if the id was added as a prop to element (optional)
-      if (this.props.id){
+      //check if the parentId was added as a prop to element (optional)
+      if (this.props.parentId){
         //find relative position of element tag
         //<Element id = "example"></Element>
         var position = $('#' + this.props.id).position();
