@@ -59,9 +59,8 @@ var animateTopScroll = function(timestamp) {
   // Cancel on specific events
   if(__cancel) { return; }
 
-  //added this part 
   if (__parentQuery){
-
+    //run animate on the parent div query and input __relativePosition for scrollTop and __duration for duration
     __parentQuery.animate({
       scrollTop: __relativePosition
     }, __duration);
@@ -95,10 +94,12 @@ var startAnimateTopScroll = function(y, options) {
   __startPositionY  = currentPositionY();
   __targetPositionY = y + __startPositionY;
   __duration        = options.duration || 1000;
+
   if (parentQuery){
     __parentQuery = parentQuery;
     __relativePosition = relativePosition;
   }
+
   requestAnimationFrame(animateTopScroll);
 };
 

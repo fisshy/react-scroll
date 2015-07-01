@@ -11,7 +11,7 @@ module.exports = {
 
   register: function(name, element){
     __mapped[name] = element;
-    //added parent dom
+    //save the parentQuery to the object and the relativeposition of the element inside of the parent div
     __mapped[name + "parent"] = parentQuery;
     __mapped[name + "position"] = relativePosition;
   },
@@ -42,9 +42,11 @@ module.exports = {
 
       var parentQuery;
       var relativePosition;
+      //check to make sure that the scrollable parent div exists
       if (__mapped[to+"parent"].length > 0){
         relativePosition = __mapped[to + "position"];
         parentQuery = __mapped[to + "parent"];
+        //set the target equal to the Dom of the parent div
         var target = parentQuery.get(0);
       }
       else {
@@ -61,10 +63,12 @@ module.exports = {
        */
 
       if(!animate) {
+        //if parent div exists just set the scrolTop of the div to the relativePosition of the element (no animation or duration)
         if (parentQuery){
           parentQuery.get(0).scrollTop = relativePosition;
           return;
         }
+        //if parent div doesn't exist run normally
         window.scrollTo(0, cordinates.top + (offset || 0));
         return;
         
@@ -77,7 +81,7 @@ module.exports = {
       var options = {
         duration : duration
       };
-      //added parent parameter
+      //added parentQ parameter and relativePosition
       animateScroll.animateTopScroll(cordinates.top + (offset || 0), options, parentQuery, relativePosition);
 
   }

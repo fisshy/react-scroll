@@ -93,12 +93,17 @@ var Helpers = {
       name: React.PropTypes.string.isRequired
     },
     componentDidMount: function() {
+      //check if the relativeId was added as a prop to element (optional)
       if (this.props.relativeId){
+        //find relative position of element tag
+        //<p id ="example"><Element relativeId = "#example"></Element></p>
         var position = $(this.props.relativeId).position();
         var relativePosition = position.top;
       }
+      //get the query of the scrollable div that contains the element
       var parentQuery = $(this.props.parentId);
       
+      //pass in new paramaters: parentQuery and relativePosition
       scroller.register(this.props.name, this.getDOMNode(), parentQuery, relativePosition);
     },
     componentWillUnmount: function() {
