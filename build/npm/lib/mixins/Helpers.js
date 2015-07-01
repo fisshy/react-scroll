@@ -93,7 +93,13 @@ var Helpers = {
       name: React.PropTypes.string.isRequired
     },
     componentDidMount: function() {
-      scroller.register(this.props.name, this.getDOMNode());
+      if (this.props.relativeId){
+        var position = $(this.props.relativeId).position();
+        var relativePosition = position.top;
+      }
+      var parentQuery = $(this.props.parentId);
+      
+      scroller.register(this.props.name, this.getDOMNode(), parentQuery, relativePosition);
     },
     componentWillUnmount: function() {
       scroller.unregister(this.props.name);
