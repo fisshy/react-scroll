@@ -93,7 +93,14 @@ var Helpers = {
       name: React.PropTypes.string.isRequired
     },
     componentDidMount: function() {
-      scroller.register(this.props.name, this.getDOMNode());
+      //check if the parentId was added as a prop to element (optional)
+      if (this.props.parentId){
+        //use react getDomNode and offsetTop to get relative position from top of parent div
+        var relativePosition = this.getDOMNode().offsetTop;
+        var parent = document.getElementById(this.props.parentId);
+      } 
+      //pass in new paramaters: parent and relativePosition
+      scroller.register(this.props.name, this.getDOMNode(), parent, relativePosition);
     },
     componentWillUnmount: function() {
       scroller.unregister(this.props.name);
