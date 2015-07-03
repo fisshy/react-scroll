@@ -95,16 +95,12 @@ var Helpers = {
     componentDidMount: function() {
       //check if the parentId was added as a prop to element (optional)
       if (this.props.parentId){
-        //find relative position of element tag
-        //<Element id = "example"></Element>
-        var position = $('#' + this.props.id).position();
-        var relativePosition = position.top;
-      }
-      //get the query of the scrollable div that contains the element
-      var parentQuery = $(this.props.parentId);
-      
-      //pass in new paramaters: parentQuery and relativePosition
-      scroller.register(this.props.name, this.getDOMNode(), parentQuery, relativePosition);
+        //use react getDomNode and offsetTop to get relative position from top of parent div
+        var relativePosition = this.getDOMNode().offsetTop;
+        var parent = document.getElementById(this.props.parentId);
+      } 
+      //pass in new paramaters: parent and relativePosition
+      scroller.register(this.props.name, this.getDOMNode(), parent, relativePosition);
     },
     componentWillUnmount: function() {
       scroller.unregister(this.props.name);
