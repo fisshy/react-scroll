@@ -81,12 +81,12 @@ var Helpers = {
           }
         });
       }
+    },
+    componentWillUnmount: function() {
+      scrollSpy.unmount();
     }
   },
 
-  componentWillUnmount: function(){
-    scrollSpy.unmount();
-  },
 
   Element: {
     propTypes: {
