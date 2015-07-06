@@ -46,40 +46,38 @@ var Helpers = {
       this.scrollTo(this.props.to);
 
     },
+
     componentDidMount: function() {
       if(this.props.spy) {
         var to = this.props.to;
         var element = null;
         var top = 0;
         var height = 0;
-        var self = this;
 
-        scrollSpy.addStateHandler(function() {
+        scrollSpy.addStateHandler((function() {
           if(scroller.getActiveLink() != to) {
-              self.setState({ active : false });
+              this.setState({ active : false });
           }
-        });
+        }).bind(this));
 
-        scrollSpy.addSpyHandler(function(y) {
+        scrollSpy.addSpyHandler((function(y) {
 
           if(!element) {
               element = scroller.get(to);
+
               var cords = element.getBoundingClientRect();
               top = (cords.top + y);
               height = top + cords.height;
           }
 
-          var offsetY = y - self.props.offset;
+          var offsetY = y - this.props.offset;
 
           if(offsetY >= top && offsetY <= height && scroller.getActiveLink() != to) {
-
             scroller.setActiveLink(to);
-
-            self.setState({ active : true });
-
+            this.setState({ active : true });
             scrollSpy.updateStates();
           }
-        });
+        }).bind(this));
       }
     },
     componentWillUnmount: function() {
