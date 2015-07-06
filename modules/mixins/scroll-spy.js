@@ -16,7 +16,7 @@ var scrollSpy = {
   },
 
   scrollHandler: function () {
-    for(var i = 0; i < this.spyCallbacks.length; i = i + 1) {
+    for(var i = 0; i < this.spyCallbacks.length; i++) {
       this.spyCallbacks[i](this.currentPositionY());
     }
   },
