@@ -8,16 +8,19 @@ var currentPositionY = function() {
           document.documentElement.scrollTop : document.body.scrollTop;
 };
 
+var scrollHandler = function() {
+  for(var i = 0; i < spyCallbacks.length; i = i + 1) {
+    spyCallbacks[i](currentPositionY());
+  }
+};
+
 if (typeof document !== 'undefined') {
-  document.addEventListener('scroll', function() {
-    for(var i = 0; i < spyCallbacks.length; i = i + 1) {
-      spyCallbacks[i](currentPositionY());
-    }
-  });
+  document.addEventListener('scroll', scrollHandler);
 }
 
 module.exports = {
   unmount: function(){
+    document.removeEventListener('scroll', scrollHandler);
     spySetState = [];
     spyCallbacks = [];
   },
@@ -37,6 +40,5 @@ module.exports = {
     for(var i = 0; i < length; i = i + 1) {
       spySetState[i]();
     }
-
   }
 };
