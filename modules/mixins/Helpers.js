@@ -48,6 +48,8 @@ var Helpers = {
     },
 
     componentDidMount: function() {
+      scrollSpy.mount();
+
       if(this.props.spy) {
         var to = this.props.to;
         var element = null;
