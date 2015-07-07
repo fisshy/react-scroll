@@ -93,10 +93,9 @@ var Helpers = {
       name: React.PropTypes.string.isRequired
     },
     componentDidMount: function() {
-      //check if the parentId was added as a prop to element (optional)
       var dom = this.getDOMNode();
+      // start relative position as initial dom offsetTop
       var relativePosition = dom.offsetTop;
-      console.log(dom.offsetTop, dom);
       var parent = parentMatcher(dom, function(parent){
         var bool = window.getComputedStyle(parent).overflow === 'scroll';
         if (!bool) relativePosition += parent.offsetTop;
@@ -112,6 +111,7 @@ var Helpers = {
 };
 
 function parentMatcher(elem, matcher){
+  // Recursive call method
   // var parent = elem.parentElement;
   // if (!parent || matcher(parent)){
   //   return parent;
