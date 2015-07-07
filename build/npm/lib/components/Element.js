@@ -10,7 +10,7 @@ var Element = React.createClass({
     /*
      * Not sure if should allow more then one property?
      */
-     // not if this is needed?
+
     var className = this.props.className || "";
     
     var props = assign({}, this.props, {
