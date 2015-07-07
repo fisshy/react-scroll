@@ -112,6 +112,11 @@ var Helpers = {
 };
 
 function parentMatcher(elem, matcher){
+  // var parent = elem.parentElement;
+  // if (!parent || matcher(parent)){
+  //   return parent;
+  // }
+  // return parentMatcher(parent, matcher);
   var parent = elem.parentElement;
   while(parent && !matcher(parent)){
     parent = parent.parentElement;
