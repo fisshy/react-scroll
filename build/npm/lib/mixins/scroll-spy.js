@@ -1,44 +1,47 @@
-var spyCallbacks = [];
-var spySetState = [];
+var scrollSpy = {
+  
+  spyCallbacks: [],
+  spySetState: [],
 
-var currentPositionY = function() {
-  var supportPageOffset = window.pageXOffset !== undefined;
-  var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
-  return supportPageOffset ? window.pageYOffset : isCSS1Compat ?
-          document.documentElement.scrollTop : document.body.scrollTop;
-};
+  mount: function () {
+    if (typeof document !== 'undefined') {
+      document.addEventListener('scroll', this.scrollHandler.bind(this));
+    }
+  },
+  currentPositionY: function () {
+    var supportPageOffset = window.pageXOffset !== undefined;
+    var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
+    return supportPageOffset ? window.pageYOffset : isCSS1Compat ?
+            document.documentElement.scrollTop : document.body.scrollTop;
+  },
 
-var scrollHandler = function() {
-  for(var i = 0; i < spyCallbacks.length; i = i + 1) {
-    spyCallbacks[i](currentPositionY());
-  }
-};
-
-if (typeof document !== 'undefined') {
-  document.addEventListener('scroll', scrollHandler);
-}
-
-module.exports = {
-  unmount: function(){
-    document.removeEventListener('scroll', scrollHandler);
-    spySetState = [];
-    spyCallbacks = [];
+  scrollHandler: function () {
+    for(var i = 0; i < this.spyCallbacks.length; i++) {
+      this.spyCallbacks[i](this.currentPositionY());
+    }
   },
 
   addStateHandler: function(handler){
-    spySetState.push(handler);
+    this.spySetState.push(handler);
   },
 
   addSpyHandler: function(handler){
-    spyCallbacks.push(handler);
+    this.spyCallbacks.push(handler);
   },
 
   updateStates: function(){
+    var length = this.spySetState.length;
 
-    var length = spySetState.length;
-
-    for(var i = 0; i < length; i = i + 1) {
-      spySetState[i]();
+    for(var i = 0; i < length; i++) {
+      this.spySetState[i]();
     }
+  },
+  unmount: function () { 
+    this.spyCallbacks = [];
+    this.spySetState = [];
+
+    document.removeEventListener('scroll', this.scrollHandler);
   }
-};
+}
+
+module.exports = scrollSpy;
