@@ -56,7 +56,8 @@ module.exports = {
         throw new Error("target Element not found");
       }
 
-      var cordinates = target.getBoundingClientRect();
+      var coordinates = target.getBoundingClientRect();
+
       /*
        * if animate is not provided just scroll into the view
        */
@@ -68,7 +69,9 @@ module.exports = {
           return;
         }
         //if parent div doesn't exist run normally
-        window.scrollTo(0, cordinates.top + (offset || 0));
+        var bodyRect = document.body.getBoundingClientRect();
+        var scrollOffset = coordinates.top - bodyRect.top;
+        window.scrollTo(0, scrollOffset + (offset || 0));
         return;
         
       }
