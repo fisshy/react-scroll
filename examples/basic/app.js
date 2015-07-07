@@ -9,7 +9,7 @@ var Element = Scroll.Element;
 var Section = React.createClass({
   render: function () {
     return (
-      <div>
+      <div style={{overflow:'scroll', height:'600px', positon: "relative"}}>
         <nav className="navbar navbar-default navbar-fixed-top">
           <div className="container-fluid">
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -36,9 +36,11 @@ var Section = React.createClass({
           test 3
         </Element>
 
-        <Element name="test4" className="element">
-          test 4
-        </Element>
+        <div style={{overflow:'scroll', height:'200px', position: "relative"}}>
+            <Element name="test4" className="element">
+              test 4
+            </Element>
+        </div>
 
         <Element name="test5" className="element">
           test 5

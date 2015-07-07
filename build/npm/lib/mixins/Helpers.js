@@ -94,18 +94,28 @@ var Helpers = {
     },
     componentDidMount: function() {
       //check if the parentId was added as a prop to element (optional)
-      if (this.props.parentId){
-        //use react getDomNode and offsetTop to get relative position from top of parent div
-        var relativePosition = this.getDOMNode().offsetTop;
-        var parent = document.getElementById(this.props.parentId);
-      } 
+      var dom = this.getDOMNode();
+      var relativePosition = dom.offsetTop;
+      var parent = parentMatcher(dom, function(parent){
+        var bool = window.getComputedStyle(parent).overflow === 'scroll';
+        if (!bool) relativePosition += parent.offsetTop;
+        return bool;
+      });
       //pass in new paramaters: parent and relativePosition
-      scroller.register(this.props.name, this.getDOMNode(), parent, relativePosition);
+      scroller.register(this.props.name, dom, parent, relativePosition);
     },
     componentWillUnmount: function() {
       scroller.unregister(this.props.name);
     }
   }
+};
+
+function parentMatcher(elem, matcher){
+  var parent = elem.parentElement;
+  while(parent && !matcher(parent)){
+    parent = parent.parentElement;
+  }
+  return parent;
 };
 
 module.exports = Helpers;
