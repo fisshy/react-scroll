@@ -46,63 +46,54 @@ var Helpers = {
       this.scrollTo(this.props.to);
 
     },
+
     componentDidMount: function() {
+      scrollSpy.mount();
+
       if(this.props.spy) {
         var to = this.props.to;
         var element = null;
         var top = 0;
         var height = 0;
-        var self = this;
 
-        scrollSpy.addStateHandler(function() {
+        scrollSpy.addStateHandler((function() {
           if(scroller.getActiveLink() != to) {
-              self.setState({ active : false });
+              this.setState({ active : false });
           }
-        });
+        }).bind(this));
 
-        scrollSpy.addSpyHandler(function(y) {
+        scrollSpy.addSpyHandler((function(y) {
 
           if(!element) {
               element = scroller.get(to);
+
               var cords = element.getBoundingClientRect();
               top = (cords.top + y);
               height = top + cords.height;
           }
 
-          var offsetY = y - self.props.offset;
+          var offsetY = y - this.props.offset;
 
           if(offsetY >= top && offsetY <= height && scroller.getActiveLink() != to) {
-
             scroller.setActiveLink(to);
-
-            self.setState({ active : true });
-
+            this.setState({ active : true });
             scrollSpy.updateStates();
           }
-        });
+        }).bind(this));
       }
+    },
+    componentWillUnmount: function() {
+      scrollSpy.unmount();
     }
   },
 
-  componentWillUnmount: function(){
-    scrollSpy.unmount();
-  },
 
   Element: {
     propTypes: {
       name: React.PropTypes.string.isRequired
     },
     componentDidMount: function() {
-      //check if the parentId was added as a prop to element (optional)
-      var dom = this.getDOMNode();
-      var relativePosition = dom.offsetTop;
-      var parent = parentMatcher(dom, function(parent){
-        var bool = window.getComputedStyle(parent).overflow === 'scroll';
-        if (!bool) relativePosition += parent.offsetTop;
-        return bool;
-      });
-      //pass in new paramaters: parent and relativePosition
-      scroller.register(this.props.name, dom, parent, relativePosition);
+      scroller.register(this.props.name, this.getDOMNode());
     },
     componentWillUnmount: function() {
       scroller.unregister(this.props.name);
@@ -110,13 +101,4 @@ var Helpers = {
   }
 };
 
-function parentMatcher(elem, matcher){
-  var parent = elem.parentElement;
-  while(parent && !matcher(parent)){
-    parent = parent.parentElement;
-  }
-  return parent;
-};
-
 module.exports = Helpers;
-

@@ -39,11 +39,6 @@ var __progress          = 0;
 var __duration          = 0;
 var __cancel            = false;
 
-//added for div element /container
-var __parent            = false;
-var __relativePosition  = false;
-
-
 var __start;
 var __deltaTop;
 var __percent;
@@ -57,52 +52,35 @@ var currentPositionY = function() {
 
 var animateTopScroll = function(timestamp) {
   // Cancel on specific events
-  if(__cancel) { return; }
+  if(__cancel) { return };
+
+
+  __deltaTop = Math.round(__targetPositionY - __startPositionY);
 
   if (__start === null) {
-      __start = timestamp;
+    __start = timestamp;
   }
 
   __progress = timestamp - __start;
 
   __percent = (__progress >= __duration ? 1 : easing(__progress/__duration));
-  
-  //added this part 
-  if (__parent){   
-    __deltaTop = __relativePosition;
 
-    __currentPositionY = Math.ceil(__deltaTop * __percent);
+  __currentPositionY = __startPositionY + Math.ceil(__deltaTop * __percent);
 
-    __parent.scrollTop = __currentPositionY;
+  window.scrollTo(0, __currentPositionY);
 
-    
-  }else {
-    __deltaTop = Math.round(__targetPositionY - __startPositionY);
-
-    __currentPositionY = __startPositionY + Math.ceil(__deltaTop * __percent);
-
-    window.scrollTo(0, __currentPositionY);
-
+  if(__percent < 1) {
+    requestAnimationFrame(animateTopScroll);
   }
-
-  if (__percent < 1){
-    requestAnimationFrame(animateTopScroll);   
-  }
-
 
 };
 
-var startAnimateTopScroll = function(y, options, parent, relativePosition) {
+var startAnimateTopScroll = function(y, options) {
   __start           = null;
   __cancel          = false;
   __startPositionY  = currentPositionY();
   __targetPositionY = y + __startPositionY;
   __duration        = options.duration || 1000;
-
-  if (parent){
-    __parent = parent;
-    __relativePosition = relativePosition;
-  }
 
   requestAnimationFrame(animateTopScroll);
 };
