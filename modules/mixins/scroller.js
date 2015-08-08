@@ -84,7 +84,7 @@ module.exports = {
         duration : duration
       };
       //added parentQ parameter and relativePosition
-      animateScroll.animateTopScroll(cordinates.top + (offset || 0), options, parent, relativePosition);
+      animateScroll.animateTopScroll(coordinates.top + (offset || 0), options, parent, relativePosition);
 
   }
 };
