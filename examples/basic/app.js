@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Scroll = require('react-scroll'); 
 
 var Link = Scroll.Link;
@@ -49,7 +50,7 @@ var Section = React.createClass({
 });
 
 
-React.render(
+ReactDOM.render(
   <Section />,
   document.getElementById('example')
 );

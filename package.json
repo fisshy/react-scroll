@@ -35,5 +35,8 @@
     "react": ">=0.13.0",
     "webpack": "^1.6.0",
     "webpack-dev-server": "^1.7.0"
+  },
+  "dependencies": {
+    "react-dom": "^0.14.0-beta3"
   }
 }
