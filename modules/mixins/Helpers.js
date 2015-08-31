@@ -93,7 +93,7 @@ var Helpers = {
       name: React.PropTypes.string.isRequired
     },
     componentDidMount: function() {
-      scroller.register(this.props.name, this.getDOMNode());
+      scroller.register(this.props.name, React.findDOMNode(this));
     },
     componentWillUnmount: function() {
       scroller.unregister(this.props.name);
