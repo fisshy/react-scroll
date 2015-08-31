@@ -93,12 +93,29 @@ var Helpers = {
       name: React.PropTypes.string.isRequired
     },
     componentDidMount: function() {
-      scroller.register(this.props.name, React.findDOMNode(this));
+      var DOM = React.findDOMNode(this);
+      // start relative position as initial DOM offsetTop
+      var relativePosition = DOM.offsetTop;
+      var parent = parentMatcher(DOM, function(parent){
+        var bool = window.getComputedStyle(parent).overflow === 'scroll';
+        if (!bool) relativePosition += parent.offsetTop;
+        return bool;
+      });
+      //pass in new paramaters: parent and relativePosition
+      scroller.register(this.props.name, DOM, parent, relativePosition);
     },
     componentWillUnmount: function() {
       scroller.unregister(this.props.name);
     }
   }
+};
+
+function parentMatcher(elem, matcher){
+  var parent = elem.parentElement;
+  while(parent && !matcher(parent)){
+    parent = parent.parentElement;
+  }
+  return parent;
 };
 
 module.exports = Helpers;
