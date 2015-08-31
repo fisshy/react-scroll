@@ -1,5 +1,4 @@
 ## React Scroll
-*Modified to allow scroll in nested divs
 
 Directive for basic scrolling and smooth scrolling ( work in progress )
 Feel free to contribute - everything is appreciated
@@ -98,3 +97,4 @@ var Link = React.createClass({
 - [ ] Horizontal scrolling
 - [x] Spy on scrolling/Highlight
 - [ ] Write test
+- [x] Scrolling for nested elements
