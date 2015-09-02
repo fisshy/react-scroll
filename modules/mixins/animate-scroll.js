@@ -45,6 +45,7 @@ var __parentsDuration   = 0;
 var __parents           = false;
 var __currentParent     = false;
 var __elemPositionY     = false;
+var counter             = 0;
 
 var __start;
 var __deltaTop;
@@ -79,23 +80,17 @@ var animateTopScroll = function(timestamp) {
   if (__percent < 1){
     requestAnimationFrame(animateTopScroll);   
   } else if (__parents) {
-    console.log(__parents, 'parents in origin');
     __start = null;
     __startPositionY  = currentPositionY();
     __currentParent = __parents[__parentsLast];
     __targetPositionY = Math.round(__parents[__parentsLast - 1].offsetTop);
-    console.log(__targetPositionY, 'target positiony in else if for big');
-    console.log(__startPositionY, 'startpositiony in else if for big');
 
     requestAnimationFrame(animateParentScroll);
-    // __currentParent = __parents[0];
-    // __targetPositionY = __elemPositionY;
-    // console.log(__targetPositionY, 'targetPositionY after for loop');
-    // requestAnimationFrame(animateParentScroll);
   }
 };
 
 var animateParentScroll = function(timestamp) {
+  // console.log(__targetPositionY, 'target positionY');
   // Cancel on specific events
   if(__cancel) { return; }
 
@@ -106,27 +101,30 @@ var animateParentScroll = function(timestamp) {
   __progress = timestamp - __start;
 
   __percent = (__progress >= __parentsDuration ? 1 : easing(__progress/__parentsDuration));
-  console.log(__percent);
-  // console.log(__targetPositionY, 'targetPositionY');
+  console.log(__percent, 'percent');
 
-  __currentPositionY = Math.ceil(__targetPositionY * __percent);
+  __currentPositionY = Math.ceil((__targetPositionY) * __percent);
+  console.log(__currentPositionY, 'currentY');
+
+  // var difference = __currentPositionY - __currentParent.scrollTop;
+
   __currentParent.scrollTop = __currentPositionY;
-  console.log(__currentPositionY, 'currentpositionY');
+  console.log(__currentParent.scrollTop , 'curent scroll top');
+
 
   if (__percent < 1){
     requestAnimationFrame(animateParentScroll);   
-  } else if (__parentsLast > 0) {
+  } else 
+  if (__parentsLast > 0) {
     __start = null;
-    console.log(__parents, 'parents before');
-    console.log('animate parent scroll');
     __parentsLast--;
     __currentParent = __parents[__parentsLast];
-    console.log(__parentsLast, 'last parent');
-    console.log(__currentParent, 'current parent');
     if (__parentsLast !== 0) {
       __targetPositionY = __parents[__parentsLast-1].offsetTop;
     } else {
+      console.log(__elemPositionY, 'element position y');
       __targetPositionY = __elemPositionY;
+
     }
     console.log(__targetPositionY, 'target position in else if');
     console.log(__parents, 'paretns');
@@ -140,16 +138,17 @@ var animateParentScroll = function(timestamp) {
 
 };
 
-var startAnimateTopScroll = function(y, options, parents, elemOffset) {
+var startAnimateTopScroll = function(y, options, parents, offset) {
   __start           = null;
   __cancel          = false;
   __parents         = false;
   __parentsLast   = 0;
   __parentsDuration = 0;
   __currentParent   = false;
-  __elemPositionY   = elemOffset;
+
   __startPositionY  = currentPositionY();
   __targetPositionY = y + __startPositionY;
+  __elemPositionY   = offset;
   __duration        = options.duration || 1000;
 
   if (parents.length > 0) {
