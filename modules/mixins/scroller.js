@@ -9,11 +9,10 @@ module.exports = {
     __mapped = [];
   },
 
-  register: function(name, element, parent, relativePosition){
+  register: function(name, element, parents){
     __mapped[name] = {
       element: element,
-      parent: parent,
-      position: relativePosition
+      parents: parents
     };
 
   },
@@ -34,23 +33,13 @@ module.exports = {
     return __activeLink;
   },
 
-  scrollTo: function(to, animate, duration, offset) {
+  scrollTo: function(to, animate, duration, offset, nested) {
 
      /*
      * get the mapped DOM element
      */
-
-
-      //check to make sure that the scrollable parent div exists
-      if (__mapped[to].parent){
-        var relativePosition = __mapped[to].position;
-        var parent = __mapped[to].parent;
-        //set the target equal to the Dom of the parent div
-        var target = parent;
-      }
-      else {
-        var target = __mapped[to].element;
-      }
+      var parents = (nested) ? __mapped[to].parents : [];
+      var target = __mapped[to].element;
 
       if(!target) {
         throw new Error("target Element not found");
@@ -63,17 +52,27 @@ module.exports = {
        */
 
       if(!animate) {
-        //if parent div exists just set the scrolTop of the div to the relativePosition of the element (no animation or duration)
-        if (parent){
-          parent.scrollTop = relativePosition;
+        var bodyRect = document.body.getBoundingClientRect();
+        if (parents.length > 0 && nested) {
+          // window scroll to outer most scrollable parent 
+          var outerParent = parents[parents.length-1].getBoundingClientRect();
+          var scrollOffset = outerParent.top - bodyRect.top;
+          window.scrollTo(0, scrollOffset + (offset || 0));
+          var previous;
+          // scrolltop subsequent nested parents
+          for (var i = parents.length-2; i >= 0; i--) {
+            previous = parents[i+1];
+            previous.scrollTop = parents[i].offsetTop;
+          }
+          // direct parent scrolltop to target position
+          parents[0].scrollTop = target.offsetTop;
+          return;
+        } else {
+          //if parent div doesn't exist run normally
+          var scrollOffset = coordinates.top - bodyRect.top;
+          window.scrollTo(0, scrollOffset + (offset || 0));
           return;
         }
-        //if parent div doesn't exist run normally
-        var bodyRect = document.body.getBoundingClientRect();
-        var scrollOffset = coordinates.top - bodyRect.top;
-        window.scrollTo(0, scrollOffset + (offset || 0));
-        return;
-        
       }
 
       /*
@@ -83,8 +82,8 @@ module.exports = {
       var options = {
         duration : duration
       };
-      //added parentQ parameter and relativePosition
-      animateScroll.animateTopScroll(coordinates.top + (offset || 0), options, parent, relativePosition);
+      // pass in parents to animate topscroll
+      animateScroll.animateTopScroll(coordinates.top + (offset || 0), options, parents, target.offsetTop);
 
   }
 };

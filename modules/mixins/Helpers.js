@@ -19,7 +19,7 @@ var Helpers = {
     },
 
     scrollTo : function(to) {
-      scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset);
+      scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset, this.props.nested);
     },
 
     onClick: function(event) {
@@ -65,15 +65,20 @@ var Helpers = {
         scrollSpy.addSpyHandler((function(y) {
 
           if(!element) {
-              element = scroller.get(to);
-
-              var cords = element.getBoundingClientRect();
-              top = (cords.top + y);
-              height = top + cords.height;
+            element = scroller.get(to);
+            var cords = element.getBoundingClientRect();
+            top = (cords.top + y);
+            height = top + cords.height;
           }
-
+          
           var offsetY = y - this.props.offset;
 
+          if (this.props.nested) {
+            var parents = findParents(element);
+            for (var i = 0; i < parents.length; i++) {
+              offsetY += parents[i].scrollTop;
+            }
+          }
           if(offsetY >= top && offsetY <= height && scroller.getActiveLink() != to) {
             scroller.setActiveLink(to);
             this.setState({ active : true });
@@ -94,15 +99,10 @@ var Helpers = {
     },
     componentDidMount: function() {
       var DOM = React.findDOMNode(this);
-      // start relative position as initial DOM offsetTop
-      var relativePosition = DOM.offsetTop;
-      var parent = parentMatcher(DOM, function(parent){
-        var bool = window.getComputedStyle(parent).overflow === 'scroll';
-        if (!bool) relativePosition += parent.offsetTop;
-        return bool;
-      });
-      //pass in new paramaters: parent and relativePosition
-      scroller.register(this.props.name, DOM, parent, relativePosition);
+      var  parents = findParents(DOM);
+      //pass in new paramaters: parents
+      scrollSpy.nestedScroll(parents);
+      scroller.register(this.props.name, DOM, parents);
     },
     componentWillUnmount: function() {
       scroller.unregister(this.props.name);
@@ -110,13 +110,18 @@ var Helpers = {
   }
 };
 
-function parentMatcher(elem, matcher){
-  var parent = elem.parentElement;
-  while(parent && !matcher(parent)){
-    parent = parent.parentElement;
+function findParents(element) {
+  var parents = [];
+  var current = element.parentElement;
+  // loop to find all parents that are scrollable
+  while(current) {
+    if (window.getComputedStyle(current).overflow === 'scroll') {
+      parents.push(current);
+    }
+    current = current.parentElement;
   }
-  return parent;
-};
+  return parents;
+}
 
 module.exports = Helpers;
 
