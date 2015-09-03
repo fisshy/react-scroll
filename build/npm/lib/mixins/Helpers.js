@@ -78,6 +78,7 @@ var Helpers = {
           if(offsetY >= top && offsetY <= height && scroller.getActiveLink() != to) {
             scroller.setActiveLink(to);
             this.setState({ active : true });
+            if(this.props.onSetActive) this.props.onSetActive(to);
             scrollSpy.updateStates();
           }
         }).bind(this));
