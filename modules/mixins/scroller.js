@@ -10,11 +10,11 @@ module.exports = {
   },
 
   register: function(name, element, parents){
+    console.log(name);
     __mapped[name] = {
       element: element,
       parents: parents
     };
-
   },
 
   unregister: function(name) {
@@ -22,7 +22,7 @@ module.exports = {
   },
 
   get: function(name) {
-    return __mapped[name].element;
+    return __mapped[name];
   },
 
   setActiveLink: function(link) {

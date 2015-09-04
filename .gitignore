@@ -1,5 +1,4 @@
-build
 node_modules
 dist
 bower_components
-examples/bootstrap.min.css
+build
