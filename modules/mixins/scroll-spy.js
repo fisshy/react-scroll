@@ -3,6 +3,11 @@ var scrollSpy = {
   spyCallbacks: [],
   spySetState: [],
 
+  nestedScroll: function(parents) {
+    for (var i = 0; i < parents.length; i++) {
+      parents[i].addEventListener('scroll', this.scrollHandler.bind(this));
+    }
+  },
   mount: function () {
     if (typeof document !== 'undefined') {
       document.addEventListener('scroll', this.scrollHandler.bind(this));
@@ -31,7 +36,6 @@ var scrollSpy = {
 
   updateStates: function(){
     var length = this.spySetState.length;
-
     for(var i = 0; i < length; i++) {
       this.spySetState[i]();
     }

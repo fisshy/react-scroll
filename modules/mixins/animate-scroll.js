@@ -39,6 +39,15 @@ var __progress          = 0;
 var __duration          = 0;
 var __cancel            = false;
 
+
+//added for div element /container
+var __parentsLast       = 0;
+var __parentsDuration   = 0;
+var __parents           = false;
+var __currentParent     = false;
+var __elemPositionY     = false;
+var counter             = 0;
+
 var __start;
 var __deltaTop;
 var __percent;
@@ -65,23 +74,79 @@ var animateTopScroll = function(timestamp) {
 
   __percent = (__progress >= __duration ? 1 : easing(__progress/__duration));
 
+  __deltaTop = Math.round(__targetPositionY - __startPositionY);
+
   __currentPositionY = __startPositionY + Math.ceil(__deltaTop * __percent);
 
   window.scrollTo(0, __currentPositionY);
 
-  if(__percent < 1) {
-    requestAnimationFrame(animateTopScroll);
+  if (__percent < 1){
+    requestAnimationFrame(animateTopScroll);   
+  } else if (__parents) {
+    __start = null;
+    __startPositionY  = currentPositionY();
+    __currentParent = __parents[__parentsLast];
+    __targetPositionY = Math.round(__parents[__parentsLast - 1].offsetTop);
+
+    requestAnimationFrame(animateParentScroll);
+  }
+};
+
+var animateParentScroll = function(timestamp) {
+  
+  if(__cancel) { return; }
+
+  if (__start === null) {
+      __start = timestamp;
+  }
+
+  __progress = timestamp - __start;
+
+  __percent = (__progress >= __parentsDuration ? 1 : easing(__progress/__parentsDuration));
+
+  __currentPositionY = Math.ceil((__targetPositionY) * __percent);
+
+  __currentParent.scrollTop = __currentPositionY;
+
+  if (__percent < 1){
+    requestAnimationFrame(animateParentScroll);   
+  } else 
+  if (__parentsLast > 0) {
+    __start = null;
+    __parentsLast--;
+    __currentParent = __parents[__parentsLast];
+    if (__parentsLast !== 0) {
+      __targetPositionY = __parents[__parentsLast-1].offsetTop;
+    } else {
+      __targetPositionY = __elemPositionY;
+
+    }
+    requestAnimationFrame(animateParentScroll);
   }
 
 };
 
-var startAnimateTopScroll = function(y, options) {
+
+var startAnimateTopScroll = function(y, options, parents, offset) {
   __start           = null;
   __cancel          = false;
+  __parents         = false;
+  __parentsLast   = 0;
+  __parentsDuration = 0;
+  __currentParent   = false;
+
   __startPositionY  = currentPositionY();
   __targetPositionY = y + __startPositionY;
+  __elemPositionY   = offset;
   __duration        = options.duration || 1000;
 
+  if (parents.length > 0) {
+    __parents         = parents;  
+    __parentsLast     = parents.length - 1;
+    __parentsDuration = options.duration/2;
+    __duration        = options.duration - __parentsDuration || 1000;
+    __targetPositionY = parents[__parentsLast].offsetTop;
+  }
   requestAnimationFrame(animateTopScroll);
 };
 

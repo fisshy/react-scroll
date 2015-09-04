@@ -20,7 +20,7 @@ var Helpers = {
     },
 
     scrollTo : function(to) {
-      scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset);
+      scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset, this.props.nested);
     },
 
     onClick: function(event) {
@@ -66,24 +66,30 @@ var Helpers = {
         scrollSpy.addSpyHandler((function(y) {
 
           if(!element) {
-              element = scroller.get(to);
-
-              var cords = element.getBoundingClientRect();
-              elemTopBound = (cords.top + y);
-              elemBottomBound = elemTopBound + cords.height;
+            element = scroller.get(to).element;
+            var cords = element.getBoundingClientRect();
+            elemTopBound = (cords.top + y);
+            elemBottomBound = elemTopBound + cords.height;
           }
-
+          
           var offsetY = y - this.props.offset;
+          if (this.props.nested) {
+              var parents = findParents(element);
+              for (var i = 0; i < parents.length; i++) {
+                offsetY += parents[i].scrollTop;
+              }
+          }
           var isInside = (offsetY >= elemTopBound && offsetY <= elemBottomBound);
           var isOutside = (offsetY < elemTopBound || offsetY > elemBottomBound);
-          var activeLnik = scroller.getActiveLink();
+          var activeLink = scroller.getActiveLink();
 
-          if (isOutside && activeLnik === to) {
+          
+          if (isOutside && activeLink === to) {
 
             scroller.setActiveLink(void 0);
             this.setState({ active : false });
 
-          } else if (isInside && activeLnik != to) {
+          } else if (isInside && activeLink != to) {
 
             scroller.setActiveLink(to);
             this.setState({ active : true });
@@ -104,7 +110,11 @@ var Helpers = {
       name: React.PropTypes.string.isRequired
     },
     componentDidMount: function() {
-      scroller.register(this.props.name, ReactDOM.findDOMNode(this));
+      var DOM = React.findDOMNode(this);
+      var  parents = findParents(DOM);
+      //pass in new paramaters: parents
+      scrollSpy.nestedScroll(parents);
+      scroller.register(this.props.name, DOM, parents);
     },
     componentWillUnmount: function() {
       scroller.unregister(this.props.name);
@@ -112,5 +122,17 @@ var Helpers = {
   }
 };
 
-module.exports = Helpers;
+function findParents(element) {
+  var parents = [];
+  var current = element.parentElement;
+  // loop to find all parents that are scrollable
+  while(current) {
+    if (window.getComputedStyle(current).overflow === 'scroll') {
+      parents.push(current);
+    }
+    current = current.parentElement;
+  }
+  return parents;
+}
 
+module.exports = Helpers;

@@ -9,8 +9,12 @@ module.exports = {
     __mapped = [];
   },
 
-  register: function(name, element){
-    __mapped[name] = element;
+  register: function(name, element, parents){
+    console.log(name);
+    __mapped[name] = {
+      element: element,
+      parents: parents
+    };
   },
 
   unregister: function(name) {
@@ -29,13 +33,13 @@ module.exports = {
     return __activeLink;
   },
 
-  scrollTo: function(to, animate, duration, offset) {
+  scrollTo: function(to, animate, duration, offset, nested) {
 
      /*
      * get the mapped DOM element
      */
-
-      var target = __mapped[to];
+      var parents = (nested) ? __mapped[to].parents : [];
+      var target = __mapped[to].element;
 
       if(!target) {
         throw new Error("target Element not found");
@@ -49,9 +53,26 @@ module.exports = {
 
       if(!animate) {
         var bodyRect = document.body.getBoundingClientRect();
-        var scrollOffset = coordinates.top - bodyRect.top;
-        window.scrollTo(0, scrollOffset + (offset || 0));
-        return;
+        if (parents.length > 0 && nested) {
+          // window scroll to outer most scrollable parent 
+          var outerParent = parents[parents.length-1].getBoundingClientRect();
+          var scrollOffset = outerParent.top - bodyRect.top;
+          window.scrollTo(0, scrollOffset + (offset || 0));
+          var previous;
+          // scrolltop subsequent nested parents
+          for (var i = parents.length-2; i >= 0; i--) {
+            previous = parents[i+1];
+            previous.scrollTop = parents[i].offsetTop;
+          }
+          // direct parent scrolltop to target position
+          parents[0].scrollTop = target.offsetTop;
+          return;
+        } else {
+          //if parent div doesn't exist run normally
+          var scrollOffset = coordinates.top - bodyRect.top;
+          window.scrollTo(0, scrollOffset + (offset || 0));
+          return;
+        }
       }
 
       /*
@@ -61,8 +82,8 @@ module.exports = {
       var options = {
         duration : duration
       };
-
-      animateScroll.animateTopScroll(coordinates.top + (offset || 0), options);
+      // pass in parents to animate topscroll
+      animateScroll.animateTopScroll(coordinates.top + (offset || 0), options, parents, target.offsetTop);
 
   }
 };

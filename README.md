@@ -97,3 +97,4 @@ var Link = React.createClass({
 - [ ] Horizontal scrolling
 - [x] Spy on scrolling/Highlight
 - [ ] Write test
+- [x] Scrolling for nested elements
