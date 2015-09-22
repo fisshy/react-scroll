@@ -41,6 +41,6 @@ var scrollSpy = {
 
     this.container.removeEventListener('scroll', this.scrollHandler);
   }
-}
+};
 
 module.exports = scrollSpy;
