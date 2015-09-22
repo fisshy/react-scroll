@@ -43,17 +43,16 @@ var __start;
 var __deltaTop;
 var __percent;
 
+var __container;
+var __containerRect;
+
 var currentPositionY = function() {
-  var supportPageOffset = window.pageXOffset !== undefined;
-  var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
-  return supportPageOffset ? window.pageYOffset : isCSS1Compat ?
-         document.documentElement.scrollTop : document.body.scrollTop;
+  return __container.scrollTop;
 };
 
 var animateTopScroll = function(timestamp) {
   // Cancel on specific events
   if(__cancel) { return };
-
 
   __deltaTop = Math.round(__targetPositionY - __startPositionY);
 
@@ -67,7 +66,7 @@ var animateTopScroll = function(timestamp) {
 
   __currentPositionY = __startPositionY + Math.ceil(__deltaTop * __percent);
 
-  window.scrollTo(0, __currentPositionY);
+  __container.scrollTop = __currentPositionY;
 
   if(__percent < 1) {
     requestAnimationFrame(animateTopScroll);
@@ -76,6 +75,7 @@ var animateTopScroll = function(timestamp) {
 };
 
 var startAnimateTopScroll = function(y, options) {
+  __container = document.getElementById(options.containerId);
   __start           = null;
   __cancel          = false;
   __startPositionY  = currentPositionY();

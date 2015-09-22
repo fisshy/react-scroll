@@ -1,18 +1,17 @@
 var scrollSpy = {
-  
+
   spyCallbacks: [],
   spySetState: [],
+  container: null,
 
-  mount: function () {
+  mount: function (containerId) {
     if (typeof document !== 'undefined') {
-      document.addEventListener('scroll', this.scrollHandler.bind(this));
+      this.container = document.getElementById(containerId);
+      this.container.addEventListener('scroll', this.scrollHandler.bind(this));
     }
   },
   currentPositionY: function () {
-    var supportPageOffset = window.pageXOffset !== undefined;
-    var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
-    return supportPageOffset ? window.pageYOffset : isCSS1Compat ?
-            document.documentElement.scrollTop : document.body.scrollTop;
+    return this.container.scrollTop;
   },
 
   scrollHandler: function () {
@@ -36,11 +35,11 @@ var scrollSpy = {
       this.spySetState[i]();
     }
   },
-  unmount: function () { 
+  unmount: function () {
     this.spyCallbacks = [];
     this.spySetState = [];
 
-    document.removeEventListener('scroll', this.scrollHandler);
+    this.container.removeEventListener('scroll', this.scrollHandler);
   }
 }
 
