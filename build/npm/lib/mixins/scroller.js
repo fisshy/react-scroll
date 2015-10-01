@@ -29,7 +29,7 @@ module.exports = {
     return __activeLink;
   },
 
-  scrollTo: function(to, animate, duration, offset) {
+  scrollTo: function(to, animate, duration, offset, containerId) {
 
      /*
      * get the mapped DOM element
@@ -42,15 +42,16 @@ module.exports = {
       }
 
       var coordinates = target.getBoundingClientRect();
+      var container = document.getElementById(containerId);
+      var containerRect = container.getBoundingClientRect();
+      var scrollOffset = coordinates.top - containerRect.top;
 
       /*
        * if animate is not provided just scroll into the view
        */
 
       if(!animate) {
-        var bodyRect = document.body.getBoundingClientRect();
-        var scrollOffset = coordinates.top - bodyRect.top;
-        window.scrollTo(0, scrollOffset + (offset || 0));
+        container.scrollTop += scrollOffset + (offset || 0);
         return;
       }
 
@@ -59,10 +60,11 @@ module.exports = {
        */
 
       var options = {
-        duration : duration
+        duration : duration,
+        containerId: containerId
       };
 
-      animateScroll.animateTopScroll(coordinates.top + (offset || 0), options);
+      animateScroll.animateTopScroll(scrollOffset + (offset || 0), options);
 
   }
 };

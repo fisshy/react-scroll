@@ -1,7 +1,6 @@
 "use strict";
 
 var React = require('react');
-var ReactDOM = require('react-dom');
 var animateScroll = require('./animate-scroll');
 var scrollSpy = require('./scroll-spy');
 var scroller = require('./scroller');
@@ -12,6 +11,7 @@ var Helpers = {
 
     propTypes: {
       to: React.PropTypes.string.isRequired,
+      containerId: React.PropTypes.string,
       offset: React.PropTypes.number
     },
 
@@ -20,7 +20,7 @@ var Helpers = {
     },
 
     scrollTo : function(to) {
-      scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset);
+      scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset, this.props.containerId);
     },
 
     onClick: function(event) {
@@ -49,13 +49,14 @@ var Helpers = {
     },
 
     componentDidMount: function() {
-      scrollSpy.mount();
+      scrollSpy.mount(this.props.containerId);
 
       if(this.props.spy) {
         var to = this.props.to;
         var element = null;
         var elemTopBound = 0;
         var elemBottomBound = 0;
+        var container = document.getElementById(this.props.containerId);
 
         scrollSpy.addStateHandler((function() {
           if(scroller.getActiveLink() != to) {
@@ -67,23 +68,25 @@ var Helpers = {
 
           if(!element) {
               element = scroller.get(to);
-
               var cords = element.getBoundingClientRect();
-              elemTopBound = (cords.top + y);
+              var containeRect = container.getBoundingClientRect();
+
+              elemTopBound = cords.top + y - containeRect.top;
               elemBottomBound = elemTopBound + cords.height;
           }
 
-          var offsetY = y - this.props.offset;
+
+          var offsetY = y;//- this.props.offset;
           var isInside = (offsetY >= elemTopBound && offsetY <= elemBottomBound);
           var isOutside = (offsetY < elemTopBound || offsetY > elemBottomBound);
-          var activeLnik = scroller.getActiveLink();
+          var activeLink = scroller.getActiveLink();
 
-          if (isOutside && activeLnik === to) {
+          if (isOutside && activeLink === to) {
 
             scroller.setActiveLink(void 0);
             this.setState({ active : false });
 
-          } else if (isInside && activeLnik != to) {
+          } else if (isInside && activeLink != to) {
 
             scroller.setActiveLink(to);
             this.setState({ active : true });
@@ -104,7 +107,7 @@ var Helpers = {
       name: React.PropTypes.string.isRequired
     },
     componentDidMount: function() {
-      var domNode = ReactDOM.findDOMNode(this);
+      var domNode = React.findDOMNode(this);
       scroller.register(this.props.name, domNode);
     },
     componentWillUnmount: function() {
