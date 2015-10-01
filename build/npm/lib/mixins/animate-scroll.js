@@ -27,7 +27,7 @@ var currentWindowProperties = function() {
 var requestAnimationFrame = (function () {
   return  currentWindowProperties() ||
           function (callback, element, delay) {
-              window.setTimeout(callback, delay || (1000/60));
+              window.setTimeout(callback, delay || (1000/60), new Date().getTime());
           };
 })();
 
