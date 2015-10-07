@@ -28,7 +28,8 @@
     "scrolls"
   ],
   "peerDependencies": {
-    "react": "^0.13.3"
+    "react": "^0.14.0-rc1",
+    "react-dom": "^0.14.0-rc1"
   },
   "devDependencies": {
     "babel-core": "^4.6.0",
