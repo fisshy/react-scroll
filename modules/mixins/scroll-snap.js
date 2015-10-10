@@ -1,5 +1,5 @@
 /**
- *
+ * ScrollSpanMixin
  */
 
 "use strict";
@@ -28,6 +28,7 @@ var ScrollSnapMixin = {
 
 	getInitialState() {
 		return {
+			locked: false,
 			scrolling: false,
 			scrollY: 0
 		}
@@ -48,6 +49,9 @@ var ScrollSnapMixin = {
 			document.addEventListener('wheel', this.wheelHandler, true);
 			document.addEventListener('scroll', this.scrollHandler, true);
 			document.addEventListener('keydown', this.keydownHandler, true);
+			// we need to listen 'keyup' allow using combination like ctrl +
+			// mousewheelup, etc
+			document.addEventListener('keyup', this.keyupHandler, true);
 			//document.addEventListener('touchend', this.scrollHandler, true);
 		}
 	},
@@ -62,16 +66,27 @@ var ScrollSnapMixin = {
 			document.removeEventListener('wheel', this.wheelHandler);
 			document.removeEventListener('scroll', this.scrollHandler);
 			document.removeEventListener('keydown', this.keydownHandler);
+			document.addEventListener('keyup', this.keyupHandler);
 			//document.removeEventListener('touchend', this.scrollHandler);
 		}
 	},
 
 	keydownHandler: function(e) {
+		// if shift, ctrl or alt was pressed we should lock the scroll listeners
+		if (e.which === 16 || e.which === 17 || e.which === 18) {
+			this.setState({ locked: true });
+		}
+
 		var direction = this.getKeydownDirection(e);
 
 		this.scrollToDirection(e, direction);
 	},
 
+	keyupHandler: function(e) {
+		if (e.which === 16 || e.which === 17 || e.which === 18) {
+			this.setState({ locked: false });
+		}
+	},
 	scrollHandler: function(e) {
 		if (this.state.scrolling) {
 			return
@@ -88,7 +103,9 @@ var ScrollSnapMixin = {
 	},
 
 	wheelHandler: function(e) {
-		// todo если зажата кнопка, типа ctrl, то нужно игнорировать этот ивент
+		if (this.state.locked) {
+			return
+		}
 
 		// todo добавить проверку на поддержку нативного scroll snap
 		cancelEvent(e);
