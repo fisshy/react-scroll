@@ -20,7 +20,10 @@ Checkout examples
 >> [Live](http://fisshy.github.io/react-scroll-example/basic/index.html)
 >> Or
 >> [Code](https://github.com/fisshy/react-scroll/blob/master/examples/basic/app.js)
-
+> Scroll-snap
+>> [Live](#)
+>> Or
+>> [Code](https://github.com/fisshy/react-scroll/blob/master/examples/scroll-snap/app.js)
 ### Usage
 ```js
 
@@ -86,7 +89,15 @@ var Link = React.createClass({
 
 ```
 
-
+### Scroll-snap emulation
+Mixin added an emulation of [scroll-snap](https://developer.mozilla
+.org/en-US/docs/Web/CSS/scroll-snap-type) to your components. This can 
+be interesting for landing pages. Just include the mixin into parent component.
+```
+...
+  mixins: [ScrollSnapMixin],
+...  
+```
 
 ### Todo
 - [x] Vertical scrolling
