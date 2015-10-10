@@ -44,6 +44,13 @@ var ScrollSnapMixin = {
 	},
 
 	componentWillMount() {
+		/* uncomment this if native scroll-snap is needed (in example css-file
+		 too) */
+
+		//var isScrollSnapSupported = 'scrollSnapType' in document.documentElement.style ||
+		//	'webkitScrollSnapType' in document.documentElement.style;
+		//if (isScrollSnapSupported) return;
+
 		// use capture phase here
 		if (typeof document !== 'undefined') {
 			document.addEventListener('wheel', this.wheelHandler, true);
@@ -107,7 +114,6 @@ var ScrollSnapMixin = {
 			return
 		}
 
-		// todo добавить проверку на поддержку нативного scroll snap
 		cancelEvent(e);
 
 		var direction = this.getWheelDirection(e);
@@ -135,7 +141,7 @@ var ScrollSnapMixin = {
 		var self = this;
 
 		setTimeout(function() {
-			self.setState({ scrolling: false, scrollY: window.pageYOffset })
+			self.setState({ scrolling: false, scrollY: scrollSpy.currentPositionY() })
 		}, self.props.duration + 30); // interval must be bigger than animation
 		// duration for preventing bug with trigger infinity loop
 	},
@@ -151,14 +157,11 @@ var ScrollSnapMixin = {
 
 		for (var e in elements) {
 			if( elements.hasOwnProperty(e) ) {
-				//elementsCoordinates[e] = elements[e].getBoundingClientRect()
 				var rectObject = elements[e].getBoundingClientRect();
 				rectObject.name = e;
 				elementsCoordinates.push(rectObject);
 			}
 		}
-
-		//var nearestElements = this.getMax(elementsCoordinates);
 
 		return this.getMax(elementsCoordinates);
 	},
@@ -200,7 +203,7 @@ var ScrollSnapMixin = {
 	},
 
 	/**
-	 *
+	 * Wheel direction detect here
 	 *
 	 * @param e is an event object
 	 * @returns {number} 1 - go up; -1 - go down
@@ -214,7 +217,7 @@ var ScrollSnapMixin = {
 	},
 
 	getScrollDirection: function(e) {
-		var currentPositionY = window.pageYOffset;
+		var currentPositionY = scrollSpy.currentPositionY();
 
 		/*if (e.type === 'touchend') {
 			currentPositionY = e.touches[0].clientY;
