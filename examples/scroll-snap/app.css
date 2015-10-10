@@ -1,0 +1,26 @@
+/* uncomment this if native scroll-snap is needed */
+/*@supports (scroll-snap-type: mandatory) or (-webkit-scroll-snap-type: mandatory) {
+	#wrapper {
+		height: 100vh;
+	}
+}*/
+
+#wrapper {
+	overflow-y: auto;
+	scroll-behavior: smooth;
+	scroll-snap-type: mandatory;
+	scroll-snap-points-y: repeat(100vh);
+}
+
+.element {
+	height:100vh;
+	font-size: 45px;
+	border-top:1px solid #000;
+	padding-top:55px;
+	padding-left:10px;
+	/*scroll-snap-coordinate: 0 0;*/
+}
+
+.active {
+	color:red !important;
+}
