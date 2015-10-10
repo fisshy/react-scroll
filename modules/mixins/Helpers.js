@@ -20,7 +20,11 @@ var Helpers = {
     },
 
     scrollTo : function(to) {
+      var duration = this.props.duration;
+
       scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset);
+
+      setTimeout(function() { scroller.flushTarget() }, duration);
     },
 
     onClick: function(event) {
@@ -45,7 +49,6 @@ var Helpers = {
        */
 
       this.scrollTo(this.props.to);
-
     },
 
     componentDidMount: function() {
