@@ -20,10 +20,12 @@ Checkout examples
 >> [Live](http://fisshy.github.io/react-scroll-example/basic/index.html)
 >> Or
 >> [Code](https://github.com/fisshy/react-scroll/blob/master/examples/basic/app.js)
+
 > Scroll-snap
 >> [Live](#)
 >> Or
 >> [Code](https://github.com/fisshy/react-scroll/blob/master/examples/scroll-snap/app.js)
+
 ### Usage
 ```js
 
