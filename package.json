@@ -8,7 +8,8 @@
     "url": "https://github.com/fisshy/react-scroll.git"
   },
   "scripts": {
-    "examples": "webpack-dev-server --config examples/webpack.config.js --no-info --content-base examples"
+    "examples": "webpack-dev-server --config examples/webpack.config.js --no-info --content-base examples",
+    "test": "jest"
   },
   "homepage": "https://github.com/fisshy/react-scroll",
   "bugs": "https://github.com/fisshy/react-scroll/issues",
@@ -27,19 +28,25 @@
     "scroller",
     "scrolls"
   ],
-  "peerDependencies": {
-    
-  },
-  "dependencies" : {
+  "dependencies": {
     "react": "^0.14.0",
     "react-dom": "^0.14.0"
   },
   "devDependencies": {
     "babel-core": "^4.6.0",
+    "babel-jest": "*",
     "babel-loader": "^4.0.0",
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.2",
+    "jest-cli": "^0.5.10",
+    "react-addons-test-utils": "^0.14.0",
     "webpack": "^1.6.0",
     "webpack-dev-server": "^1.7.0"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react"
+    ]
   }
 }

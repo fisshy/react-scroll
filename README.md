@@ -1,7 +1,8 @@
 ## React Scroll
 
-Directive for basic scrolling and smooth scrolling ( work in progress )
-Feel free to contribute - everything is appreciated
+Directive for basic scrolling and smooth scrolling.
+I love contributions, just make sure your test passes. 
+I've started writing the tests for all the elements, contribute if you'd like to learn it.
 
 ### Install
 ```js
@@ -11,6 +12,7 @@ $ npm install react-scroll
 ### Run
 ```js
 $ npm install
+$ npm test
 $ npm run examples
 ```
 
@@ -34,7 +36,7 @@ var Section = React.createClass({
   render: function () {
   	return (
   		<Link to="test1" spy={true} smooth={true} offset={50} duration={500} >Test 1</Link>
-		<Button className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Button>
+		  <Button className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Button>
 
   		<Element name="test1" className="element">
   		  test 1
@@ -85,15 +87,3 @@ var Link = React.createClass({
 });
 
 ```
-
-
-
-### Todo
-- [x] Vertical scrolling
-- [x] Scroll to element
-- [x] Smooth scroll animation
-- [x] Live examples
-- [x] Pass scroll/animation duration as settings
-- [ ] Horizontal scrolling
-- [x] Spy on scrolling/Highlight
-- [ ] Write test

@@ -9,9 +9,18 @@ var Button = React.createClass({
   getInitialState : function() {
     return { active : false};
   },
+  getDefaultProps: function() {
+    return {
+      className: ""
+    };
+  },
   render: function () {
+
+    var activeClass = this.state.active ? (this.props.activeClass || "active") : "";
+
     var props = assign({}, this.props, {
-      onClick: this.onClick
+      onClick: this.onClick,
+      className : [this.props.className, activeClass].join(" ").trim()
     });
 
     return React.DOM.input(props, this.props.children);
