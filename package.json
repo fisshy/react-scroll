@@ -9,7 +9,7 @@
   },
   "scripts": {
     "examples": "webpack-dev-server --config examples/webpack.config.js --no-info --content-base examples",
-    "test": "jest"
+    "test": "./node_modules/karma/bin/karma start"
   },
   "homepage": "https://github.com/fisshy/react-scroll",
   "bugs": "https://github.com/fisshy/react-scroll/issues",
@@ -33,20 +33,19 @@
     "react-dom": "^0.14.0"
   },
   "devDependencies": {
+    "babel": "^5.8.23",
     "babel-core": "^4.6.0",
-    "babel-jest": "*",
     "babel-loader": "^4.0.0",
+    "expect": "^1.12.2",
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.2",
-    "jest-cli": "^0.5.10",
-    "react-addons-test-utils": "^0.14.0",
+    "karma": "^0.13.11",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.1.1",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.3.3",
     "webpack": "^1.6.0",
     "webpack-dev-server": "^1.7.0"
-  },
-  "jest": {
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react"
-    ]
   }
 }
