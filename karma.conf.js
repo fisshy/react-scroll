@@ -13,7 +13,7 @@ module.exports = function (config) {
     ],
 
     preprocessors: {
-      'tests.webpack.js': [ 'webpack' ]
+      'tests.webpack.js': [ 'webpack', 'sourcemap']
     },
 
     webpack: {
@@ -22,17 +22,13 @@ module.exports = function (config) {
         loaders: [
           { test: /\.js$/, exclude: /node_modules/, loader: 'babel' }
         ]
-      },
-      plugins: [
-        new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify('test')
-        })
-      ]
+      }
     },
 
     webpackServer: {
       noInfo: true
     }
-  })
+
+  });
 
 }
