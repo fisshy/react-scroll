@@ -9,7 +9,8 @@ module.exports = function (config) {
     reporters: [ 'mocha' ],
 
     files: [
-      'tests.webpack.js'
+      'tests.webpack.js',
+      'examples/basic/app.css'
     ],
 
     preprocessors: {

@@ -6,7 +6,7 @@ var __activeLink;
 module.exports = {
 
   unmount: function() {
-    __mapped = [];
+    __mapped = {};
   },
 
   register: function(name, element){

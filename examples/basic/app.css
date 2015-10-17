@@ -1,3 +1,7 @@
+.body {
+	margin: 0 !important;
+	padding: 0 !important;
+}
 .element {
 	height:1000px;
 	background-color: #ededed;
