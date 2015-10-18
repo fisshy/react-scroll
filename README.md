@@ -1,8 +1,7 @@
 ## React Scroll
 
 Directive for basic scrolling and smooth scrolling.
-I love contributions, just make sure your test passes. 
-I've started writing the tests for all the elements, contribute if you'd like to learn it.
+I love contributions, just make sure your test passes.
 
 ### Install
 ```js
