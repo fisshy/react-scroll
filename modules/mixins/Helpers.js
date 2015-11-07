@@ -48,7 +48,7 @@ var Helpers = {
       var _self = this;
       setTimeout(function() {
         _self.scrollTo(_self.props.to);
-      }, this.delay)
+      }, this.props.delay)
 
     },
 
