@@ -12,11 +12,12 @@ var Helpers = {
 
     propTypes: {
       to: React.PropTypes.string.isRequired,
-      offset: React.PropTypes.number
+      offset: React.PropTypes.number,
+      delay: React.PropTypes.number
     },
 
     getDefaultProps: function() {
-      return {offset: 0};
+      return {offset: 0, delay: 0};
     },
 
     scrollTo : function(to) {
@@ -43,8 +44,11 @@ var Helpers = {
       /*
        * do the magic!
        */
-
-      this.scrollTo(this.props.to);
+      
+      var _self = this;
+      setTimeout(function() {
+        _self.scrollTo(_self.props.to);
+      }, this.delay)
 
     },
 
