@@ -17,11 +17,19 @@ var Helpers = {
     },
 
     getDefaultProps: function() {
-      return {offset: 0, delay: 0};
+      return {offset: 0};
     },
 
     scrollTo : function(to) {
-      scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset);
+      if (this.props.delay) {
+        var _self = this;
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(function() {
+          scroller.scrollTo(to, _self.props.smooth, _self.props.duration, _self.props.offset);  
+        }, _self.props.delay)
+      } else {
+        scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset);  
+      }
     },
 
     onClick: function(event) {
@@ -44,12 +52,7 @@ var Helpers = {
       /*
        * do the magic!
        */
-      
-      var _self = this;
-      setTimeout(function() {
-        _self.scrollTo(_self.props.to);
-      }, this.props.delay)
-
+      this.scrollTo(this.props.to);
     },
 
     componentDidMount: function() {
