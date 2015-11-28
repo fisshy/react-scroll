@@ -4,6 +4,8 @@ var easing = smooth.defaultEasing;
 
 var cancelEvents = require('./cancel-events');
 
+var events = require('./scroll-events');
+
 /*
  * Sets the cancel trigger
  */
@@ -39,6 +41,8 @@ var __progress          = 0;
 var __duration          = 0;
 var __cancel            = false;
 
+var __target;
+var __to;
 var __start;
 var __deltaTop;
 var __percent;
@@ -71,16 +75,23 @@ var animateTopScroll = function(timestamp) {
 
   if(__percent < 1) {
     requestAnimationFrame(animateTopScroll);
+    return;
+  }
+
+  if(events.registered['end']) {
+    events.registered['end'](__to, __target);
   }
 
 };
 
-var startAnimateTopScroll = function(y, options) {
+var startAnimateTopScroll = function(y, options, to, target) {
   __start           = null;
   __cancel          = false;
   __startPositionY  = currentPositionY();
   __targetPositionY = y + __startPositionY;
   __duration        = options.duration || 1000;
+  __to              = to;
+  __target          = target;
 
   requestAnimationFrame(animateTopScroll);
 };

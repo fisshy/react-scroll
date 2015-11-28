@@ -1,4 +1,5 @@
 var animateScroll = require('./animate-scroll');
+var events = require('./scroll-events');
 
 var __mapped = {};
 var __activeLink;
@@ -6,7 +7,7 @@ var __activeLink;
 module.exports = {
 
   unmount: function() {
-    __mapped = [];
+    __mapped = {};
   },
 
   register: function(name, element){
@@ -43,6 +44,9 @@ module.exports = {
 
       var coordinates = target.getBoundingClientRect();
 
+      if(events.registered['begin']) {
+        events.registered['begin'](to, target);
+      }
       /*
        * if animate is not provided just scroll into the view
        */
@@ -61,8 +65,9 @@ module.exports = {
       var options = {
         duration : duration
       };
+      
 
-      animateScroll.animateTopScroll(coordinates.top + (offset || 0), options);
+      animateScroll.animateTopScroll(coordinates.top + (offset || 0), options, target, to);
 
   }
 };

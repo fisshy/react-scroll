@@ -7,7 +7,7 @@ var scrollSpy = require('./scroll-spy');
 var scroller = require('./scroller');
 
 var Helpers = {
-
+  
   Scroll: {
 
     propTypes: {

@@ -1,8 +1,7 @@
 ## React Scroll
 
 Directive for basic scrolling and smooth scrolling.
-I love contributions, just make sure your test passes. 
-I've started writing the tests for all the elements, contribute if you'd like to learn it.
+I love contributions, just make sure your test passes.
 
 ### Install
 ```js
@@ -32,11 +31,29 @@ var Scroll = require('react-scroll');
 var Link = Scroll.Link;
 var Element = Scroll.Element;
 
+var Events = Scroll.Events;
+
 var Section = React.createClass({
+  mixins: [Events],
+  componentDidMount: function() {
+
+    this.scrollEvent.register('begin', function(to, element) {
+      console.log("begin", arguments);
+    });
+
+    this.scrollEvent.register('end', function(to, element) {
+      console.log("end", arguments);
+    });
+
+  },
+  componentWillUnmount: function() {
+    this.scrollEvent.remove('begin');
+    this.scrollEvent.remove('end');
+  },
   render: function () {
   	return (
   		<Link to="test1" spy={true} smooth={true} offset={50} duration={500} >Test 1</Link>
-		  <Button className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Button>
+		<Button className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Button>
 
   		<Element name="test1" className="element">
   		  test 1
@@ -53,6 +70,33 @@ React.render(
   <Section />,
   document.getElementById('example')
 );
+
+```
+
+#### Scroll events
+```js
+
+var Scroll = require('react-scroll'); 
+var Events = Scroll.Events;
+
+> Register events
+
+>> begin - start of the scrolling
+
+Events.scrollEvent.register('begin', function(to, element) {
+  console.log("begin", to, element);
+});
+
+>> end - end of the scrolling/animation
+
+Events.scrollEvent.register('end', function(to, element) {
+  console.log("end", to, element);
+});
+
+> Remove events
+
+Events.scrollEvent.remove('begin');
+Events.scrollEvent.remove('end');
 
 ```
 

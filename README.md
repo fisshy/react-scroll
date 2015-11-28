@@ -31,7 +31,25 @@ var Scroll = require('react-scroll');
 var Link = Scroll.Link;
 var Element = Scroll.Element;
 
+var Events = Scroll.Events;
+
 var Section = React.createClass({
+  mixins: [Events],
+  componentDidMount: function() {
+
+    this.scrollEvent.register('begin', function(to, element) {
+      console.log("begin", arguments);
+    });
+
+    this.scrollEvent.register('end', function(to, element) {
+      console.log("end", arguments);
+    });
+
+  },
+  componentWillUnmount: function() {
+    this.scrollEvent.remove('begin');
+    this.scrollEvent.remove('end');
+  },
   render: function () {
   	return (
   		<Link to="test1" spy={true} smooth={true} offset={50} duration={500} >Test 1</Link>
@@ -52,6 +70,33 @@ React.render(
   <Section />,
   document.getElementById('example')
 );
+
+```
+
+#### Scroll events
+```js
+
+var Scroll = require('react-scroll'); 
+var Events = Scroll.Events;
+
+> Register events
+
+>> begin - start of the scrolling
+
+Events.scrollEvent.register('begin', function(to, element) {
+  console.log("begin", to, element);
+});
+
+>> end - end of the scrolling/animation
+
+Events.scrollEvent.register('end', function(to, element) {
+  console.log("end", to, element);
+});
+
+> Remove events
+
+Events.scrollEvent.remove('begin');
+Events.scrollEvent.remove('end');
 
 ```
 

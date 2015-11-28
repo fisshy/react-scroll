@@ -6,8 +6,26 @@ var Scroll = require('react-scroll');
 
 var Link = Scroll.Link;
 var Element = Scroll.Element;
+var Events = Scroll.Events;
+
 
 var Section = React.createClass({
+  mixins: [Events],
+  componentDidMount: function() {
+
+    this.scrollEvent.register('begin', function() {
+      console.log("begin", arguments);
+    });
+
+    this.scrollEvent.register('end', function() {
+      console.log("end", arguments);
+    });
+
+  },
+  componentWillUnmount: function() {
+    this.scrollEvent.remove('begin');
+    this.scrollEvent.remove('end');
+  },
   render: function () {
     return (
       <div>
