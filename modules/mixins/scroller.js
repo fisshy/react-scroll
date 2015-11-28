@@ -55,6 +55,11 @@ module.exports = {
         var bodyRect = document.body.getBoundingClientRect();
         var scrollOffset = coordinates.top - bodyRect.top;
         window.scrollTo(0, scrollOffset + (offset || 0));
+
+        if(events.registered['end']) {
+          events.registered['end'](to, target);
+        }
+
         return;
       }
 
