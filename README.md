@@ -73,32 +73,40 @@ React.render(
 
 ```
 
-#### Scroll events
+### Scroll events
+
+> begin - start of the scrolling
+
 ```js
 
 var Scroll = require('react-scroll'); 
 var Events = Scroll.Events;
 
-> Register events
-
->> begin - start of the scrolling
-
 Events.scrollEvent.register('begin', function(to, element) {
   console.log("begin", to, element);
 });
 
->> end - end of the scrolling/animation
+```
+
+> end - end of the scrolling/animation
+
+```js
 
 Events.scrollEvent.register('end', function(to, element) {
   console.log("end", to, element);
 });
 
+```
+
+
 > Remove events
+```js 
 
 Events.scrollEvent.remove('begin');
 Events.scrollEvent.remove('end');
 
 ```
+
 
 #### Create your own Link/Element
 > Simply just include the mixins!
