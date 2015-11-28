@@ -100,6 +100,7 @@ Events.scrollEvent.register('end', function(to, element) {
 
 
 > Remove events
+
 ```js 
 
 Events.scrollEvent.remove('begin');
