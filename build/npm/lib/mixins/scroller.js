@@ -72,7 +72,7 @@ module.exports = {
       };
       
 
-      animateScroll.animateTopScroll(coordinates.top + (offset || 0), options, target, to);
+      animateScroll.animateTopScroll(coordinates.top + (offset || 0), options, to, target);
 
   }
 };
