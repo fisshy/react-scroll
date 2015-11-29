@@ -11,10 +11,14 @@ import expect   from 'expect'
 import assert   from 'assert';
 
 
-describe('Page', () => {
+describe('Events', () => {
   
+  console.log("test");
+
   let node = document.createElement('div');
   
+  document.body.innerHtml = "";
+
   document.body.appendChild(node)
 
   let scrollDuration = 10;
@@ -35,72 +39,32 @@ describe('Page', () => {
         <Element name="test5" className="element">test 5</Element>
       </div>
 
-  beforeEach(() => {
-    events.scrollEvent.remove('begin');
-    events.scrollEvent.remove('end');
-  });
-
-  afterEach(function () {
+  beforeEach(function () {
     unmountComponentAtNode(node)
   });
     
-  it('renders five elements of link/element', (done) => {
-
-    render(component, node, () => {
-
-        var allLinks = node.querySelectorAll('a');
-        var allTargets = node.querySelectorAll('.element');
-        
-        expect(allLinks.length).toEqual(5);
-        expect(allTargets.length).toEqual(5);
-
-        done();
-
-    });
-
-  })
-
-  it('all targets has name and class', (done) => {
-
-    render(component, node, () => {
-
-        var allTargets = node.querySelectorAll('.element');
-          
-        [].forEach.call(allTargets, (element, i) => {
-          expect(element.className).toEqual('element');
-          expect(element.getAttribute('name')).toEqual('test' + ( i + 1 ));
-        });
-
-        done();
-
-    });
-
-  })
-
-  it('is active when clicked', (done) => {
+  it('it calls begin and end event', (done) => {
     
     render(component, node, () => {
 
-        var link = node.querySelectorAll('a')[4];
+        var link = node.querySelectorAll('a')[2];
 
-        var target = node.querySelectorAll('.element')[4];
+        var begin = (to, target) => {
+          expect(to).toEqual('test3');
+          expect(Rtu.isDOMComponent(target)).toEqual(true);
+        };
 
-        var expectedScrollTo = target.getBoundingClientRect().top;
+        var end = (to, target) => {
+          expect(to).toEqual('test3')
+          expect(Rtu.isDOMComponent(target)).toEqual(true);
+        };
+
+        events.scrollEvent.register('begin', begin);
+        events.scrollEvent.register('end', end);
 
         Rtu.Simulate.click(link);
 
-        /* Let it scroll, duration is based on param sent to Link */
-        
-        setTimeout(() => {
-
-          expect(expectedScrollTo).toEqual(window.scrollY);
-
-          expect(link.className).toEqual('active');
-
-          done();
-
-        }, scrollDuration + 50);
-
+        done();
     });
 
   })

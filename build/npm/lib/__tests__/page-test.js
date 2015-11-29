@@ -5,6 +5,7 @@ import React    from 'react'
 /* Components to test */
 import Element  from '../components/Element.js';
 import Link     from '../components/Link.js';
+import events   from '../mixins/scroll-events.js';
 /* Test */
 import expect   from 'expect'
 import assert   from 'assert';
@@ -33,6 +34,11 @@ describe('Page', () => {
         <Element name="test4" className="element">test 4</Element>
         <Element name="test5" className="element">test 5</Element>
       </div>
+
+  beforeEach(() => {
+    events.scrollEvent.remove('begin');
+    events.scrollEvent.remove('end');
+  });
 
   afterEach(function () {
     unmountComponentAtNode(node)
