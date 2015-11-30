@@ -12,7 +12,8 @@ var Helpers = {
 
     propTypes: {
       to: React.PropTypes.string.isRequired,
-      offset: React.PropTypes.number
+      offset: React.PropTypes.number,
+      ifNotVisible: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
@@ -20,7 +21,7 @@ var Helpers = {
     },
 
     scrollTo : function(to) {
-      scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset);
+      scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset, this.props.ifNotVisible);
     },
 
     onClick: function(event) {

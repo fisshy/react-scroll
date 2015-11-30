@@ -30,7 +30,20 @@ module.exports = {
     return __activeLink;
   },
 
-  scrollTo: function(to, animate, duration, offset) {
+  isVisible: function(target) {
+    var vpHeight = window.innerHeight;
+    var rec = target.getBoundingClientRect();
+    var tViz = rec.top >= 0 && rec.top < vpHeight;
+    var bViz = rec.bottom > 0 && rec.bottom <= vpHeight;
+    // If we want to allow the option of making sure the top and bottom of the element
+    // are visible this is how.
+    // var vVisible = partial ? tViz || bViz : tViz && bViz;
+    var vVisible = tViz || bViz;
+
+    return vVisible;
+  },
+
+  scrollTo: function(to, animate, duration, offset, ifNotVisible) {
 
      /*
      * get the mapped DOM element
@@ -40,6 +53,11 @@ module.exports = {
 
       if(!target) {
         throw new Error("target Element not found");
+      }
+
+      // Bail out if you can see it.
+      if (ifNotVisible && this.isVisible(target)) {
+        return;
       }
 
       var coordinates = target.getBoundingClientRect();
