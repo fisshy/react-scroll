@@ -1,7 +1,6 @@
 "use strict";
 
 var React = require('react');
-var ReactDOM = require('react-dom');
 var animateScroll = require('./animate-scroll');
 var scrollSpy = require('./scroll-spy');
 var scroller = require('./scroller');
@@ -104,7 +103,7 @@ var Helpers = {
       name: React.PropTypes.string.isRequired
     },
     componentDidMount: function() {
-      var domNode = ReactDOM.findDOMNode(this);
+      var domNode = React.findDOMNode(this);
       scroller.register(this.props.name, domNode);
     },
     componentWillUnmount: function() {
