@@ -29,8 +29,8 @@
     "scrolls"
   ],
   "dependencies": {
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
   },
   "devDependencies": {
     "babel": "^5.8.23",
