@@ -1,30 +1,29 @@
 "use strict";
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Scroll = require('react-scroll'); 
+var React     = require('react');
+var ReactDOM  = require('react-dom');
+var Scroll    = require('react-scroll'); 
 
-var Link = Scroll.Link;
+var Link    = Scroll.Link;
 var Element = Scroll.Element;
-var Events = Scroll.Events;
+var Events  = Scroll.Events;
 
 
 var Section = React.createClass({
-  mixins: [Events],
   componentDidMount: function() {
 
-    this.scrollEvent.register('begin', function() {
+    Events.scrollEvent.register('begin', function() {
       console.log("begin", arguments);
     });
 
-    this.scrollEvent.register('end', function() {
+    Events.scrollEvent.register('end', function() {
       console.log("end", arguments);
     });
 
   },
   componentWillUnmount: function() {
-    this.scrollEvent.remove('begin');
-    this.scrollEvent.remove('end');
+    Events.scrollEvent.remove('begin');
+    Events.scrollEvent.remove('end');
   },
   render: function () {
     return (
@@ -33,11 +32,11 @@ var Section = React.createClass({
           <div className="container-fluid">
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav">
-                <li><Link to="test1" spy={true} smooth={true} duration={500} >Test 1</Link></li>
-                <li><Link to="test2" spy={true} smooth={true} duration={500}>Test 2</Link></li>
-                <li><Link to="test3" spy={true} smooth={true} duration={500} >Test 3</Link></li>
-                <li><Link to="test4" spy={true} smooth={true} duration={500}>Test 4</Link></li>
-                <li><Link to="test5" spy={true} smooth={true} duration={500}>Test 5</Link></li>
+                <li><Link activeClass="active" className="test1" to="test1" spy={true} smooth={true} duration={500} >Test 1</Link></li>
+                <li><Link activeClass="active" className="test2" to="test2" spy={true} smooth={true} duration={500}>Test 2</Link></li>
+                <li><Link activeClass="active" className="test3" to="test3" spy={true} smooth={true} duration={500} >Test 3</Link></li>
+                <li><Link activeClass="active" className="test4" to="test4" spy={true} smooth={true} duration={500}>Test 4</Link></li>
+                <li><Link activeClass="active" className="test5" to="test5" spy={true} smooth={true} duration={500}>Test 5</Link></li>
               </ul>
             </div>
           </div>

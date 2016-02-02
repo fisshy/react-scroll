@@ -2,114 +2,139 @@
 
 var React = require('react');
 var ReactDOM = require('react-dom');
+
+const { bool, object, string, func, number } = React.PropTypes
+
 var animateScroll = require('./animate-scroll');
 var scrollSpy = require('./scroll-spy');
 var scroller = require('./scroller');
 
 var Helpers = {
   
-  Scroll: {
+  Scroll: function (Component) {
 
-    propTypes: {
-      to: React.PropTypes.string.isRequired,
-      offset: React.PropTypes.number
-    },
+    return React.createClass({
 
-    getDefaultProps: function() {
-      return {offset: 0};
-    },
+      propTypes: {
+        to: string.isRequired,
+        offset: number,
+        onClick: func
+      },
 
-    scrollTo : function(to) {
-      scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset);
-    },
+      getDefaultProps: function() {
+        return {offset: 0};
+      },
 
-    onClick: function(event) {
+      scrollTo : function(to) {
+        scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset);
+      },
 
-      /*
-       * give the posibility to override onClick
-       */
+      handleClick: function(event) {
 
-      if(this.props.onClick) {
-        this.props.onClick(event);
-      }
+        /*
+         * give the posibility to override onClick
+         */
 
-      /*
-       * dont bubble the navigation
-       */
+        if(this.props.onClick) {
+          this.props.onClick(event);
+        }
 
-      if (event.stopPropagation) event.stopPropagation();
-      if (event.preventDefault) event.preventDefault();
+        /*
+         * dont bubble the navigation
+         */
 
-      /*
-       * do the magic!
-       */
+        if (event.stopPropagation) event.stopPropagation();
+        if (event.preventDefault) event.preventDefault();
 
-      this.scrollTo(this.props.to);
+        /*
+         * do the magic!
+         */
 
-    },
+        this.scrollTo(this.props.to);
 
-    componentDidMount: function() {
-      scrollSpy.mount();
+      },
 
-      if(this.props.spy) {
-        var to = this.props.to;
-        var element = null;
-        var elemTopBound = 0;
-        var elemBottomBound = 0;
+      componentDidMount: function() {
 
-        scrollSpy.addStateHandler((function() {
-          if(scroller.getActiveLink() != to) {
+        scrollSpy.mount();
+
+        if(this.props.spy) {
+          var to = this.props.to;
+          var element = null;
+          var elemTopBound = 0;
+          var elemBottomBound = 0;
+
+          scrollSpy.addStateHandler((function() {
+            if(scroller.getActiveLink() != to) {
+                this.setState({ active : false });
+            }
+          }).bind(this));
+
+          scrollSpy.addSpyHandler((function(y) {
+
+            if(!element) {
+                element = scroller.get(to);
+
+                var cords = element.getBoundingClientRect();
+                elemTopBound = (cords.top + y);
+                elemBottomBound = elemTopBound + cords.height;
+            }
+
+            var offsetY = y - this.props.offset;
+            var isInside = (offsetY >= elemTopBound && offsetY <= elemBottomBound);
+            var isOutside = (offsetY < elemTopBound || offsetY > elemBottomBound);
+            var activeLink = scroller.getActiveLink();
+
+            if (isOutside && activeLink === to) {
+              scroller.setActiveLink(void 0);
               this.setState({ active : false });
-          }
-        }).bind(this));
 
-        scrollSpy.addSpyHandler((function(y) {
+            } else if (isInside && activeLink != to) {
+              scroller.setActiveLink(to);
+              this.setState({ active : true });
+              
+              if(this.props.onSetActive) {
+                this.props.onSetActive(to);
+              }
 
-          if(!element) {
-              element = scroller.get(to);
+              scrollSpy.updateStates();
 
-              var cords = element.getBoundingClientRect();
-              elemTopBound = (cords.top + y);
-              elemBottomBound = elemTopBound + cords.height;
-          }
-
-          var offsetY = y - this.props.offset;
-          var isInside = (offsetY >= elemTopBound && offsetY <= elemBottomBound);
-          var isOutside = (offsetY < elemTopBound || offsetY > elemBottomBound);
-          var activeLnik = scroller.getActiveLink();
-
-          if (isOutside && activeLnik === to) {
-
-            scroller.setActiveLink(void 0);
-            this.setState({ active : false });
-
-          } else if (isInside && activeLnik != to) {
-
-            scroller.setActiveLink(to);
-            this.setState({ active : true });
-            if(this.props.onSetActive) this.props.onSetActive(to);
-            scrollSpy.updateStates();
-          }
-        }).bind(this));
+            }
+          }).bind(this));
+        }
+      },
+      componentWillUnmount: function() {
+        scrollSpy.unmount();
+      },
+      render: function() {
+        var className = "";
+        if(this.state && this.state.active) {
+          className = ((this.props.className || "") + " " + (this.props.activeClass || "active")).trim();
+        } else {
+          className = this.props.className
+        }
+        return <Component {...this.props} {...this.state} className={className}  onClick={this.handleClick} />;
       }
-    },
-    componentWillUnmount: function() {
-      scrollSpy.unmount();
-    }
+    });
   },
 
 
-  Element: {
-    propTypes: {
-      name: React.PropTypes.string.isRequired
-    },
-    componentDidMount: function() {
-      var domNode = ReactDOM.findDOMNode(this);
-      scroller.register(this.props.name, domNode);
-    },
-    componentWillUnmount: function() {
-      scroller.unregister(this.props.name);
-    }
+  Element: function(Component) {
+    return React.createClass({
+      propTypes: {
+        name: React.PropTypes.string.isRequired
+      },
+      componentDidMount: function() {
+        var domNode = ReactDOM.findDOMNode(this);
+        scroller.register(this.props.name, domNode);
+      },
+      componentWillUnmount: function() {
+        scroller.unregister(this.props.name);
+      },
+      render: function() {
+        return <Component {...this.props} {...this.state} />;
+      }
+    });
   }
 };
 

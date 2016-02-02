@@ -1,7 +1,7 @@
 ## React Scroll
 
 Directive for basic scrolling and smooth scrolling.
-I love contributions, just make sure your test passes.
+Mixins has been removed and replaced with high ordered components (2016-02-02)
 
 ### Install
 ```js
@@ -25,35 +25,33 @@ Checkout examples
 ### Usage
 ```js
 
-var React = require('react');
-var Scroll = require('react-scroll'); 
+var React   = require('react');
+var Scroll  = require('react-scroll'); 
 
-var Link = Scroll.Link;
+var Link    = Scroll.Link;
 var Element = Scroll.Element;
-
-var Events = Scroll.Events;
+var Events  = Scroll.Events;
 
 var Section = React.createClass({
-  mixins: [Events],
   componentDidMount: function() {
 
-    this.scrollEvent.register('begin', function(to, element) {
+    Events.scrollEvent.register('begin', function(to, element) {
       console.log("begin", arguments);
     });
 
-    this.scrollEvent.register('end', function(to, element) {
+    Events.scrollEvent.register('end', function(to, element) {
       console.log("end", arguments);
     });
 
   },
   componentWillUnmount: function() {
-    this.scrollEvent.remove('begin');
-    this.scrollEvent.remove('end');
+    Events.scrollEvent.remove('begin');
+    Events.scrollEvent.remove('end');
   },
   render: function () {
   	return (
-  		<Link to="test1" spy={true} smooth={true} offset={50} duration={500} >Test 1</Link>
-		<Button className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Button>
+  		<Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} >Test 1</Link>
+		  <Button activeClass="active" className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Button>
 
   		<Element name="test1" className="element">
   		  test 1
@@ -110,15 +108,14 @@ Events.scrollEvent.remove('end');
 
 
 #### Create your own Link/Element
-> Simply just include the mixins!
+> Simply just pass your component to one of the high order components (Element/Scroll)
 
 ```js
-var React = require('react');
-var Scroll = require('react-scroll'); 
+var React   = require('react');
+var Scroll  = require('react-scroll'); 
 var Helpers = Scroll.Helpers;
 
 var Element = React.createClass({
-  mixins: [Helpers.Element],
   render: function () {
     return (
       <div>
@@ -128,15 +125,18 @@ var Element = React.createClass({
   }
 });
 
+module.exports = Helpers.Element(Element);
+
 var Link = React.createClass({
-  mixins: [Helpers.Scroll],
   render: function () {
     return (
-      <a onClick={this.onClick}>
+      <a>
         {this.props.children}
       </a>
     );
   }
 });
+
+module.exports = Helpers.Scroll(Link);
 
 ```
