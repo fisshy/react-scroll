@@ -113,7 +113,16 @@ var Helpers = {
         } else {
           className = this.props.className
         }
-        return <Component {...this.props} {...this.state} className={className}  onClick={this.handleClick} />;
+
+        var props = {};
+        for(var prop in this.props) {
+          props[prop] = this.props[prop];
+        }
+
+        props.className = className;
+        props.onClick = this.handleClick;
+
+        return React.createElement(Component, props);
       }
     });
   },
@@ -132,7 +141,7 @@ var Helpers = {
         scroller.unregister(this.props.name);
       },
       render: function() {
-        return <Component {...this.props} {...this.state} />;
+        return React.createElement(Component, this.props);
       }
     });
   }
