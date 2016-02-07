@@ -3,22 +3,20 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-const { bool, object, string, func, number } = React.PropTypes
-
 var animateScroll = require('./animate-scroll');
 var scrollSpy = require('./scroll-spy');
 var scroller = require('./scroller');
 
 var Helpers = {
-  
+
   Scroll: function (Component) {
 
     return React.createClass({
 
       propTypes: {
-        to: string.isRequired,
-        offset: number,
-        onClick: func
+        to: React.PropTypes.string.isRequired,
+        offset: React.PropTypes.number,
+        onClick: React.PropTypes.func
       },
 
       getDefaultProps: function() {
@@ -92,7 +90,7 @@ var Helpers = {
             } else if (isInside && activeLink != to) {
               scroller.setActiveLink(to);
               this.setState({ active : true });
-              
+
               if(this.props.onSetActive) {
                 this.props.onSetActive(to);
               }
@@ -148,4 +146,3 @@ var Helpers = {
 };
 
 module.exports = Helpers;
-
