@@ -140,3 +140,9 @@ var Link = React.createClass({
 module.exports = Helpers.Scroll(Link);
 
 ```
+
+#### Things that needs to be done - feel free to contribute.
+- Being able to use react-scroll within a div.
+- Integrate react-scroll with react-router
+- Hash-scrolling.
+
