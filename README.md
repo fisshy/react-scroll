@@ -50,6 +50,7 @@ var Section = React.createClass({
   },
   render: function () {
   	return (
+  		<div>
   		<Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} >Test 1</Link>
 		  <Button activeClass="active" className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Button>
 
@@ -60,6 +61,7 @@ var Section = React.createClass({
   		<Element name="test2" className="element">
   		  test 2
   		</Element>
+  		</div>
 	);
   }
 });
