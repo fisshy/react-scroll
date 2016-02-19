@@ -5,13 +5,13 @@
   "main": "modules",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fisshy/react-scroll.git"
+    "url": "https://github.com/actorapp/react-scroll.git"
   },
   "scripts": {
     "examples": "webpack-dev-server --config examples/webpack.config.js --no-info --content-base examples"
   },
-  "homepage": "https://github.com/fisshy/react-scroll",
-  "bugs": "https://github.com/fisshy/react-scroll/issues",
+  "homepage": "https://github.com/actorapp/react-scroll",
+  "bugs": "https://github.com/actorapp/react-scroll/issues",
   "authors": [
     "Joachim Karlsson"
   ],
