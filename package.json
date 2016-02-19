@@ -28,15 +28,15 @@
     "scrolls"
   ],
   "peerDependencies": {
-    "react": "^0.14.0-rc1",
-    "react-dom": "^0.14.0-rc1"
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
   },
   "devDependencies": {
     "babel-core": "^4.6.0",
-    "babel-loader": "^4.0.0",
-    "gulp": "^3.8.11",
+    "babel-loader": "^6.2.0",
+    "gulp": "^3.9.0",
     "gulp-concat": "^2.5.2",
-    "webpack": "^1.6.0",
-    "webpack-dev-server": "^1.7.0"
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.1"
   }
 }
