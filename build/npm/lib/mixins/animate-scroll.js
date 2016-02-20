@@ -74,7 +74,7 @@ var animateTopScroll = function(timestamp) {
   window.scrollTo(0, __currentPositionY);
 
   if(__percent < 1) {
-    requestAnimationFrame.call(window, animateTopScroll);
+    requestAnimationFrame(animateTopScroll);
     return;
   }
 
@@ -93,7 +93,7 @@ var startAnimateTopScroll = function(y, options, to, target) {
   __to              = to;
   __target          = target;
 
-  requestAnimationFrame.call(window, animateTopScroll);
+  requestAnimationFrame(animateTopScroll);
 };
 
 module.exports = {
