@@ -39,7 +39,7 @@ var scrollSpy = {
     var queue = this[queueKey] || [];
     var i = queue.indexOf(handler);
     if (i !== -1) {
-      this[queueKey] = queue.splice(i, 1);
+      queue.splice(i, 1);
     }
     if (document && !this.hasHandlers()) {
       document.removeEventListener('scroll', this._scrollHandler);
