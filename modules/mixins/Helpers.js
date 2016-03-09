@@ -60,6 +60,7 @@ var Helpers = {
 
       spyHandler: function(y) {
         var element = scroller.get(this.props.to);
+        if (!element) return;
         var cords = element.getBoundingClientRect();
         var topBound = cords.top + y;
         var bottomBound = topBound + cords.height;
