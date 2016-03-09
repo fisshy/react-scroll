@@ -22,13 +22,13 @@ var scrollSpy = {
   },
 
   hasHandlers: function() {
-    return this.spyCallbacks.length || this.spySetState.length
+    return this.spyCallbacks.length || this.spySetState.length;
   },
 
   addHandler: function(queueKey, handler) {
     if (handler && this[queueKey]) {
       if (document && !this.hasHandlers()) {
-        this._scrollHandler = this.scrollHandler.bind(this)
+        this._scrollHandler = this.scrollHandler.bind(this);
         document.addEventListener('scroll', this._scrollHandler);
       }
       this[queueKey].push(handler);
