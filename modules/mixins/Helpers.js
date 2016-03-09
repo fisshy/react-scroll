@@ -59,14 +59,10 @@ var Helpers = {
       },
 
       spyHandler: function(y) {
-        if(typeof this._topBound === 'undefined') {
-          var element = scroller.get(this.props.to);
-          var cords = element.getBoundingClientRect();
-          this._topBound = cords.top + y;
-          this._bottomBound = this._topBound + cords.height;
-        }
-        var topBound = this._topBound;
-        var bottomBound = this._bottomBound;
+        var element = scroller.get(this.props.to);
+        var cords = element.getBoundingClientRect();
+        var topBound = cords.top + y;
+        var bottomBound = topBound + cords.height;
         var offsetY = y - this.props.offset;
         var to = this.props.to;
         var isInside = (offsetY >= topBound && offsetY <= bottomBound);
