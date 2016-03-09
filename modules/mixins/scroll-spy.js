@@ -46,14 +46,23 @@ var scrollSpy = {
     }
   },
 
-  updateStates: function(){
+  updateStates: function() {
     var length = this.spySetState.length;
 
     for(var i = 0; i < length; i++) {
       this.spySetState[i]();
     }
   },
-  unmount: function () { 
+
+  initStates: function() {
+    var length = this.spyCallbacks.length;
+    var y = this.currentPositionY();
+    for(var i = 0; i < length; i++) {
+      this.spyCallbacks[i](y);
+    }
+  },
+
+  unmount: function () {
     this.spyCallbacks = [];
     this.spySetState = [];
 

@@ -126,6 +126,8 @@ var Helpers = {
       componentDidMount: function() {
         var domNode = ReactDOM.findDOMNode(this);
         scroller.register(this.props.name, domNode);
+        // Whenever we add a scroll element, recalculate link active states
+        scrollSpy.initStates()
       },
       componentWillUnmount: function() {
         scroller.unregister(this.props.name);
