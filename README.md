@@ -31,6 +31,7 @@ var Scroll  = require('react-scroll');
 var Link    = Scroll.Link;
 var Element = Scroll.Element;
 var Events  = Scroll.Events;
+var scroll  = Scroll.animateScroll;
 
 var Section = React.createClass({
   componentDidMount: function() {
@@ -48,19 +49,24 @@ var Section = React.createClass({
     Events.scrollEvent.remove('begin');
     Events.scrollEvent.remove('end');
   },
+  scrollToTop: function() {
+    scroll.scrollToTop();
+  },
   render: function () {
   	return (
   		<div>
-  		<Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} >Test 1</Link>
-		  <Button activeClass="active" className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Button>
+    		<Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} >Test 1</Link>
+  		  <Button activeClass="active" className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Button>
 
-  		<Element name="test1" className="element">
-  		  test 1
-  		</Element>
+    		<Element name="test1" className="element">
+    		  test 1
+    		</Element>
 
-  		<Element name="test2" className="element">
-  		  test 2
-  		</Element>
+    		<Element name="test2" className="element">
+    		  test 2
+    		</Element>
+        
+        <a onClick={this.scrollToTop}>To the top!</a>
   		</div>
 	);
   }
