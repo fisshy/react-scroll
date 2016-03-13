@@ -54,20 +54,20 @@ var Section = React.createClass({
   },
   render: function () {
   	return (
-  		<div>
-    		<Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} >Test 1</Link>
-  		  <Button activeClass="active" className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Button>
+      <div>
+        <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} >Test 1</Link>
+        <Button activeClass="active" className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Button>
 
-    		<Element name="test1" className="element">
-    		  test 1
-    		</Element>
+        <Element name="test1" className="element">
+          test 1
+        </Element>
 
-    		<Element name="test2" className="element">
-    		  test 2
-    		</Element>
-        
+        <Element name="test2" className="element">
+          test 2
+        </Element>
+
         <a onClick={this.scrollToTop}>To the top!</a>
-  		</div>
+      </div>
 	);
   }
 });
