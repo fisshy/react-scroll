@@ -7,6 +7,7 @@ var Scroll    = require('react-scroll');
 var Link    = Scroll.Link;
 var Element = Scroll.Element;
 var Events  = Scroll.Events;
+var scroll  = Scroll.animateScroll;
 
 
 var Section = React.createClass({
@@ -20,6 +21,9 @@ var Section = React.createClass({
       console.log("end", arguments);
     });
 
+  },
+  scrollToTop: function() {
+    scroll.scrollToTop();
   },
   componentWillUnmount: function() {
     Events.scrollEvent.remove('begin');
@@ -61,6 +65,9 @@ var Section = React.createClass({
         <Element name="test5" className="element">
           test 5
         </Element>
+
+        <a onClick={this.scrollToTop}>To the top!</a>
+      
       </div>
     );
   }

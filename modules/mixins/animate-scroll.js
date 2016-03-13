@@ -58,7 +58,6 @@ var animateTopScroll = function(timestamp) {
   // Cancel on specific events
   if(__cancel) { return };
 
-
   __deltaTop = Math.round(__targetPositionY - __startPositionY);
 
   if (__start === null) {
@@ -74,7 +73,7 @@ var animateTopScroll = function(timestamp) {
   window.scrollTo(0, __currentPositionY);
 
   if(__percent < 1) {
-    requestAnimationFrame(animateTopScroll);
+    requestAnimationFrame.call(window, animateTopScroll);
     return;
   }
 
@@ -93,9 +92,14 @@ var startAnimateTopScroll = function(y, options, to, target) {
   __to              = to;
   __target          = target;
 
-  requestAnimationFrame(animateTopScroll);
+  requestAnimationFrame.call(window, animateTopScroll);
+};
+
+var scrollToTop = function (duration) {
+  startAnimateTopScroll(-currentPositionY(), { duration : duration || 1000 });
 };
 
 module.exports = {
-  animateTopScroll: startAnimateTopScroll
+  animateTopScroll: startAnimateTopScroll,
+  scrollToTop: scrollToTop
 };
