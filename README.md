@@ -1,7 +1,6 @@
 ## React Scroll
 
 Directive for basic scrolling and smooth scrolling.
-Mixins has been removed and replaced with high ordered components (2016-02-02)
 
 ### Install
 ```js
