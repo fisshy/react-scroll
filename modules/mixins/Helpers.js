@@ -90,7 +90,6 @@ var Helpers = {
           var element = null;
           var elemTopBound = 0;
           var elemBottomBound = 0;
-          var cords = null;
 
           scrollSpy.addStateHandler((function() {
             if(scroller.getActiveLink() != to) {
@@ -102,12 +101,8 @@ var Helpers = {
             
             if(!element) {
                 element = scroller.get(to);
-                cords = element.getBoundingClientRect();
-                
-            } else {
-                cords = element.getBoundingClientRect();
             }
-            
+            var cords = element.getBoundingClientRect();
             elemTopBound = (cords.top + y);
             elemBottomBound = elemTopBound + cords.height;
 
