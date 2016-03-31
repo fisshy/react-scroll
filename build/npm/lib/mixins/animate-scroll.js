@@ -26,7 +26,7 @@ var currentWindowProperties = function() {
 /*
  * Helper function to never extend 60fps on the webpage.
  */
-var requestAnimationFrame = (function () {
+var requestAnimationFrameHelper = (function () {
   return  currentWindowProperties() ||
           function (callback, element, delay) {
               window.setTimeout(callback, delay || (1000/60), new Date().getTime());
@@ -73,7 +73,7 @@ var animateTopScroll = function(timestamp) {
   window.scrollTo(0, __currentPositionY);
 
   if(__percent < 1) {
-    requestAnimationFrame.call(window, animateTopScroll);
+    requestAnimationFrameHelper.call(window, animateTopScroll);
     return;
   }
 
@@ -92,7 +92,7 @@ var startAnimateTopScroll = function(y, options, to, target) {
   __to              = to;
   __target          = target;
 
-  requestAnimationFrame.call(window, animateTopScroll);
+  requestAnimationFrameHelper.call(window, animateTopScroll);
 };
 
 var scrollToTop = function (duration) {
