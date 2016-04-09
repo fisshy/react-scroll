@@ -5,11 +5,13 @@ var ReactDOM = require('react-dom');
 
 var animateScroll = require('./animate-scroll');
 var scrollSpy = require('./scroll-spy');
-var scroller = require('./scroller');
+var defaultScroller = require('./scroller');
 
 var Helpers = {
 
-  Scroll: function (Component) {
+  Scroll: function (Component, customScroller) {
+
+    var scroller = customScroller || defaultScroller;
 
     return React.createClass({
 
@@ -162,10 +164,10 @@ var Helpers = {
       },
       componentDidMount: function() {
         var domNode = ReactDOM.findDOMNode(this);
-        scroller.register(this.props.name, domNode);
+        defaultScroller.register(this.props.name, domNode);
       },
       componentWillUnmount: function() {
-        scroller.unregister(this.props.name);
+        defaultScroller.unregister(this.props.name);
       },
       render: function() {
         return React.createElement(Component, this.props);

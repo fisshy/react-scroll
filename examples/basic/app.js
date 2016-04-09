@@ -8,7 +8,21 @@ var Link    = Scroll.Link;
 var Element = Scroll.Element;
 var Events  = Scroll.Events;
 var scroll  = Scroll.animateScroll;
+var scroller = Scroll.scroller;
 
+var mappedGet = scroller.get;
+scroller.get = function(name) {
+  return mappedGet(name) || document.getElementById(name);
+};
+
+var CustomLink = Scroll.Helpers.Scroll(
+  React.createClass({
+    render: function () {
+      return React.DOM.a(this.props, this.props.children);
+    }
+  }),
+  scroller
+);
 
 var Section = React.createClass({
   componentDidMount: function() {
@@ -41,6 +55,7 @@ var Section = React.createClass({
                 <li><Link activeClass="active" className="test3" to="test3" spy={true} smooth={true} duration={500} >Test 3</Link></li>
                 <li><Link activeClass="active" className="test4" to="test4" spy={true} smooth={true} duration={500}>Test 4</Link></li>
                 <li><Link activeClass="active" className="test5" to="test5" spy={true} smooth={true} duration={500}>Test 5</Link></li>
+                <li><CustomLink className="anchor" to="anchor" spy={true} smooth={true} duration={500}>anchor</CustomLink></li>
               </ul>
             </div>
           </div>
@@ -65,6 +80,10 @@ var Section = React.createClass({
         <Element name="test5" className="element">
           test 5
         </Element>
+
+        <div id="anchor" >
+          anthor
+        </div>
 
         <a onClick={this.scrollToTop}>To the top!</a>
       
