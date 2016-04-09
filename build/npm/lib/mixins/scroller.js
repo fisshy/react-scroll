@@ -36,7 +36,7 @@ module.exports = {
      * get the mapped DOM element
      */
 
-      var target = __mapped[to];
+      var target = this.get(to);
 
       if(!target) {
         throw new Error("target Element not found");
