@@ -28,14 +28,14 @@ describe('Page', () => {
           <li><Link to="test3" spy={true} smooth={true} duration={scrollDuration}>Test 3</Link></li>
           <li><Link to="test4" spy={true} smooth={true} duration={scrollDuration}>Test 4</Link></li>
           <li><Link to="test5" spy={true} smooth={true} duration={scrollDuration}>Test 5</Link></li>
-          <li><DirectLink to="test6" spy={true} smooth={true} duration={scrollDuration}>Test 6</DirectLink></li>
+          <li><DirectLink to="anchor" spy={true} smooth={true} duration={scrollDuration}>Test 6</DirectLink></li>
         </ul>
         <Element name="test1" className="element">test 1</Element>
         <Element name="test2" className="element">test 2</Element>
         <Element name="test3" className="element">test 3</Element>
         <Element name="test4" className="element">test 4</Element>
         <Element name="test5" className="element">test 5</Element>
-        <Element name="test6" className="element">test 6</Element>
+        <div id="anchor" name="test6" className="element">test 6</div>
       </div>
 
   beforeEach(() => {
@@ -80,13 +80,20 @@ describe('Page', () => {
 
   })
 
+  it('it is at top in start', (done) => {
+    expect(window.scrollY).toEqual(0);
+    done();
+  });
+
   it('is active when clicked', (done) => {
+  expect(window.scrollY).toEqual(0);
     
     render(component, node, () => {
 
-        var link = node.querySelectorAll('a')[4];
+    expect(window.scrollY).toEqual(0);
+        var link = node.querySelectorAll('a')[2];
 
-        var target = node.querySelectorAll('.element')[4];
+        var target = node.querySelectorAll('.element')[2];
 
         var expectedScrollTo = target.getBoundingClientRect().top;
 
@@ -96,7 +103,38 @@ describe('Page', () => {
         
         setTimeout(() => {
 
-          expect(expectedScrollTo).toEqual(window.scrollY);
+          expect(window.scrollY).toEqual(expectedScrollTo);
+
+          expect(link.className).toEqual('active');
+
+          done();
+
+        }, scrollDuration + 50);
+
+    });
+
+  })
+
+  it('is active when clicked to last (5) element', (done) => {
+  expect(window.scrollY).toEqual(0);
+    
+    render(component, node, () => {
+    expect(window.scrollY).toEqual(0);
+
+        var link = node.querySelectorAll('a')[5];
+
+        var target = node.querySelectorAll('.element')[5];
+
+        var expectedScrollTo = target.getBoundingClientRect().top;
+
+        Rtu.Simulate.click(link);
+
+        // expect(target.getAttribute('name')).toEqual('test6');
+        /* Let it scroll, duration is based on param sent to Link */
+        
+        setTimeout(() => {
+
+          expect(window.scrollY).toEqual(expectedScrollTo);
 
           expect(link.className).toEqual('active');
 
