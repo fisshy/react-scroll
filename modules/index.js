@@ -1,4 +1,5 @@
 exports.Link = require('./components/Link.js');
+exports.DirectLink = require('./components/DirectLink.js');
 exports.Button = require('./components/Button.js');
 exports.Element = require('./components/Element.js');
 exports.Helpers = require('./mixins/Helpers.js');
