@@ -55,6 +55,7 @@ var Section = React.createClass({
   	return (
       <div>
         <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} >Test 1</Link>
+        <DirectLink className="test6" to="anchor" spy={true} smooth={true} duration={500}>Test 6 (anchor)</DirectLink>
         <Button activeClass="active" className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Button>
 
         <Element name="test1" className="element">
@@ -64,6 +65,10 @@ var Section = React.createClass({
         <Element name="test2" className="element">
           test 2
         </Element>
+
+        <div id="anchor" className="element">
+          test 6 (anchor)
+        </div>
 
         <a onClick={this.scrollToTop}>To the top!</a>
       </div>
