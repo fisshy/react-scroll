@@ -86,64 +86,66 @@ describe('Page', () => {
   });
 
   it('is active when clicked', (done) => {
-  expect(window.scrollY).toEqual(0);
     
     render(component, node, () => {
 
-    expect(window.scrollY).toEqual(0);
-        var link = node.querySelectorAll('a')[2];
+      var link = node.querySelectorAll('a')[2];
 
-        var target = node.querySelectorAll('.element')[2];
+      var target = node.querySelectorAll('.element')[2];
 
-        var expectedScrollTo = target.getBoundingClientRect().top;
+      var expectedScrollTo = target.getBoundingClientRect().top;
 
-        Rtu.Simulate.click(link);
+      Rtu.Simulate.click(link);
 
-        /* Let it scroll, duration is based on param sent to Link */
-        
-        setTimeout(() => {
+      var scrollStart = window.scrollY;
 
-          expect(window.scrollY).toEqual(expectedScrollTo);
+      /* Let it scroll, duration is based on param sent to Link */
+      
+      setTimeout(() => {
 
-          expect(link.className).toEqual('active');
+        var scrollStop = scrollStart + expectedScrollTo
 
-          done();
+        expect(window.scrollY).toEqual(scrollStop);
 
-        }, scrollDuration + 50);
+        expect(link.className).toEqual('active');
+
+        done();
+
+      }, scrollDuration + 50);
 
     });
 
   })
 
   it('is active when clicked to last (5) element', (done) => {
-  expect(window.scrollY).toEqual(0);
     
     render(component, node, () => {
-    expect(window.scrollY).toEqual(0);
 
-        var link = node.querySelectorAll('a')[5];
+      var link = node.querySelectorAll('a')[5];
 
-        var target = node.querySelectorAll('.element')[5];
+      var target = node.querySelectorAll('.element')[5];
 
-        var expectedScrollTo = target.getBoundingClientRect().top;
+      var expectedScrollTo = target.getBoundingClientRect().top;
 
-        Rtu.Simulate.click(link);
+      Rtu.Simulate.click(link);
 
-        // expect(target.getAttribute('name')).toEqual('test6');
-        /* Let it scroll, duration is based on param sent to Link */
-        
-        setTimeout(() => {
+      /* Let it scroll, duration is based on param sent to Link */
+      var scrollStart = window.scrollY;
 
-          expect(window.scrollY).toEqual(expectedScrollTo);
+      setTimeout(() => {
 
-          expect(link.className).toEqual('active');
+        var scrollStop = scrollStart + expectedScrollTo
 
-          done();
+        expect(window.scrollY).toEqual(scrollStop);
 
-        }, scrollDuration + 50);
+        expect(link.className).toEqual('active');
 
-    });
+        done();
 
-  })
+      }, scrollDuration + 50);
 
-});
+      });
+
+    })
+
+  });
