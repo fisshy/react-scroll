@@ -87,8 +87,8 @@ var startAnimateTopScroll = function(y, options, to, target) {
   __start           = null;
   __cancel          = false;
   __startPositionY  = currentPositionY();
-  __targetPositionY = y + __startPositionY;
-  __duration        = options.duration || 1000;
+  __targetPositionY = y;
+  __duration        = options.duration || 300;
   __to              = to;
   __target          = target;
 
@@ -96,10 +96,20 @@ var startAnimateTopScroll = function(y, options, to, target) {
 };
 
 var scrollToTop = function (duration) {
-  startAnimateTopScroll(-currentPositionY(), { duration : duration || 1000 });
+  startAnimateTopScroll(0, { duration : duration || 1000 });
+};
+
+var scrollTo = function (toY, duration) {
+  startAnimateTopScroll(toY, { duration : duration });
+};
+
+var scrollMore = function(toY, duration) {
+  startAnimateTopScroll(currentPositionY() + toY, { duration : duration });
 };
 
 module.exports = {
   animateTopScroll: startAnimateTopScroll,
-  scrollToTop: scrollToTop
+  scrollToTop: scrollToTop,
+  scrollTo: scrollTo,
+  scrollMore: scrollMore,
 };
