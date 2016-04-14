@@ -54,6 +54,19 @@ var currentPositionY = function() {
          document.documentElement.scrollTop : document.body.scrollTop;
 };
 
+var pageHeight = function() {
+  var body = document.body;
+  var html = document.documentElement;
+
+  return Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight
+  );
+};
+
 var animateTopScroll = function(timestamp) {
   // Cancel on specific events
   if(__cancel) { return };
@@ -78,7 +91,7 @@ var animateTopScroll = function(timestamp) {
   }
 
   if(events.registered['end']) {
-    events.registered['end'](__to, __target);
+    events.registered['end'](__to, __target, __currentPositionY);
   }
 
 };
@@ -88,7 +101,7 @@ var startAnimateTopScroll = function(y, options, to, target) {
   __cancel          = false;
   __startPositionY  = currentPositionY();
   __targetPositionY = y;
-  __duration        = options.duration || 300;
+  __duration        = isNaN(parseFloat(options.duration)) ? 1000 : parseFloat(options.duration);
   __to              = to;
   __target          = target;
 
@@ -96,11 +109,15 @@ var startAnimateTopScroll = function(y, options, to, target) {
 };
 
 var scrollToTop = function (duration) {
-  startAnimateTopScroll(0, { duration : duration || 1000 });
+  startAnimateTopScroll(0, { duration : duration });
 };
 
 var scrollTo = function (toY, duration) {
   startAnimateTopScroll(toY, { duration : duration });
+};
+
+var scrollToBottom = function(duration) {
+  startAnimateTopScroll(pageHeight(), { duration : duration });
 };
 
 var scrollMore = function(toY, duration) {
@@ -110,6 +127,7 @@ var scrollMore = function(toY, duration) {
 module.exports = {
   animateTopScroll: startAnimateTopScroll,
   scrollToTop: scrollToTop,
+  scrollToBottom: scrollToBottom,
   scrollTo: scrollTo,
   scrollMore: scrollMore,
 };
