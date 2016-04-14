@@ -66,6 +66,9 @@ var Section = React.createClass({
         <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} >
           Test 1
         </Link>
+        <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} delay={1000}>
+          Test 2 (delay)
+        </Link>
         <DirectLink className="test6" to="anchor" spy={true} smooth={true} duration={500}>
           Test 6 (anchor)
         </DirectLink>
@@ -102,6 +105,29 @@ React.render(
   document.getElementById('example')
 );
 
+```
+
+### Props
+
+> activeClass - class applied when element is reached
+> to - target to scroll to
+> spy - make Link selected when scroll is at it's targets position
+> smooth - animate the scrolling
+> offset - scroll additional px ( like padding )
+> duration - time of the scroll animation
+> delay - wait x seconds before scroll
+
+```js
+<Link activeClass="active" 
+      to="target" 
+      spy={true} 
+      smooth={true} 
+      offset={50} 
+      duration={500} 
+      delay={1000}
+>
+  Your name
+</Link>
 ```
 
 ### Scroll Methods
