@@ -51,6 +51,12 @@ var Section = React.createClass({
   scrollToTop: function() {
     scroll.scrollToTop();
   },
+  scrollTo: function() {
+    scroll.scrollTo(100);
+  },
+  scrollMore: function() {
+    scroll.scrollMore(10);
+  },
   render: function () {
   	return (
       <div>
@@ -71,6 +77,12 @@ var Section = React.createClass({
         </div>
 
         <a onClick={this.scrollToTop}>To the top!</a>
+        <br/>
+        <a onClick={this.scrollToTop}>To bottom!</a>
+        <br/>
+        <a onClick={this.scrollTo}>Scroll to 100px from the top</a>
+        <br/>
+        <a onClick={this.scrollMore}>Scroll 10px more from the current position!</a>
       </div>
 	);
   }
@@ -80,6 +92,52 @@ React.render(
   <Section />,
   document.getElementById('example')
 );
+
+```
+
+### Scroll Methods
+
+> Scroll To Top
+
+```js
+
+var Scroll = require('react-scroll');
+var scroll = Scroll.animateScroll;
+
+scroll.scrollToTop();
+
+```
+
+> Scroll To Bottom
+
+```js
+
+var Scroll = require('react-scroll');
+var scroll = Scroll.animateScroll;
+
+scroll.scrollToBottom();
+
+```
+
+> Scroll To (px)
+
+```js
+
+var Scroll = require('react-scroll');
+var scroll = Scroll.animateScroll;
+
+scroll.scrollTo(100);
+
+```
+
+> Scroll More (px)
+
+```js
+
+var Scroll = require('react-scroll');
+var scroll = Scroll.animateScroll;
+
+scroll.scrollMore(10);
 
 ```
 

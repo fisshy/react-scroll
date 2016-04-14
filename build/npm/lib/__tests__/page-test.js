@@ -45,6 +45,7 @@ describe('Page', () => {
 
   afterEach(function () {
     unmountComponentAtNode(node)
+    window.scrollTo(0, 0);
   });
     
   it('renders six elements of link/element', (done) => {

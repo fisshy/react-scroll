@@ -7,17 +7,15 @@ import Element  from '../components/Element.js';
 import Link     from '../components/Link.js';
 import DirectLink from '../components/DirectLink.js';
 import events   from '../mixins/scroll-events.js';
+import animateScroll from '../mixins/animate-scroll.js';
 /* Test */
 import expect   from 'expect'
 import assert   from 'assert';
 
 
 describe('Events', () => {
-  
-  console.log("test");
 
   let node = document.createElement('div');
-  
   document.body.innerHtml = "";
 
   document.body.appendChild(node)
@@ -43,9 +41,15 @@ describe('Events', () => {
       </div>
 
   beforeEach(function () {
-    unmountComponentAtNode(node)
+    unmountComponentAtNode(node);
   });
-    
+
+  afterEach(() => {
+    // clean up the events after each test
+    events.scrollEvent.remove('begin');
+    events.scrollEvent.remove('end');
+  });
+
   it('direct link calls begin and end event', (done) => {
     
     render(component, node, () => {
@@ -70,10 +74,10 @@ describe('Events', () => {
         done();
     });
 
-  })
+  });
 
   it('it calls begin and end event', (done) => {
-    
+
     render(component, node, () => {
 
         var link = node.querySelectorAll('a')[2];
@@ -93,9 +97,27 @@ describe('Events', () => {
 
         Rtu.Simulate.click(link);
 
-        done();
+
+        // wait to actually scroll so it doesn't affect the next test!
+        setTimeout(() => {
+          done();
+        }, scrollDuration * 3);
     });
 
-  })
+  });
+
+  it('calls "end" event on scrollTo', (done) => {
+    render(component, node, () => {
+
+      var end = (to, target, endPosition) => {
+        expect(endPosition).toEqual(100);
+        done();
+      };
+
+      events.scrollEvent.register('end', end);
+
+      animateScroll.scrollTo(100, scrollDuration);
+    });
+  });
 
 });
