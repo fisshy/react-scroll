@@ -35,7 +35,7 @@ describe('AnimateScroll', () => {
         <div style={{height: '10000px'}}></div>
       </div>
 
-  beforeEach(function () {
+  afterEach(function () {
     window.scrollTo(0, 0);
 
     unmountComponentAtNode(node);
