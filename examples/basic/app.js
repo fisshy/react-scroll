@@ -10,6 +10,8 @@ var Element    = Scroll.Element;
 var Events     = Scroll.Events;
 var scroll     = Scroll.animateScroll;
 
+
+
 var Section = React.createClass({
   componentDidMount: function() {
 
@@ -42,6 +44,8 @@ var Section = React.createClass({
                 <li><Link activeClass="active" className="test4" to="test4" spy={true} smooth={true} duration={500}>Test 4</Link></li>
                 <li><Link activeClass="active" className="test5" to="test5" spy={true} smooth={true} duration={500}>Test 5</Link></li>
                 <li><DirectLink className="test6" to="anchor" spy={true} smooth={true} duration={500}>Test 6 (anchor)</DirectLink></li>
+                <li> <a onClick={() => scroll.scrollTo(100)}>Scroll To 100!</a></li>
+                <li> <a onClick={() => scroll.scrollMore(500)}>Scroll 500 More!</a></li>
               </ul>
             </div>
           </div>
