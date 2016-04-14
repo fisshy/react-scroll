@@ -109,7 +109,7 @@ React.render(
 
 ### Props
 
-> [x]activeClass - class applied when element is reached
+> activeClass - class applied when element is reached
 
 > to - target to scroll to
 
