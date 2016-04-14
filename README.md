@@ -109,13 +109,19 @@ React.render(
 
 ### Props
 
-> [x] activeClass - class applied when element is reached
-> [x] to - target to scroll to
-> [x] spy - make Link selected when scroll is at it's targets position
-> [x] smooth - animate the scrolling
-> [x] offset - scroll additional px ( like padding )
-> [x] duration - time of the scroll animation
-> [x] delay - wait x seconds before scroll
+> [x]activeClass - class applied when element is reached
+
+> to - target to scroll to
+
+> spy - make Link selected when scroll is at it's targets position
+
+> smooth - animate the scrolling
+
+> offset - scroll additional px ( like padding )
+
+> duration - time of the scroll animation
+
+> delay - wait x seconds before scroll
 
 ```js
 <Link activeClass="active" 
