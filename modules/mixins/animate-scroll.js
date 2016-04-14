@@ -100,7 +100,7 @@ var startAnimateTopScroll = function(y, options, to, target) {
   __start           = null;
   __cancel          = false;
   __startPositionY  = currentPositionY();
-  __targetPositionY = y;
+  __targetPositionY = options.absolute ? y : y + __startPositionY;
   __duration        = isNaN(parseFloat(options.duration)) ? 1000 : parseFloat(options.duration);
   __to              = to;
   __target          = target;
@@ -109,19 +109,19 @@ var startAnimateTopScroll = function(y, options, to, target) {
 };
 
 var scrollToTop = function (duration) {
-  startAnimateTopScroll(0, { duration : duration });
+  startAnimateTopScroll(0, { duration : duration, absolute : true });
 };
 
 var scrollTo = function (toY, duration) {
-  startAnimateTopScroll(toY, { duration : duration });
+  startAnimateTopScroll(toY, { duration : duration, absolute : true });
 };
 
 var scrollToBottom = function(duration) {
-  startAnimateTopScroll(pageHeight(), { duration : duration });
+  startAnimateTopScroll(pageHeight(), { duration : duration , absolute : true});
 };
 
 var scrollMore = function(toY, duration) {
-  startAnimateTopScroll(currentPositionY() + toY, { duration : duration });
+  startAnimateTopScroll(currentPositionY() + toY, { duration : duration, absolute : true });
 };
 
 module.exports = {
