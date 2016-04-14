@@ -18,15 +18,35 @@ var Helpers = {
       propTypes: {
         to: React.PropTypes.string.isRequired,
         offset: React.PropTypes.number,
+        delay: React.PropTypes.number,
         onClick: React.PropTypes.func
       },
+    scrollTo : function(to) {
+      if (this.props.delay) {
+        var _self = this;
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(function() {
+          scroller.scrollTo(to, _self.props.smooth, _self.props.duration, _self.props.offset);  
+        }, _self.props.delay)
+      } else {
+        scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset);  
+      }
+    },
 
       getDefaultProps: function() {
         return {offset: 0};
       },
 
       scrollTo : function(to) {
-        scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset);
+        if (this.props.delay) {
+          var props = this.props
+          clearTimeout(this.timeout);
+          this.timeout = setTimeout(function() {
+            scroller.scrollTo(to, props.smooth, props.duration, props.offset);  
+          }, props.delay);
+        } else {
+          scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset);
+        }
       },
 
       handleClick: function(event) {
