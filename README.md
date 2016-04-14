@@ -51,18 +51,27 @@ var Section = React.createClass({
   scrollToTop: function() {
     scroll.scrollToTop();
   },
+  scrollToBottom: function() {
+    scroll.scrollToBottom();
+  },
   scrollTo: function() {
     scroll.scrollTo(100);
   },
   scrollMore: function() {
-    scroll.scrollMore(10);
+    scroll.scrollMore(100);
   },
   render: function () {
   	return (
       <div>
-        <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} >Test 1</Link>
-        <DirectLink className="test6" to="anchor" spy={true} smooth={true} duration={500}>Test 6 (anchor)</DirectLink>
-        <Button activeClass="active" className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >Test 2</Button>
+        <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} >
+          Test 1
+        </Link>
+        <DirectLink className="test6" to="anchor" spy={true} smooth={true} duration={500}>
+          Test 6 (anchor)
+        </DirectLink>
+        <Button activeClass="active" className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >
+          Test 2
+        </Button>
 
         <Element name="test1" className="element">
           test 1
@@ -78,11 +87,11 @@ var Section = React.createClass({
 
         <a onClick={this.scrollToTop}>To the top!</a>
         <br/>
-        <a onClick={this.scrollToTop}>To bottom!</a>
+        <a onClick={this.scrollToBottom}>To the bottom!</a>
         <br/>
         <a onClick={this.scrollTo}>Scroll to 100px from the top</a>
         <br/>
-        <a onClick={this.scrollMore}>Scroll 10px more from the current position!</a>
+        <a onClick={this.scrollMore}>Scroll 100px more from the current position!</a>
       </div>
 	);
   }
