@@ -107,7 +107,7 @@ React.render(
 
 ```
 
-### Props
+### Props/Options
 
 > activeClass - class applied when element is reached
 
@@ -145,7 +145,7 @@ React.render(
 var Scroll = require('react-scroll');
 var scroll = Scroll.animateScroll;
 
-scroll.scrollToTop();
+scroll.scrollToTop(options);
 
 ```
 
@@ -156,7 +156,7 @@ scroll.scrollToTop();
 var Scroll = require('react-scroll');
 var scroll = Scroll.animateScroll;
 
-scroll.scrollToBottom();
+scroll.scrollToBottom(options);
 
 ```
 
@@ -167,7 +167,7 @@ scroll.scrollToBottom();
 var Scroll = require('react-scroll');
 var scroll = Scroll.animateScroll;
 
-scroll.scrollTo(100);
+scroll.scrollTo(100, options);
 
 ```
 
@@ -178,7 +178,7 @@ scroll.scrollTo(100);
 var Scroll = require('react-scroll');
 var scroll = Scroll.animateScroll;
 
-scroll.scrollMore(10);
+scroll.scrollMore(10, options);
 
 ```
 

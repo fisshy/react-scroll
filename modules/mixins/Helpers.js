@@ -26,16 +26,8 @@ var Helpers = {
         return {offset: 0};
       },
 
-      scrollTo : function(to) {
-        if (this.props.delay) {
-          var props = this.props
-          window.clearTimeout(this.timeout);
-          this.timeout = window.setTimeout(function() {
-            scroller.scrollTo(to, props.smooth, props.duration, props.offset);  
-          }, props.delay);
-        } else {
-          scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset);
-        }
+      scrollTo : function(to, props) {
+          scroller.scrollTo(to, props);
       },
 
       handleClick: function(event) {
@@ -59,7 +51,7 @@ var Helpers = {
          * do the magic!
          */
 
-        this.scrollTo(this.props.to);
+        this.scrollTo(this.props.to, this.props);
 
       },
 

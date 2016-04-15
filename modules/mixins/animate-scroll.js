@@ -1,3 +1,5 @@
+var assign = require('object-assign');
+
 var smooth = require('./smooth');
 
 var easing = smooth.defaultEasing;
@@ -46,6 +48,8 @@ var __to;
 var __start;
 var __deltaTop;
 var __percent;
+var __delayTimeout;
+
 
 var currentPositionY = function() {
   var supportPageOffset = window.pageXOffset !== undefined;
@@ -97,6 +101,10 @@ var animateTopScroll = function(timestamp) {
 };
 
 var startAnimateTopScroll = function(y, options, to, target) {
+
+
+  window.clearTimeout(__delayTimeout);
+
   __start           = null;
   __cancel          = false;
   __startPositionY  = currentPositionY();
@@ -105,23 +113,31 @@ var startAnimateTopScroll = function(y, options, to, target) {
   __to              = to;
   __target          = target;
 
+  if(options && options.delay > 0) {
+    __delayTimeout = window.setTimeout(function animate() {
+      requestAnimationFrameHelper.call(window, animateTopScroll);
+    }, options.delay);
+    return;
+  }
+
   requestAnimationFrameHelper.call(window, animateTopScroll);
+
 };
 
-var scrollToTop = function (duration) {
-  startAnimateTopScroll(0, { duration : duration, absolute : true });
+var scrollToTop = function (options) {
+  startAnimateTopScroll(0, assign(options || {}, { absolute : true }));
 };
 
-var scrollTo = function (toY, duration) {
-  startAnimateTopScroll(toY, { duration : duration, absolute : true });
+var scrollTo = function (toY, options) {
+  startAnimateTopScroll(toY, assign(options || {}, { absolute : true }));
 };
 
-var scrollToBottom = function(duration) {
-  startAnimateTopScroll(pageHeight(), { duration : duration , absolute : true});
+var scrollToBottom = function(options) {
+  startAnimateTopScroll(pageHeight(), assign(options || {}, { absolute : true }));
 };
 
-var scrollMore = function(toY, duration) {
-  startAnimateTopScroll(currentPositionY() + toY, { duration : duration, absolute : true });
+var scrollMore = function(toY, options) {
+  startAnimateTopScroll(currentPositionY() + toY, assign(options || {}, { absolute : true }));
 };
 
 module.exports = {
