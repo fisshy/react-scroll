@@ -30,7 +30,7 @@ module.exports = {
     return __activeLink;
   },
 
-  scrollTo: function(to, animate, duration, offset) {
+  scrollTo: function(to, props) {
 
      /*
      * get the mapped DOM element
@@ -50,11 +50,10 @@ module.exports = {
       /*
        * if animate is not provided just scroll into the view
        */
-
-      if(!animate) {
+      if(!props.smooth) {
         var bodyRect = document.body.getBoundingClientRect();
         var scrollOffset = coordinates.top - bodyRect.top;
-        window.scrollTo(0, scrollOffset + (offset || 0));
+        window.scrollTo(0, scrollOffset + (props.offset || 0));
 
         if(events.registered['end']) {
           events.registered['end'](to, target);
@@ -67,13 +66,7 @@ module.exports = {
        * Animate scrolling
        */
 
-      var options = {
-        duration : duration
-      };
-      
-
-      animateScroll.animateTopScroll(coordinates.top + (offset || 0), options, to, target);
-
+      animateScroll.animateTopScroll(coordinates.top + (props.offset || 0), props, to, target);
   }
 };
 

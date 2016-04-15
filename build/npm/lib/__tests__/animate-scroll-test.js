@@ -49,7 +49,7 @@ describe('AnimateScroll', () => {
 
   it('scrolls to an absolute position', (done) => {
     render(tallComponent, node, () => {
-      animateScroll.scrollTo(120, duration);
+      animateScroll.scrollTo(120, { duration : duration });
 
       setTimeout(() => {
         expect(window.scrollY).toEqual(120);
@@ -61,7 +61,7 @@ describe('AnimateScroll', () => {
   it('scrolls to an absolute position even if current position is higher', (done) => {
     render(tallComponent, node, () => {
       window.scrollTo(0, 1000);
-      animateScroll.scrollTo(200, duration);
+      animateScroll.scrollTo(200, { duration : duration });
 
       setTimeout(() => {
         expect(window.scrollY).toEqual(200);
@@ -75,7 +75,7 @@ describe('AnimateScroll', () => {
   it('scrolls to top', (done) => {
     render(tallComponent, node, () => {
       window.scrollTo(0, 1000);
-      animateScroll.scrollToTop(duration);
+      animateScroll.scrollToTop({ duration : duration });
 
       setTimeout(() => {
         expect(window.scrollY).toEqual(0);
@@ -86,7 +86,7 @@ describe('AnimateScroll', () => {
 
   it('scrolls to bottom', (done) => {
     render(tallComponent, node, () => {
-      animateScroll.scrollToBottom(duration);
+      animateScroll.scrollToBottom({ duration : duration });
 
       setTimeout(() => {
         var offset = 16;
@@ -101,12 +101,12 @@ describe('AnimateScroll', () => {
     render(tallComponent, node, () => {
       window.scrollTo(0, 111);
 
-      animateScroll.scrollMore(10, duration);
+      animateScroll.scrollMore(10, { duration : duration });
 
       setTimeout(() => {
         expect(window.scrollY).toEqual(121);
 
-        animateScroll.scrollMore(10, duration);
+        animateScroll.scrollMore(10, { duration : duration });
 
         // do it again!
         setTimeout(() => {
@@ -121,7 +121,7 @@ describe('AnimateScroll', () => {
 
   it('can take 0 as a duration argument', (done) => {
     render(tallComponent, node, () => {
-      animateScroll.scrollTo(120, 0);
+      animateScroll.scrollTo(120, { duration : 0 });
 
       setTimeout(() => {
         expect(window.scrollY).toEqual(120);
