@@ -21,18 +21,7 @@ var Helpers = {
         delay: React.PropTypes.number,
         onClick: React.PropTypes.func
       },
-    scrollTo : function(to) {
-      if (this.props.delay) {
-        var _self = this;
-        clearTimeout(this.timeout);
-        this.timeout = setTimeout(function() {
-          scroller.scrollTo(to, _self.props.smooth, _self.props.duration, _self.props.offset);  
-        }, _self.props.delay)
-      } else {
-        scroller.scrollTo(to, this.props.smooth, this.props.duration, this.props.offset);  
-      }
-    },
-
+      
       getDefaultProps: function() {
         return {offset: 0};
       },
@@ -40,8 +29,8 @@ var Helpers = {
       scrollTo : function(to) {
         if (this.props.delay) {
           var props = this.props
-          clearTimeout(this.timeout);
-          this.timeout = setTimeout(function() {
+          window.clearTimeout(this.timeout);
+          this.timeout = window.setTimeout(function() {
             scroller.scrollTo(to, props.smooth, props.duration, props.offset);  
           }, props.delay);
         } else {
