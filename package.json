@@ -1,6 +1,6 @@
 {
   "name": "react-scroll",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "A scroll component for React.js",
   "main": "modules",
   "repository": {
@@ -30,10 +30,11 @@
   ],
   "dependencies": {
     "object-assign": "^4.0.1",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1"
   },
   "devDependencies": {
+    "react-addons-test-utils": "^15.0.1",
     "babel": "^5.8.23",
     "babel-core": "^4.6.0",
     "babel-loader": "^4.0.0",
