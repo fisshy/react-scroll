@@ -160,7 +160,7 @@ scroll.scrollToBottom(options);
 
 ```
 
-> Scroll To (px)
+> Scroll To (position)
 
 ```js
 
@@ -168,6 +168,27 @@ var Scroll = require('react-scroll');
 var scroll = Scroll.animateScroll;
 
 scroll.scrollTo(100, options);
+
+```
+
+> Scroll To (Element)
+
+animateScroll.scrollTo(positionInPixels, props = {});
+
+```js
+
+var Scroll = require('react-scroll');
+var Element = Scroll.Element;
+var scroller = Scroll.scroller;
+
+<Element name="myScrollToElement"></Element>
+
+// Somewhere else, even another file
+scroller.scrollTo('myScrollToElement', {
+  duration: 1500,
+  delay: 100,
+  smooth: true,
+})
 
 ```
 
