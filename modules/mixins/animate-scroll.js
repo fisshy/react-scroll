@@ -9,6 +9,13 @@ var cancelEvents = require('./cancel-events');
 var events = require('./scroll-events');
 
 /*
+ * Function helper
+ */
+var functionWrapper = function(value) {
+  return typeof value === 'function' ? value : function() { return value; };
+};
+
+/*
  * Sets the cancel trigger
  */
 
@@ -109,7 +116,10 @@ var startAnimateTopScroll = function(y, options, to, target) {
   __cancel          = false;
   __startPositionY  = currentPositionY();
   __targetPositionY = options.absolute ? y : y + __startPositionY;
-  __duration        = isNaN(parseFloat(options.duration)) ? 1000 : parseFloat(options.duration);
+  __deltaTop        = Math.round(__targetPositionY - __startPositionY);
+
+  __duration        = functionWrapper(options.duration)(__deltaTop);
+  __duration        = isNaN(parseFloat(__duration)) ? 1000 : parseFloat(__duration);
   __to              = to;
   __target          = target;
 
