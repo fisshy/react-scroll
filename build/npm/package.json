@@ -1,6 +1,6 @@
 {
   "name": "react-scroll",
-  "version": "0.28.0",
+  "version": "1.0.15",
   "description": "A scroll component for React.js",
   "main": "lib",
   "repository": {
@@ -25,7 +25,11 @@
     "scrolls",
     "scrolling  "
   ],
-  "peerDependencies": {
-    "react": ">=0.13.0"
+  "dependencies": {
+    "object-assign": "^4.0.1"
+  },
+  "perDependencies": {
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1"
   }
 }

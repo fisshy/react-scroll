@@ -1,6 +1,6 @@
 {
   "name": "react-scroll",
-  "version": "0.0.1",
+  "version": "1.0.15",
   "description": "A scroll component for React.js",
   "main": "modules",
   "repository": {
@@ -8,7 +8,8 @@
     "url": "https://github.com/fisshy/react-scroll.git"
   },
   "scripts": {
-    "examples": "webpack-dev-server --config examples/webpack.config.js --no-info --content-base examples"
+    "examples": "webpack-dev-server --config examples/webpack.config.js --no-info --content-base examples",
+    "test": "./node_modules/karma/bin/karma start"
   },
   "homepage": "https://github.com/fisshy/react-scroll",
   "bugs": "https://github.com/fisshy/react-scroll/issues",
@@ -27,15 +28,26 @@
     "scroller",
     "scrolls"
   ],
-  "peerDependencies": {
-    "react": "^0.14.0-rc1",
-    "react-dom": "^0.14.0-rc1"
+  "dependencies": {
+    "object-assign": "^4.0.1",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1"
   },
   "devDependencies": {
+    "react-addons-test-utils": "^15.0.1",
+    "babel": "^5.8.23",
     "babel-core": "^4.6.0",
     "babel-loader": "^4.0.0",
+    "expect": "^1.12.2",
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.2",
+    "karma": "^0.13.11",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.1.1",
+    "karma-sourcemap-loader": "^0.3.6",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.3.3",
     "webpack": "^1.6.0",
     "webpack-dev-server": "^1.7.0"
   }

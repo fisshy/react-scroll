@@ -1,4 +1,5 @@
 var animateScroll = require('./animate-scroll');
+var events = require('./scroll-events');
 
 var __mapped = {};
 var __activeLink;
@@ -6,7 +7,7 @@ var __activeLink;
 module.exports = {
 
   unmount: function() {
-    __mapped = [];
+    __mapped = {};
   },
 
   register: function(name, element){
@@ -29,28 +30,37 @@ module.exports = {
     return __activeLink;
   },
 
-  scrollTo: function(to, animate, duration, offset) {
+  scrollTo: function(to, props) {
 
      /*
      * get the mapped DOM element
      */
 
-      var target = __mapped[to];
+      var target = this.get(to);
 
       if(!target) {
         throw new Error("target Element not found");
       }
 
+      props = props || {};
+
       var coordinates = target.getBoundingClientRect();
 
+      if(events.registered['begin']) {
+        events.registered['begin'](to, target);
+      }
       /*
        * if animate is not provided just scroll into the view
        */
-
-      if(!animate) {
+      if(!props.smooth) {
         var bodyRect = document.body.getBoundingClientRect();
         var scrollOffset = coordinates.top - bodyRect.top;
-        window.scrollTo(0, scrollOffset + (offset || 0));
+        window.scrollTo(0, scrollOffset + (props.offset || 0));
+
+        if(events.registered['end']) {
+          events.registered['end'](to, target);
+        }
+
         return;
       }
 
@@ -58,12 +68,7 @@ module.exports = {
        * Animate scrolling
        */
 
-      var options = {
-        duration : duration
-      };
-
-      animateScroll.animateTopScroll(coordinates.top + (offset || 0), options);
-
+      animateScroll.animateTopScroll(coordinates.top + (props.offset || 0), props, to, target);
   }
 };
 
