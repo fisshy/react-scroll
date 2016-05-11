@@ -42,6 +42,8 @@ module.exports = {
         throw new Error("target Element not found");
       }
 
+      props = props || {};
+
       var coordinates = target.getBoundingClientRect();
 
       if(events.registered['begin']) {
