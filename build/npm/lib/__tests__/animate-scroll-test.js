@@ -130,4 +130,17 @@ describe('AnimateScroll', () => {
     });
   });
 
+  it('can take a function as a duration argument', (done) => {
+    render(tallComponent, node, () => {
+      animateScroll.scrollTo(120, {duration: (v) => v});
+
+      setTimeout(() => {
+        expect(window.scrollY).toEqual(0);
+      }, 1);
+      setTimeout(() => {
+        expect(window.scrollY).toEqual(120);
+        done();
+      }, 150);
+    });
+  })
 });

@@ -10,7 +10,9 @@ var Element    = Scroll.Element;
 var Events     = Scroll.Events;
 var scroll     = Scroll.animateScroll;
 
-
+var durationFn = function(deltaTop) {
+    return deltaTop;
+};
 
 var Section = React.createClass({
   componentDidMount: function() {
@@ -44,6 +46,7 @@ var Section = React.createClass({
                 <li><Link activeClass="active" className="test4" to="test4" spy={true} smooth={true} duration={500}>Test 4</Link></li>
                 <li><Link activeClass="active" className="test5" to="test5" spy={true} smooth={true} duration={500} delay={1000}>Test 5 ( delay )</Link></li>
                 <li><DirectLink className="test6" to="anchor" spy={true} smooth={true} duration={500}>Test 6 (anchor)</DirectLink></li>
+                <li><Link activeClass="active" className="test7" to="test7" spy={true} smooth={true} duration={durationFn}>Test 7 (duration)</Link></li>
                 <li> <a onClick={() => scroll.scrollTo(100)}>Scroll To 100!</a></li>
                 <li> <a onClick={() => scroll.scrollMore(500)}>Scroll 500 More!</a></li>
                 <li> <a onClick={() => scroll.scrollMore(1000, { delay : 1500 })}>Scroll 1000 More! ( delay ) </a></li>
@@ -75,6 +78,10 @@ var Section = React.createClass({
         <div id="anchor" className="element">
           test 6 (anchor)
         </div>
+
+        <Element name="test7" className="element">
+          test 7 (duration)
+        </Element>
 
         <a onClick={this.scrollToTop}>To the top!</a>
       

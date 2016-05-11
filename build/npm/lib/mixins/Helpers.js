@@ -19,7 +19,8 @@ var Helpers = {
         to: React.PropTypes.string.isRequired,
         offset: React.PropTypes.number,
         delay: React.PropTypes.number,
-        onClick: React.PropTypes.func
+        onClick: React.PropTypes.func,
+        duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func])
       },
       
       getDefaultProps: function() {
