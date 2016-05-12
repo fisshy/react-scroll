@@ -105,6 +105,7 @@ var Helpers = {
 
             if(!element) {
                 element = scroller.get(to);
+                if(!element){ return;}
 
                 var cords = element.getBoundingClientRect();
                 elemTopBound = (cords.top + y);
