@@ -19,6 +19,7 @@ var Helpers = {
         to: React.PropTypes.string.isRequired,
         offset: React.PropTypes.number,
         delay: React.PropTypes.number,
+        isDynamic: React.PropTypes.bool,
         onClick: React.PropTypes.func,
         duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func])
       },
@@ -103,7 +104,7 @@ var Helpers = {
 
           scrollSpy.addSpyHandler((function(y) {
 
-            if(!element) {
+            if(!element || this.props.isDynamic) {
                 element = scroller.get(to);
                 if(!element){ return;}
 
