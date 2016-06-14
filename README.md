@@ -278,7 +278,7 @@ module.exports = Helpers.Scroll(Link);
 ```
 
 #### Changelog
-> v1.0.18
+> v1.0.17
 - isDynamic property has been added. To allow scrollSpy to recalculate components that expand
 
 #### Things that needs to be done - feel free to contribute.
