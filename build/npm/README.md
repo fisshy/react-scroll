@@ -25,12 +25,13 @@ Checkout examples
 ```js
 
 var React   = require('react');
-var Scroll  = require('react-scroll'); 
+var Scroll  = require('react-scroll');
 
-var Link    = Scroll.Link;
-var Element = Scroll.Element;
-var Events  = Scroll.Events;
-var scroll  = Scroll.animateScroll;
+var Link       = Scroll.Link;
+var DirectLink = Scroll.DirectLink;
+var Element    = Scroll.Element;
+var Events     = Scroll.Events;
+var scroll     = Scroll.animateScroll;
 
 var Section = React.createClass({
   componentDidMount: function() {
@@ -123,14 +124,17 @@ React.render(
 
 > delay - wait x seconds before scroll
 
+> isDynamic - in case the distance has to be recalculated - if you have content that expands etc.
+
 ```js
-<Link activeClass="active" 
-      to="target" 
-      spy={true} 
-      smooth={true} 
-      offset={50} 
-      duration={500} 
+<Link activeClass="active"
+      to="target"
+      spy={true}
+      smooth={true}
+      offset={50}
+      duration={500}
       delay={1000}
+      isDynamic={true}
 >
   Your name
 </Link>
@@ -209,7 +213,7 @@ scroll.scrollMore(10, options);
 
 ```js
 
-var Scroll = require('react-scroll'); 
+var Scroll = require('react-scroll');
 var Events = Scroll.Events;
 
 Events.scrollEvent.register('begin', function(to, element) {
@@ -231,7 +235,7 @@ Events.scrollEvent.register('end', function(to, element) {
 
 > Remove events
 
-```js 
+```js
 
 Events.scrollEvent.remove('begin');
 Events.scrollEvent.remove('end');
@@ -244,7 +248,7 @@ Events.scrollEvent.remove('end');
 
 ```js
 var React   = require('react');
-var Scroll  = require('react-scroll'); 
+var Scroll  = require('react-scroll');
 var Helpers = Scroll.Helpers;
 
 var Element = React.createClass({
@@ -277,4 +281,3 @@ module.exports = Helpers.Scroll(Link);
 - Being able to use react-scroll within a div.
 - Integrate react-scroll with react-router
 - Hash-scrolling.
-
