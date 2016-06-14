@@ -277,6 +277,10 @@ module.exports = Helpers.Scroll(Link);
 
 ```
 
+#### Changelog
+> v1.0.18
+- isDynamic property has been added. To allow scrollSpy to recalculate components that expand
+
 #### Things that needs to be done - feel free to contribute.
 - Being able to use react-scroll within a div.
 - Integrate react-scroll with react-router
