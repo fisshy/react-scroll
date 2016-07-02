@@ -17,19 +17,20 @@ var Helpers = {
 
       propTypes: {
         to: React.PropTypes.string.isRequired,
+        containerId: React.PropTypes.string,
         offset: React.PropTypes.number,
         delay: React.PropTypes.number,
         isDynamic: React.PropTypes.bool,
         onClick: React.PropTypes.func,
         duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func])
       },
-      
+
       getDefaultProps: function() {
         return {offset: 0};
       },
 
       scrollTo : function(to, props) {
-          scroller.scrollTo(to, props);
+        scroller.scrollTo(to, props);
       },
 
       handleClick: function(event) {
@@ -87,14 +88,14 @@ var Helpers = {
 
       componentDidMount: function() {
 
-        scrollSpy.mount();
-      
+        scrollSpy.mount(this.props.containerId);
 
         if(this.props.spy) {
           var to = this.props.to;
           var element = null;
           var elemTopBound = 0;
           var elemBottomBound = 0;
+          var container = document.getElementById(this.props.containerId);
 
           scrollSpy.addStateHandler((function() {
             if(scroller.getActiveLink() != to) {
@@ -103,13 +104,14 @@ var Helpers = {
           }).bind(this));
 
           scrollSpy.addSpyHandler((function(y) {
+            var containerRect = container ? container.getBoundingClientRect() : undefined;
 
             if(!element || this.props.isDynamic) {
                 element = scroller.get(to);
                 if(!element){ return;}
 
                 var cords = element.getBoundingClientRect();
-                elemTopBound = (cords.top + y);
+                elemTopBound = (cords.top + y) - ((containerRect && containerRect.top) ? containerRect.top : 0);
                 elemBottomBound = elemTopBound + cords.height;
             }
 

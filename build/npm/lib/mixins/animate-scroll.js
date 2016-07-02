@@ -57,8 +57,12 @@ var __deltaTop;
 var __percent;
 var __delayTimeout;
 
+var __container;
+var __containerRect;
+
 
 var currentPositionY = function() {
+  if (__container) return __container.scrollTop;
   var supportPageOffset = window.pageXOffset !== undefined;
   var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
   return supportPageOffset ? window.pageYOffset : isCSS1Compat ?
@@ -94,7 +98,11 @@ var animateTopScroll = function(timestamp) {
 
   __currentPositionY = __startPositionY + Math.ceil(__deltaTop * __percent);
 
-  window.scrollTo(0, __currentPositionY);
+  if (__container) {
+    __container.scrollTop = __currentPositionY;
+  } else {
+    window.scrollTo(0, __currentPositionY);
+  }
 
   if(__percent < 1) {
     requestAnimationFrameHelper.call(window, animateTopScroll);
@@ -109,9 +117,9 @@ var animateTopScroll = function(timestamp) {
 
 var startAnimateTopScroll = function(y, options, to, target) {
 
-
   window.clearTimeout(__delayTimeout);
 
+  __container       = document.getElementById(options.containerId);
   __start           = null;
   __cancel          = false;
   __startPositionY  = currentPositionY();

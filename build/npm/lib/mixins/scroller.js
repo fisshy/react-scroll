@@ -31,44 +31,61 @@ module.exports = {
   },
 
   scrollTo: function(to, props) {
+    var bodyRect;
+    var scrollOffset;
 
-     /*
-     * get the mapped DOM element
+    /*
+    * get the mapped DOM element
+    */
+    var target = this.get(to);
+
+    if(!target) {
+      throw new Error("target Element not found");
+    }
+
+    props = props || {};
+
+    var coordinates = target.getBoundingClientRect();
+    var container = props.containerId ? document.getElementById(props.containerId) : undefined;
+    var containerRect = container ? container.getBoundingClientRect() : undefined;
+
+    if (container) {
+      scrollOffset = coordinates.top - containerRect.top;
+    } else {
+      bodyRect = document.body.getBoundingClientRect();
+      scrollOffset = coordinates.top - bodyRect.top;
+    }
+
+    if(events.registered['begin']) {
+      events.registered['begin'](to, target);
+    }
+
+    /*
+     * if animate is not provided just scroll into the view
      */
+    if(!props.smooth) {
 
-      var target = this.get(to);
-
-      if(!target) {
-        throw new Error("target Element not found");
-      }
-
-      props = props || {};
-
-      var coordinates = target.getBoundingClientRect();
-
-      if(events.registered['begin']) {
-        events.registered['begin'](to, target);
-      }
-      /*
-       * if animate is not provided just scroll into the view
-       */
-      if(!props.smooth) {
-        var bodyRect = document.body.getBoundingClientRect();
-        var scrollOffset = coordinates.top - bodyRect.top;
+      if (container) {
+        container.scrollTop += scrollOffset + (props.offset || 0);
+      } else {
         window.scrollTo(0, scrollOffset + (props.offset || 0));
-
-        if(events.registered['end']) {
-          events.registered['end'](to, target);
-        }
-
-        return;
       }
 
-      /*
-       * Animate scrolling
-       */
+      if(events.registered['end']) {
+        events.registered['end'](to, target);
+      }
 
+      return;
+    }
+
+    /*
+     * Animate scrolling
+     */
+    if (container) {
+      animateScroll.animateTopScroll(scrollOffset + (props.offset || 0), props, to, target);
+    } else {
       animateScroll.animateTopScroll(coordinates.top + (props.offset || 0), props, to, target);
+    }
   }
 };
 

@@ -1,14 +1,20 @@
 var scrollSpy = {
-  
+
   spyCallbacks: [],
   spySetState: [],
 
-  mount: function () {
+  mount: function (containerId) {
     if (typeof document !== 'undefined') {
-      document.addEventListener('scroll', this.scrollHandler.bind(this));
+      if (containerId) {
+        this.container = document.getElementById(containerId);
+        this.container.addEventListener('scroll', this.scrollHandler.bind(this));
+      } else {
+        document.addEventListener('scroll', this.scrollHandler.bind(this));
+      }
     }
   },
   currentPositionY: function () {
+    if (this.container) return this.container.scrollTop;
     var supportPageOffset = window.pageXOffset !== undefined;
     var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
     return supportPageOffset ? window.pageYOffset : isCSS1Compat ?
@@ -36,11 +42,15 @@ var scrollSpy = {
       this.spySetState[i]();
     }
   },
-  unmount: function () { 
+  unmount: function () {
     this.spyCallbacks = [];
     this.spySetState = [];
 
-    document.removeEventListener('scroll', this.scrollHandler);
+    if (this.container) {
+      this.container.removeEventListener('scroll', this.scrollHandler);
+    } else {
+      document.removeEventListener('scroll', this.scrollHandler);
+    }
   }
 }
 
