@@ -164,4 +164,5 @@ module.exports = {
   scrollToBottom: scrollToBottom,
   scrollTo: scrollTo,
   scrollMore: scrollMore,
+  getCurrentPositionY: currentPositionY
 };
