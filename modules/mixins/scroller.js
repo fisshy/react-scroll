@@ -1,3 +1,5 @@
+var assign = require('object-assign');
+
 var animateScroll = require('./animate-scroll');
 var events = require('./scroll-events');
 
@@ -42,9 +44,8 @@ module.exports = {
         throw new Error("target Element not found");
       }
 
-      props = props || {};
+      props = assign({}, props, { absolute : true })
 
-      var coordinates = target.getBoundingClientRect();
 
       if(events.registered['begin']) {
         events.registered['begin'](to, target);
@@ -53,17 +54,35 @@ module.exports = {
       var containerId = props.containerId;
       var containerElement = containerId ? document.getElementById(containerId) : null;
 
+      var scrollOffset;
+
+      if(containerId && containerElement) {
+        if(containerElement !== target.offsetParent) {
+          if(!containerElement.contains(target)) {
+            throw new Error('Container with ID ' + containerId + ' is not a parent of target ' + to);
+          } else {
+            throw new Error('Container with ID ' + containerId + ' is not a positioned element');
+          }
+        }
+
+        scrollOffset = target.offsetTop;
+      } else {
+        var coordinates = target.getBoundingClientRect();
+        var bodyRect = document.body.getBoundingClientRect();
+        scrollOffset = coordinates.top - bodyRect.top;
+      }
+
+      scrollOffset += (props.offset || 0);
+
+
       /*
        * if animate is not provided just scroll into the view
        */
       if(!props.smooth) {
         if(containerId && containerElement) {
-          var scrollTop = containerElement.scrollTop + coordinates.top;
-          containerElement.scrollTop = scrollTop + (props.offset || 0);
+          containerElement.scrollTop = scrollOffset;
         } else {
-          var bodyRect = document.body.getBoundingClientRect();
-          var scrollOffset = coordinates.top - bodyRect.top;
-          window.scrollTo(0, scrollOffset + (props.offset || 0));
+          window.scrollTo(0, scrollOffset);
         }
 
         if(events.registered['end']) {
@@ -77,6 +96,6 @@ module.exports = {
        * Animate scrolling
        */
 
-      animateScroll.animateTopScroll(coordinates.top + (props.offset || 0), props, to, target);
+      animateScroll.animateTopScroll(scrollOffset, props, to, target);
   }
 };

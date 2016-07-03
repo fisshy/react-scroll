@@ -2,7 +2,7 @@
 
 var React     = require('react');
 var ReactDOM  = require('react-dom');
-var Scroll    = require('react-scroll'); 
+var Scroll    = require('react-scroll');
 
 var Link       = Scroll.Link;
 var DirectLink = Scroll.DirectLink;
@@ -46,7 +46,7 @@ var Section = React.createClass({
                 <li><Link activeClass="active" className="test4" to="test4" spy={true} smooth={true} duration={500}>Test 4</Link></li>
                 <li><Link activeClass="active" className="test5" to="test5" spy={true} smooth={true} duration={500} delay={1000}>Test 5 ( delay )</Link></li>
                 <li><DirectLink className="test6" to="anchor" spy={true} smooth={true} duration={500}>Test 6 (anchor)</DirectLink></li>
-                <li><Link activeClass="active" className="test7" to="test7" spy={true} smooth={true} duration={durationFn}>Test 7 (duration)</Link></li>
+                <li><Link activeClass="active" className="test7" to="test7" spy={true} smooth={true} duration={durationFn}>Test 7 (duration and container)</Link></li>
                 <li> <a onClick={() => scroll.scrollTo(100)}>Scroll To 100!</a></li>
                 <li> <a onClick={() => scroll.scrollMore(500)}>Scroll 500 More!</a></li>
                 <li> <a onClick={() => scroll.scrollMore(1000, { delay : 1500 })}>Scroll 1000 More! ( delay ) </a></li>
@@ -79,12 +79,36 @@ var Section = React.createClass({
           test 6 (anchor)
         </div>
 
-        <Element name="test7" className="element">
-          test 7 (duration)
+        <Link activeClass="active" to="firstInsideContainer" spy={true} smooth={true} duration={250} containerId="containerElement" style={{display:'inline-block', margin: '20px'}}>
+          Go to first element inside container
+        </Link>
+
+        <Link activeClass="active" to="secondInsideContainer" spy={true} smooth={true} duration={250} containerId="containerElement" style={{display:'inline-block', margin: '20px'}}>
+          Go to second element inside container
+        </Link>
+        <Element name="test7" className="element" id="containerElement" style={{
+          position: 'relative',
+          height:'200px',
+          overflow:'scroll',
+          marginBottom: '100px'
+        }}>
+          test 7 (duration and container)
+
+          <Element name="firstInsideContainer" style={{
+            marginBottom: '200px'
+          }}>
+            first element inside container
+          </Element>
+
+          <Element name="secondInsideContainer" style={{
+            marginBottom: '200px'
+          }}>
+            second element inside container
+          </Element>
         </Element>
 
         <a onClick={this.scrollToTop}>To the top!</a>
-      
+
       </div>
     );
   }

@@ -76,7 +76,7 @@ var scrollContainerHeight = function() {
       __containerElement.scrollHeight,
       __containerElement.offsetHeight,
       __containerElement.clientHeight
-    )
+    );
   } else {
     var body = document.body;
     var html = document.documentElement;
@@ -96,6 +96,7 @@ var animateTopScroll = function(timestamp) {
   if(__cancel) { return };
 
   __deltaTop = Math.round(__targetPositionY - __startPositionY);
+
 
   if (__start === null) {
     __start = timestamp;
@@ -127,10 +128,13 @@ var animateTopScroll = function(timestamp) {
 var startAnimateTopScroll = function(y, options, to, target) {
 
 
+
+
   window.clearTimeout(__delayTimeout);
 
   var containerId = options.containerId;
 	__containerElement = containerId ? document.getElementById(containerId) : null;
+
 
   __start           = null;
   __cancel          = false;

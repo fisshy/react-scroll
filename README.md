@@ -2,11 +2,9 @@
 
 Directive for basic scrolling and smooth scrolling.
 
-Set up for use with optional container. Use property `containerId="someId"` to use said container for scroll listeners and scrolling.
-
 ### Install
 ```js
-$ npm install git+https://git@github.com/poacher2k/react-scroll.git
+$ npm install react-scroll
 ```
 
 ### Run
@@ -66,7 +64,7 @@ var Section = React.createClass({
   render: function () {
   	return (
       <div>
-        <Link activeClass="active" to="test1" containerId="someContainerId" spy={true} smooth={true} offset={50} duration={500} >
+        <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} >
           Test 1
         </Link>
         <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} delay={1000}>
@@ -87,8 +85,33 @@ var Section = React.createClass({
           test 2
         </Element>
 
+        <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} delay={1000}>
+          Test 2 (delay)
+        </Link>
+        <div id="container">
+
+        </div>
+
         <div id="anchor" className="element">
           test 6 (anchor)
+        </div>
+
+        
+        <Link activeClass="active" to="firstInsideContainer" spy={true} smooth={true} duration={250} containerId="containerElement">
+          Go to first element inside container
+        </Link>
+
+        <Link activeClass="active" to="secondInsideContainer" spy={true} smooth={true} duration={250} containerId="containerElement">
+          Go to second element inside container
+        </Link>
+        <div className="element" id="containerElement">
+          <Element name="firstInsideContainer">
+            first element inside container
+          </Element>
+
+          <Element name="secondInsideContainer">
+            second element inside container
+          </Element>
         </div>
 
         <a onClick={this.scrollToTop}>To the top!</a>
