@@ -17,13 +17,14 @@ var Helpers = {
 
       propTypes: {
         to: React.PropTypes.string.isRequired,
+        containerId: React.PropTypes.string,
         offset: React.PropTypes.number,
         delay: React.PropTypes.number,
         isDynamic: React.PropTypes.bool,
         onClick: React.PropTypes.func,
         duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func])
       },
-      
+
       getDefaultProps: function() {
         return {offset: 0};
       },
@@ -87,8 +88,12 @@ var Helpers = {
 
       componentDidMount: function() {
 
-        scrollSpy.mount();
-      
+        var containerId = this.props.containerId;
+
+        var scrollSpyContainer = containerId ? document.getElementById(containerId) : document;
+
+        scrollSpy.mount(scrollSpyContainer);
+
 
         if(this.props.spy) {
           var to = this.props.to;
@@ -177,6 +182,20 @@ var Helpers = {
         return React.createElement(Component, this.props);
       }
     });
+  },
+
+  eventThrottler: function(eventHandler) {
+    var eventHandlerTimeout;
+    return function(event) {
+      // ignore events as long as an eventHandler execution is in the queue
+      if ( !eventHandlerTimeout ) {
+        eventHandlerTimeout = setTimeout(function() {
+          eventHandlerTimeout = null;
+          eventHandler(event);
+          // The eventHandler will execute at a rate of 15fps
+        }, 66);
+      }
+    };
   }
 };
 

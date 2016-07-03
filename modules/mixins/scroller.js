@@ -49,13 +49,22 @@ module.exports = {
       if(events.registered['begin']) {
         events.registered['begin'](to, target);
       }
+
+      var containerId = props.containerId;
+      var containerElement = containerId ? document.getElementById(containerId) : null;
+
       /*
        * if animate is not provided just scroll into the view
        */
       if(!props.smooth) {
-        var bodyRect = document.body.getBoundingClientRect();
-        var scrollOffset = coordinates.top - bodyRect.top;
-        window.scrollTo(0, scrollOffset + (props.offset || 0));
+        if(containerId && containerElement) {
+          var scrollTop = containerElement.scrollTop + coordinates.top;
+          containerElement.scrollTop = scrollTop + (props.offset || 0);
+        } else {
+          var bodyRect = document.body.getBoundingClientRect();
+          var scrollOffset = coordinates.top - bodyRect.top;
+          window.scrollTo(0, scrollOffset + (props.offset || 0));
+        }
 
         if(events.registered['end']) {
           events.registered['end'](to, target);
@@ -71,4 +80,3 @@ module.exports = {
       animateScroll.animateTopScroll(coordinates.top + (props.offset || 0), props, to, target);
   }
 };
-

@@ -1,23 +1,32 @@
+var Helpers  = require('./Helpers');
+
 var scrollSpy = {
-  
+
   spyCallbacks: [],
   spySetState: [],
 
-  mount: function () {
-    if (typeof document !== 'undefined') {
-      document.addEventListener('scroll', this.scrollHandler.bind(this));
+  mount: function (scrollSpyContainer) {
+    if (typeof scrollSpyContainer !== 'undefined') {
+      var eventHandler = Helpers.eventThrottler(function(event) {
+  			this.scrollHandler(scrollSpyContainer);
+  		});
+      scrollSpyContainer.addEventListener('scroll', eventHandler);
     }
   },
-  currentPositionY: function () {
-    var supportPageOffset = window.pageXOffset !== undefined;
-    var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
-    return supportPageOffset ? window.pageYOffset : isCSS1Compat ?
-            document.documentElement.scrollTop : document.body.scrollTop;
+  currentPositionY: function (scrollSpyContainer) {
+    if(scrollSpyContainer === document) {
+      var supportPageOffset = window.pageXOffset !== undefined;
+      var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
+      return supportPageOffset ? window.pageYOffset : isCSS1Compat ?
+      document.documentElement.scrollTop : document.body.scrollTop;
+    } else {
+      return scrollSpyContainer.scrollTop;
+    }
   },
 
-  scrollHandler: function () {
+  scrollHandler: function (scrollSpyContainer) {
     for(var i = 0; i < this.spyCallbacks.length; i++) {
-      this.spyCallbacks[i](this.currentPositionY());
+      this.spyCallbacks[i](this.currentPositionY(scrollSpyContainer));
     }
   },
 
@@ -36,7 +45,7 @@ var scrollSpy = {
       this.spySetState[i]();
     }
   },
-  unmount: function () { 
+  unmount: function () {
     this.spyCallbacks = [];
     this.spySetState = [];
 

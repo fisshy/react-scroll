@@ -2,9 +2,11 @@
 
 Directive for basic scrolling and smooth scrolling.
 
+Set up for use with optional container. Use property `containerId="someId"` to use said container for scroll listeners and scrolling.
+
 ### Install
 ```js
-$ npm install react-scroll
+$ npm install git+https://git@github.com/poacher2k/react-scroll.git
 ```
 
 ### Run
@@ -64,7 +66,7 @@ var Section = React.createClass({
   render: function () {
   	return (
       <div>
-        <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} >
+        <Link activeClass="active" to="test1" containerId="someContainerId" spy={true} smooth={true} offset={50} duration={500} >
           Test 1
         </Link>
         <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} delay={1000}>
@@ -113,6 +115,8 @@ React.render(
 > activeClass - class applied when element is reached
 
 > to - target to scroll to
+
+> containerId - container to listen for scroll events and to perform scrolling in
 
 > spy - make Link selected when scroll is at it's targets position
 
