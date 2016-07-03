@@ -85,18 +85,11 @@ var Section = React.createClass({
           test 2
         </Element>
 
-        <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} delay={1000}>
-          Test 2 (delay)
-        </Link>
-        <div id="container">
-
-        </div>
-
         <div id="anchor" className="element">
           test 6 (anchor)
         </div>
 
-        
+
         <Link activeClass="active" to="firstInsideContainer" spy={true} smooth={true} duration={250} containerId="containerElement">
           Go to first element inside container
         </Link>
