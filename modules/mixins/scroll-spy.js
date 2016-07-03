@@ -1,4 +1,16 @@
-var Helpers  = require('./Helpers');
+var eventThrottler = function(eventHandler) {
+  var eventHandlerTimeout;
+  return function(event) {
+    // ignore events as long as an eventHandler execution is in the queue
+    if ( !eventHandlerTimeout ) {
+      eventHandlerTimeout = setTimeout(function() {
+        eventHandlerTimeout = null;
+        eventHandler(event);
+        // The eventHandler will execute at a rate of 15fps
+      }, 66);
+    }
+  };
+};
 
 var scrollSpy = {
 
@@ -6,9 +18,10 @@ var scrollSpy = {
   spySetState: [],
 
   mount: function (scrollSpyContainer) {
+    var t = this;
     if (typeof scrollSpyContainer !== 'undefined') {
-      var eventHandler = Helpers.eventThrottler(function(event) {
-  			this.scrollHandler(scrollSpyContainer);
+      var eventHandler = eventThrottler(function(event) {
+  			t.scrollHandler(scrollSpyContainer);
   		});
       scrollSpyContainer.addEventListener('scroll', eventHandler);
     }

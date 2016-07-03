@@ -182,20 +182,6 @@ var Helpers = {
         return React.createElement(Component, this.props);
       }
     });
-  },
-
-  eventThrottler: function(eventHandler) {
-    var eventHandlerTimeout;
-    return function(event) {
-      // ignore events as long as an eventHandler execution is in the queue
-      if ( !eventHandlerTimeout ) {
-        eventHandlerTimeout = setTimeout(function() {
-          eventHandlerTimeout = null;
-          eventHandler(event);
-          // The eventHandler will execute at a rate of 15fps
-        }, 66);
-      }
-    };
   }
 };
 
