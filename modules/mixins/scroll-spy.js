@@ -19,7 +19,7 @@ var scrollSpy = {
 
   mount: function (scrollSpyContainer) {
     var t = this;
-    if (typeof scrollSpyContainer !== 'undefined') {
+    if (scrollSpyContainer) {
       var eventHandler = eventThrottler(function(event) {
   			t.scrollHandler(scrollSpyContainer);
   		});
