@@ -89,6 +89,24 @@ var Section = React.createClass({
           test 6 (anchor)
         </div>
 
+
+        <Link activeClass="active" to="firstInsideContainer" spy={true} smooth={true} duration={250} containerId="containerElement">
+          Go to first element inside container
+        </Link>
+
+        <Link activeClass="active" to="secondInsideContainer" spy={true} smooth={true} duration={250} containerId="containerElement">
+          Go to second element inside container
+        </Link>
+        <div className="element" id="containerElement">
+          <Element name="firstInsideContainer">
+            first element inside container
+          </Element>
+
+          <Element name="secondInsideContainer">
+            second element inside container
+          </Element>
+        </div>
+
         <a onClick={this.scrollToTop}>To the top!</a>
         <br/>
         <a onClick={this.scrollToBottom}>To the bottom!</a>
@@ -113,6 +131,8 @@ React.render(
 > activeClass - class applied when element is reached
 
 > to - target to scroll to
+
+> containerId - container to listen for scroll events and to perform scrolling in
 
 > spy - make Link selected when scroll is at it's targets position
 

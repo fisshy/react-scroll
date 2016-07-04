@@ -25,7 +25,7 @@ describe('AnimateScroll', () => {
 
   // the bigger the difference between the 2 the better,
   // For some reason, sometimes test just fail because the animation did complete in time!
-  const waitDuration = duration * 5;
+  const waitDuration = duration * 10;
 
   let tallComponent =
       <div id="hugeComponent">
