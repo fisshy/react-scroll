@@ -160,13 +160,11 @@ var Helpers = {
         props.className = className;
         props.onClick = this.handleClick;
 
-        return React.createElement(Component, 
-          { 
-            className: className, 
-            children: this.props.children, 
-            onClick: this.handleClick 
-          }
-        );
+        return React.createElement(Component, {
+            className: className,
+            children: this.props.children,
+            onClick: this.handleClick
+        });
       }
     });
   },
@@ -185,12 +183,10 @@ var Helpers = {
         defaultScroller.unregister(this.props.name);
       },
       render: function() {
-        return React.createElement(Component, 
-          { 
-            className: this.props.className, 
-            children: this.props.children 
-          }
-        );
+        return React.createElement(Component, {
+            className: this.props.className,
+            children: this.props.children
+        });
       }
     });
   }
