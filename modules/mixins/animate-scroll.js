@@ -127,14 +127,10 @@ var animateTopScroll = function(timestamp) {
 
 var startAnimateTopScroll = function(y, options, to, target) {
 
-
-
-
   window.clearTimeout(__delayTimeout);
 
   var containerId = options.containerId;
 	__containerElement = containerId ? document.getElementById(containerId) : null;
-
 
   __start           = null;
   __cancel          = false;
