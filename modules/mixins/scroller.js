@@ -44,7 +44,7 @@ module.exports = {
         throw new Error("target Element not found");
       }
 
-      props = assign({}, props, { absolute : true })
+      props = assign({}, props, { absolute : false });
 
 
       if(events.registered['begin']) {
@@ -57,6 +57,7 @@ module.exports = {
       var scrollOffset;
 
       if(containerId && containerElement) {
+        props.absolute = true;
         if(containerElement !== target.offsetParent) {
           if(!containerElement.contains(target)) {
             throw new Error('Container with ID ' + containerId + ' is not a parent of target ' + to);
