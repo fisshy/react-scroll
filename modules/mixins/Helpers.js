@@ -162,6 +162,8 @@ var Helpers = {
 
         return React.createElement(Component, {
             className: className,
+            id: this.props.id,
+            style: this.props.style,
             children: this.props.children,
             onClick: this.handleClick
         });
@@ -185,6 +187,8 @@ var Helpers = {
       render: function() {
         return React.createElement(Component, {
             className: this.props.className,
+            style: this.props.style,
+            id: this.props.id,
             children: this.props.children
         });
       }

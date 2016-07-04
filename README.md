@@ -298,9 +298,12 @@ module.exports = Helpers.Scroll(Link);
 ```
 
 #### Changelog
+
+> v1.0.19
+- Property warnings has now been removed.
+
 > v1.0.18
 - It's now possible to scroll within a container, checkout the code under examples.
-- Property warnings has now been removed.
 
 > v1.0.17
 - isDynamic property has been added. To allow scrollSpy to recalculate components that expand
