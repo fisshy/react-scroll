@@ -69,7 +69,7 @@ module.exports = {
       } else {
         var coordinates = target.getBoundingClientRect();
         var bodyRect = document.body.getBoundingClientRect();
-        scrollOffset = coordinates.top - bodyRect.top;
+        scrollOffset = coordinates.top;
       }
 
       scrollOffset += (props.offset || 0);
