@@ -90,11 +90,11 @@ var Section = React.createClass({
         </div>
 
 
-        <Link activeClass="active" to="firstInsideContainer" spy={true} smooth={true} duration={250} containerId="containerElement">
+        <Link to="firstInsideContainer" containerId="containerElement">
           Go to first element inside container
         </Link>
 
-        <Link activeClass="active" to="secondInsideContainer" spy={true} smooth={true} duration={250} containerId="containerElement">
+        <Link to="secondInsideContainer" containerId="containerElement">
           Go to second element inside container
         </Link>
         <div className="element" id="containerElement">
