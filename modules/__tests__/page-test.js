@@ -13,9 +13,9 @@ import assert   from 'assert';
 
 
 describe('Page', () => {
-  
+
   let node = document.createElement('div');
-  
+
   document.body.appendChild(node)
 
   let scrollDuration = 10;
@@ -47,33 +47,16 @@ describe('Page', () => {
     unmountComponentAtNode(node)
     window.scrollTo(0, 0);
   });
-    
+
   it('renders six elements of link/element', (done) => {
 
     render(component, node, () => {
 
         var allLinks = node.querySelectorAll('a');
         var allTargets = node.querySelectorAll('.element');
-        
+
         expect(allLinks.length).toEqual(6);
         expect(allTargets.length).toEqual(6);
-
-        done();
-
-    });
-
-  })
-
-  it('all targets has name and class', (done) => {
-
-    render(component, node, () => {
-
-        var allTargets = node.querySelectorAll('.element');
-          
-        [].forEach.call(allTargets, (element, i) => {
-          expect(element.className).toEqual('element');
-          expect(element.getAttribute('name')).toEqual('test' + ( i + 1 ));
-        });
 
         done();
 
@@ -87,7 +70,7 @@ describe('Page', () => {
   });
 
   it('is active when clicked', (done) => {
-    
+
     render(component, node, () => {
 
       var link = node.querySelectorAll('a')[2];
@@ -101,7 +84,7 @@ describe('Page', () => {
       var scrollStart = window.scrollY;
 
       /* Let it scroll, duration is based on param sent to Link */
-      
+
       setTimeout(() => {
 
         var scrollStop = scrollStart + expectedScrollTo
@@ -112,14 +95,14 @@ describe('Page', () => {
 
         done();
 
-      }, scrollDuration + 50);
+      }, scrollDuration + 500);
 
     });
 
   })
 
   it('is active when clicked to last (5) element', (done) => {
-    
+
     render(component, node, () => {
 
       var link = node.querySelectorAll('a')[5];
@@ -143,7 +126,7 @@ describe('Page', () => {
 
         done();
 
-      }, scrollDuration + 50);
+      }, scrollDuration + 500);
 
       });
 
