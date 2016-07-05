@@ -299,6 +299,9 @@ module.exports = Helpers.Scroll(Link);
 
 #### Changelog
 
+> v1.0.20
+- Published, somehow the publish failed
+
 > v1.0.19
 - Property warnings has now been removed.
 

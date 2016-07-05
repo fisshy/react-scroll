@@ -1,23 +1,45 @@
+var eventThrottler = function(eventHandler) {
+  var eventHandlerTimeout;
+  return function(event) {
+    // ignore events as long as an eventHandler execution is in the queue
+    if ( !eventHandlerTimeout ) {
+      eventHandlerTimeout = setTimeout(function() {
+        eventHandlerTimeout = null;
+        eventHandler(event);
+        // The eventHandler will execute at a rate of 15fps
+      }, 66);
+    }
+  };
+};
+
 var scrollSpy = {
-  
+
   spyCallbacks: [],
   spySetState: [],
 
-  mount: function () {
-    if (typeof document !== 'undefined') {
-      document.addEventListener('scroll', this.scrollHandler.bind(this));
+  mount: function (scrollSpyContainer) {
+    var t = this;
+    if (scrollSpyContainer) {
+      var eventHandler = eventThrottler(function(event) {
+  			t.scrollHandler(scrollSpyContainer);
+  		});
+      scrollSpyContainer.addEventListener('scroll', eventHandler);
     }
   },
-  currentPositionY: function () {
-    var supportPageOffset = window.pageXOffset !== undefined;
-    var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
-    return supportPageOffset ? window.pageYOffset : isCSS1Compat ?
-            document.documentElement.scrollTop : document.body.scrollTop;
+  currentPositionY: function (scrollSpyContainer) {
+    if(scrollSpyContainer === document) {
+      var supportPageOffset = window.pageXOffset !== undefined;
+      var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
+      return supportPageOffset ? window.pageYOffset : isCSS1Compat ?
+      document.documentElement.scrollTop : document.body.scrollTop;
+    } else {
+      return scrollSpyContainer.scrollTop;
+    }
   },
 
-  scrollHandler: function () {
+  scrollHandler: function (scrollSpyContainer) {
     for(var i = 0; i < this.spyCallbacks.length; i++) {
-      this.spyCallbacks[i](this.currentPositionY());
+      this.spyCallbacks[i](this.currentPositionY(scrollSpyContainer));
     }
   },
 
@@ -36,7 +58,7 @@ var scrollSpy = {
       this.spySetState[i]();
     }
   },
-  unmount: function () { 
+  unmount: function () {
     this.spyCallbacks = [];
     this.spySetState = [];
 

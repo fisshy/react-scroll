@@ -51,6 +51,7 @@ var __duration          = 0;
 var __cancel            = false;
 
 var __target;
+var __containerElement;
 var __to;
 var __start;
 var __deltaTop;
@@ -59,23 +60,35 @@ var __delayTimeout;
 
 
 var currentPositionY = function() {
-  var supportPageOffset = window.pageXOffset !== undefined;
-  var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
-  return supportPageOffset ? window.pageYOffset : isCSS1Compat ?
-         document.documentElement.scrollTop : document.body.scrollTop;
+  if (__containerElement) {
+        return __containerElement.scrollTop;
+	} else {
+    var supportPageOffset = window.pageXOffset !== undefined;
+    var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
+    return supportPageOffset ? window.pageYOffset : isCSS1Compat ?
+           document.documentElement.scrollTop : document.body.scrollTop;
+   }
 };
 
-var pageHeight = function() {
-  var body = document.body;
-  var html = document.documentElement;
+var scrollContainerHeight = function() {
+  if(__containerElement) {
+    return Math.max(
+      __containerElement.scrollHeight,
+      __containerElement.offsetHeight,
+      __containerElement.clientHeight
+    );
+  } else {
+    var body = document.body;
+    var html = document.documentElement;
 
-  return Math.max(
+    return Math.max(
       body.scrollHeight,
       body.offsetHeight,
       html.clientHeight,
       html.scrollHeight,
       html.offsetHeight
-  );
+    );
+  }
 };
 
 var animateTopScroll = function(timestamp) {
@@ -83,6 +96,7 @@ var animateTopScroll = function(timestamp) {
   if(__cancel) { return };
 
   __deltaTop = Math.round(__targetPositionY - __startPositionY);
+
 
   if (__start === null) {
     __start = timestamp;
@@ -94,7 +108,11 @@ var animateTopScroll = function(timestamp) {
 
   __currentPositionY = __startPositionY + Math.ceil(__deltaTop * __percent);
 
-  window.scrollTo(0, __currentPositionY);
+  if(__containerElement) {
+    __containerElement.scrollTop = __currentPositionY;
+  } else {
+    window.scrollTo(0, __currentPositionY);
+  }
 
   if(__percent < 1) {
     requestAnimationFrameHelper.call(window, animateTopScroll);
@@ -109,8 +127,10 @@ var animateTopScroll = function(timestamp) {
 
 var startAnimateTopScroll = function(y, options, to, target) {
 
-
   window.clearTimeout(__delayTimeout);
+
+  var containerId = options.containerId;
+	__containerElement = containerId ? document.getElementById(containerId) : null;
 
   __start           = null;
   __cancel          = false;
@@ -143,7 +163,7 @@ var scrollTo = function (toY, options) {
 };
 
 var scrollToBottom = function(options) {
-  startAnimateTopScroll(pageHeight(), assign(options || {}, { absolute : true }));
+  startAnimateTopScroll(scrollContainerHeight(), assign(options || {}, { absolute : true }));
 };
 
 var scrollMore = function(toY, options) {

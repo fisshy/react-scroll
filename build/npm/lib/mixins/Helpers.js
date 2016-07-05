@@ -17,13 +17,14 @@ var Helpers = {
 
       propTypes: {
         to: React.PropTypes.string.isRequired,
+        containerId: React.PropTypes.string,
         offset: React.PropTypes.number,
         delay: React.PropTypes.number,
         isDynamic: React.PropTypes.bool,
         onClick: React.PropTypes.func,
         duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func])
       },
-      
+
       getDefaultProps: function() {
         return {offset: 0};
       },
@@ -87,8 +88,12 @@ var Helpers = {
 
       componentDidMount: function() {
 
-        scrollSpy.mount();
-      
+        var containerId = this.props.containerId;
+
+        var scrollSpyContainer = containerId ? document.getElementById(containerId) : document;
+
+        scrollSpy.mount(scrollSpyContainer);
+
 
         if(this.props.spy) {
           var to = this.props.to;
@@ -155,7 +160,13 @@ var Helpers = {
         props.className = className;
         props.onClick = this.handleClick;
 
-        return React.createElement(Component, props);
+        return React.createElement(Component, {
+            className: className,
+            id: this.props.id,
+            style: this.props.style,
+            children: this.props.children,
+            onClick: this.handleClick
+        });
       }
     });
   },
@@ -174,7 +185,12 @@ var Helpers = {
         defaultScroller.unregister(this.props.name);
       },
       render: function() {
-        return React.createElement(Component, this.props);
+        return React.createElement(Component, {
+            className: this.props.className,
+            style: this.props.style,
+            id: this.props.id,
+            children: this.props.children
+        });
       }
     });
   }
