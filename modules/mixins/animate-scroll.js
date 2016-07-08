@@ -134,7 +134,7 @@ var startAnimateTopScroll = function(y, options, to, target) {
 
   window.clearTimeout(__delayTimeout);
 
-  if(typeof __containerElement === 'undefined') {
+  if(!__containerElement) {
     setContainer(options);
   }
 
