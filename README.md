@@ -299,6 +299,9 @@ module.exports = Helpers.Scroll(Link);
 
 #### Changelog
 
+> v1.0.21
+- scrollToBottom and scrollMore now works inside a container.
+
 > v1.0.20
 - Published, somehow the publish failed
 
