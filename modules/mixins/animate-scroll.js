@@ -125,12 +125,18 @@ var animateTopScroll = function(timestamp) {
 
 };
 
+var setContainer = function (options) {
+  var containerId = options.containerId;
+	__containerElement = containerId ? document.getElementById(containerId) : null;
+};
+
 var startAnimateTopScroll = function(y, options, to, target) {
 
   window.clearTimeout(__delayTimeout);
 
-  var containerId = options.containerId;
-	__containerElement = containerId ? document.getElementById(containerId) : null;
+  if(typeof __containerElement === 'undefined') {
+    setContainer(options);
+  }
 
   __start           = null;
   __cancel          = false;
@@ -163,10 +169,12 @@ var scrollTo = function (toY, options) {
 };
 
 var scrollToBottom = function(options) {
+  setContainer(options);
   startAnimateTopScroll(scrollContainerHeight(), assign(options || {}, { absolute : true }));
 };
 
 var scrollMore = function(toY, options) {
+  setContainer(options);
   startAnimateTopScroll(currentPositionY() + toY, assign(options || {}, { absolute : true }));
 };
 
