@@ -299,6 +299,9 @@ module.exports = Helpers.Scroll(Link);
 
 #### Changelog
 
+> v1.0.22
+- you can now pass any native property to Link/Element
+
 > v1.0.21
 - scrollToBottom and scrollMore now works inside a container.
 

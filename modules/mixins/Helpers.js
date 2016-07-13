@@ -6,6 +6,21 @@ var ReactDOM = require('react-dom');
 var animateScroll = require('./animate-scroll');
 var scrollSpy = require('./scroll-spy');
 var defaultScroller = require('./scroller');
+var assign = require('object-assign');
+
+
+var protoTypes = {
+  to: React.PropTypes.string.isRequired,
+  containerId: React.PropTypes.string,
+  activeClass:React.PropTypes.string,
+  spy: React.PropTypes.bool,
+  smooth: React.PropTypes.bool,
+  offset: React.PropTypes.number,
+  delay: React.PropTypes.number,
+  isDynamic: React.PropTypes.bool,
+  onClick: React.PropTypes.func,
+  duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func])
+};
 
 var Helpers = {
 
@@ -15,15 +30,7 @@ var Helpers = {
 
     return React.createClass({
 
-      propTypes: {
-        to: React.PropTypes.string.isRequired,
-        containerId: React.PropTypes.string,
-        offset: React.PropTypes.number,
-        delay: React.PropTypes.number,
-        isDynamic: React.PropTypes.bool,
-        onClick: React.PropTypes.func,
-        duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func])
-      },
+      propTypes: protoTypes,
 
       getDefaultProps: function() {
         return {offset: 0};
@@ -53,7 +60,6 @@ var Helpers = {
         /*
          * do the magic!
          */
-
         this.scrollTo(this.props.to, this.props);
 
       },
@@ -107,8 +113,7 @@ var Helpers = {
             }
           }).bind(this));
 
-          scrollSpy.addSpyHandler((function(y) {
-
+          var spyHandler = function(y) {
             if(!element || this.props.isDynamic) {
                 element = scroller.get(to);
                 if(!element){ return;}
@@ -138,13 +143,16 @@ var Helpers = {
               scrollSpy.updateStates();
 
             }
-          }).bind(this));
+          }.bind(this);
+
+          scrollSpy.addSpyHandler(spyHandler);
         }
       },
       componentWillUnmount: function() {
         scrollSpy.unmount();
       },
       render: function() {
+
         var className = "";
         if(this.state && this.state.active) {
           className = ((this.props.className || "") + " " + (this.props.activeClass || "active")).trim();
@@ -152,21 +160,18 @@ var Helpers = {
           className = this.props.className
         }
 
-        var props = {};
-        for(var prop in this.props) {
-          props[prop] = this.props[prop];
+        const props = assign({}, this.props);
+
+        for(var prop in protoTypes) {
+          if(props.hasOwnProperty(prop)) {
+            delete props[prop];
+          }
         }
 
         props.className = className;
         props.onClick = this.handleClick;
 
-        return React.createElement(Component, {
-            className: className,
-            id: this.props.id,
-            style: this.props.style,
-            children: this.props.children,
-            onClick: this.handleClick
-        });
+        return React.createElement(Component, props);
       }
     });
   },
@@ -185,12 +190,7 @@ var Helpers = {
         defaultScroller.unregister(this.props.name);
       },
       render: function() {
-        return React.createElement(Component, {
-            className: this.props.className,
-            style: this.props.style,
-            id: this.props.id,
-            children: this.props.children
-        });
+        return React.createElement(Component, this.props);
       }
     });
   }

@@ -55,7 +55,7 @@ var Section = React.createClass({
           </div>
         </nav>
 
-        <Element name="test1" className="element">
+        <Element name="test1" className="element" >
           test 1
         </Element>
 
