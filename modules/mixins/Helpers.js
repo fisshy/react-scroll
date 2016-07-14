@@ -157,7 +157,7 @@ var Helpers = {
         if(this.state && this.state.active) {
           className = ((this.props.className || "") + " " + (this.props.activeClass || "active")).trim();
         } else {
-          className = this.props.className
+          className = this.props.className;
         }
 
         var props = assign({}, this.props);
