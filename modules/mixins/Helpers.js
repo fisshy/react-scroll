@@ -160,7 +160,7 @@ var Helpers = {
           className = this.props.className
         }
 
-        const props = assign({}, this.props);
+        var props = assign({}, this.props);
 
         for(var prop in protoTypes) {
           if(props.hasOwnProperty(prop)) {
