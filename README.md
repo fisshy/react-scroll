@@ -299,7 +299,7 @@ module.exports = Helpers.Scroll(Link);
 
 #### Changelog
 
-> v1.0.22
+> v1.0.23
 - you can now pass any native property to Link/Element
 
 > v1.0.21
