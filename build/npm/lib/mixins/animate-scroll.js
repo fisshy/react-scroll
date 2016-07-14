@@ -97,7 +97,6 @@ var animateTopScroll = function(timestamp) {
 
   __deltaTop = Math.round(__targetPositionY - __startPositionY);
 
-
   if (__start === null) {
     __start = timestamp;
   }
@@ -126,8 +125,8 @@ var animateTopScroll = function(timestamp) {
 };
 
 var setContainer = function (options) {
-  var containerId = options.containerId;
-	__containerElement = containerId ? document.getElementById(containerId) : null;
+  if(!options || !options.containerId) { return; }
+	__containerElement = document.getElementById(options.containerId);
 };
 
 var startAnimateTopScroll = function(y, options, to, target) {
