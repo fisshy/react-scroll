@@ -150,6 +150,7 @@ var Helpers = {
       },
       componentWillUnmount: function() {
         scrollSpy.unmount();
+        animateScroll.resetContainer();
       },
       render: function() {
 
@@ -188,6 +189,7 @@ var Helpers = {
       },
       componentWillUnmount: function() {
         defaultScroller.unregister(this.props.name);
+        animateScroll.resetContainer();
       },
       render: function() {
         return React.createElement(Component, this.props);
