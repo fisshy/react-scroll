@@ -19,8 +19,11 @@ var protoTypes = {
   delay: React.PropTypes.number,
   isDynamic: React.PropTypes.bool,
   onClick: React.PropTypes.func,
-  duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func])
+  duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func]),
+  defaultActive: React.PropTypes.bool
 };
+
+var hasScroll = false;
 
 var Helpers = {
 
@@ -41,7 +44,6 @@ var Helpers = {
       },
 
       handleClick: function(event) {
-
         /*
          * give the posibility to override onClick
          */
@@ -56,6 +58,24 @@ var Helpers = {
 
         if (event.stopPropagation) event.stopPropagation();
         if (event.preventDefault) event.preventDefault();
+
+        // change the active Link at first(do not depend on the element's scroll)
+        scroller.setActiveLink(void 0);
+        this.setState({
+          active : false
+        }, () => {
+          scrollSpy.updateStates();
+          hasScroll = true;
+
+          scroller.setActiveLink(this.props.to);
+          this.setState({
+            active : true
+          }, () => scrollSpy.updateStates());
+
+          if(this.props.onSetActive) {
+            this.props.onSetActive(this.props.to);
+          }
+        });
 
         /*
          * do the magic!
@@ -114,6 +134,9 @@ var Helpers = {
           }).bind(this));
 
           var spyHandler = function(y) {
+
+            if (hasScroll) return true;
+
             if(!element || this.props.isDynamic) {
                 element = scroller.get(to);
                 if(!element){ return;}
@@ -147,6 +170,18 @@ var Helpers = {
 
           scrollSpy.addSpyHandler(spyHandler);
         }
+
+        // initial active
+        if (this.props.defaultActive) {
+          scroller.setActiveLink(this.props.to);
+          this.setState({
+            active : true
+          }, () => scrollSpy.updateStates());
+
+          if(this.props.onSetActive) {
+            this.props.onSetActive(this.props.to);
+          }
+        }
       },
       componentWillUnmount: function() {
         scrollSpy.unmount();
@@ -158,7 +193,7 @@ var Helpers = {
         if(this.state && this.state.active) {
           className = ((this.props.className || "") + " " + (this.props.activeClass || "active")).trim();
         } else {
-          className = this.props.className
+          className = this.props.className;
         }
 
         var props = assign({}, this.props);
