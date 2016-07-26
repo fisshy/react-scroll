@@ -177,10 +177,15 @@ var scrollMore = function(toY, options) {
   startAnimateTopScroll(currentPositionY() + toY, assign(options || {}, { absolute : true }));
 };
 
+var resetContainer = function() {
+  __containerElement = undefined;
+};
+
 module.exports = {
   animateTopScroll: startAnimateTopScroll,
   scrollToTop: scrollToTop,
   scrollToBottom: scrollToBottom,
   scrollTo: scrollTo,
   scrollMore: scrollMore,
+  resetContainer: resetContainer
 };
