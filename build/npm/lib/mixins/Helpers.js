@@ -60,20 +60,23 @@ var Helpers = {
         if (event.preventDefault) event.preventDefault();
 
         // change the active Link at first(do not depend on the element's scroll)
+        var self = this;
         scroller.setActiveLink(void 0);
         this.setState({
           active : false
-        }, () => {
+        }, function () {
           scrollSpy.updateStates();
           hasScroll = true;
 
           scroller.setActiveLink(this.props.to);
-          this.setState({
+          self.setState({
             active : true
-          }, () => scrollSpy.updateStates());
+          }, function () {
+            scrollSpy.updateStates()
+          });
 
-          if(this.props.onSetActive) {
-            this.props.onSetActive(this.props.to);
+          if(self.props.onSetActive) {
+            self.props.onSetActive(self.props.to);
           }
         });
 
