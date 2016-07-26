@@ -179,7 +179,9 @@ var Helpers = {
           scroller.setActiveLink(this.props.to);
           this.setState({
             active : true
-          }, () => scrollSpy.updateStates());
+          }, function (){
+            scrollSpy.updateStates();
+          });
 
           if(this.props.onSetActive) {
             this.props.onSetActive(this.props.to);
