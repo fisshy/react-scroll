@@ -23,7 +23,7 @@ var protoTypes = {
   defaultActive: React.PropTypes.bool
 };
 
-var hasScroll = false;
+var needActive = false;
 
 var Helpers = {
 
@@ -66,7 +66,7 @@ var Helpers = {
           active : false
         }, function () {
           scrollSpy.updateStates();
-          hasScroll = true;
+          needActive = true;
 
           scroller.setActiveLink(this.props.to);
           self.setState({
@@ -138,7 +138,7 @@ var Helpers = {
 
           var spyHandler = function(y) {
 
-            if (hasScroll) return true;
+            // if (needActive) return true;
 
             if(!element || this.props.isDynamic) {
                 element = scroller.get(to);
