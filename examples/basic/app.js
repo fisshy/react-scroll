@@ -33,6 +33,16 @@ var Section = React.createClass({
     Events.scrollEvent.remove('begin');
     Events.scrollEvent.remove('end');
   },
+  moveElement8: function(){
+    this.moveElement('element-8-spacer');
+  },
+  moveContainerElement: function(){
+    this.moveElement('container-element-spacer');
+  },
+  moveElement: function(id){
+    var element = document.getElementById(id);
+    element.style.height = element.style.height === "100px" ? 0 : "100px";
+  },
   render: function () {
     return (
       <div>
@@ -47,6 +57,7 @@ var Section = React.createClass({
                 <li><Link activeClass="active" className="test5" to="test5" spy={true} smooth={true} duration={500} delay={1000}>Test 5 ( delay )</Link></li>
                 <li><DirectLink className="test6" to="anchor" spy={true} smooth={true} duration={500}>Test 6 (anchor)</DirectLink></li>
                 <li><Link activeClass="active" className="test7" to="test7" spy={true} smooth={true} duration={durationFn}>Test 7 (duration and container)</Link></li>
+                <li><Link activeClass="active" className="test8" to="test8" spy={true} smooth={true} duration={500} onClick={this.moveElement8} mightMove={true}>Test 8 (moving)</Link></li>
                 <li> <a onClick={() => scroll.scrollTo(100)}>Scroll To 100!</a></li>
                 <li> <a onClick={() => scroll.scrollToBottom()}>Scroll To Bottom</a></li>
                 <li> <a onClick={() => scroll.scrollMore(500)}>Scroll 500 More!</a></li>
@@ -87,6 +98,9 @@ var Section = React.createClass({
         <Link activeClass="active" to="secondInsideContainer" spy={true} smooth={true} duration={250} containerId="containerElement" style={{display:'inline-block', margin: '20px'}}>
           Go to second element inside container
         </Link>
+        <Link activeClass="active" to="movingInsideContainer" spy={true} smooth={true} duration={500} containerId="containerElement" onClick={this.moveContainerElement} style={{display:'inline-block', margin: '20px'}} mightMove={true}>
+          Go to moving element inside container
+        </Link>
         <Element name="test7" className="element" id="containerElement" style={{
           position: 'relative',
           height:'200px',
@@ -106,6 +120,18 @@ var Section = React.createClass({
           }}>
             second element inside container
           </Element>
+
+          <div id="container-element-spacer" style={{transition: 'all 0.5s', height: '100px', background: 'darkorange'}}></div>
+          <Element name="movingInsideContainer"  style={{
+            marginBottom: '200px'
+          }}>
+            moving element inside container
+          </Element>
+        </Element>
+
+        <div id="element-8-spacer" style={{transition: 'all 0.5s', height: '100px', background: 'darkorange'}}></div>
+        <Element name="test8" className="element">
+          test 8 (moving)
         </Element>
 
         <a onClick={this.scrollToTop}>To the top!</a>
