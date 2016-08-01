@@ -32,6 +32,8 @@ var DirectLink = Scroll.DirectLink;
 var Element    = Scroll.Element;
 var Events     = Scroll.Events;
 var scroll     = Scroll.animateScroll;
+var scrollSpy  = Scroll.scrollSpy;
+
 
 var Section = React.createClass({
   componentDidMount: function() {
@@ -43,6 +45,8 @@ var Section = React.createClass({
     Events.scrollEvent.register('end', function(to, element) {
       console.log("end", arguments);
     });
+
+    scrollSpy.update();
 
   },
   componentWillUnmount: function() {
@@ -298,6 +302,10 @@ module.exports = Helpers.Scroll(Link);
 ```
 
 #### Changelog
+
+> v1.1.0
+- now possible to set initial active link on componentDidMount ( see README or examples code )
+- removed unnecessary events for scroll.
 
 > v1.0.24
 - you can now pass any native property to Link/Element

@@ -94,11 +94,15 @@ var Helpers = {
 
       componentDidMount: function() {
 
+
+
         var containerId = this.props.containerId;
 
         var scrollSpyContainer = containerId ? document.getElementById(containerId) : document;
 
-        scrollSpy.mount(scrollSpyContainer);
+        if(!scrollSpy.isMounted(scrollSpyContainer)) {
+          scrollSpy.mount(scrollSpyContainer);
+        }
 
 
         if(this.props.spy) {
@@ -145,7 +149,7 @@ var Helpers = {
             }
           }.bind(this);
 
-          scrollSpy.addSpyHandler(spyHandler);
+          scrollSpy.addSpyHandler(spyHandler, scrollSpyContainer);
         }
       },
       componentWillUnmount: function() {
@@ -157,7 +161,7 @@ var Helpers = {
         if(this.state && this.state.active) {
           className = ((this.props.className || "") + " " + (this.props.activeClass || "active")).trim();
         } else {
-          className = this.props.className
+          className = this.props.className;
         }
 
         var props = assign({}, this.props);
