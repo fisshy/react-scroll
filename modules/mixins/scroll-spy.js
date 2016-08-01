@@ -16,6 +16,7 @@ var scrollSpy = {
 
   spyCallbacks: [],
   spySetState: [],
+  scrollSpyContainers: [],
 
   mount: function (scrollSpyContainer) {
     var t = this;
@@ -23,9 +24,15 @@ var scrollSpy = {
       var eventHandler = eventThrottler(function(event) {
   			t.scrollHandler(scrollSpyContainer);
   		});
+      this.scrollSpyContainers.push(scrollSpyContainer);
       scrollSpyContainer.addEventListener('scroll', eventHandler);
     }
   },
+
+  isMounted(scrollSpyContainer) {
+    return this.scrollSpyContainers.indexOf(scrollSpyContainer) !== -1;
+  },
+
   currentPositionY: function (scrollSpyContainer) {
     if(scrollSpyContainer === document) {
       var supportPageOffset = window.pageXOffset !== undefined;
@@ -38,8 +45,10 @@ var scrollSpy = {
   },
 
   scrollHandler: function (scrollSpyContainer) {
-    for(var i = 0; i < this.spyCallbacks.length; i++) {
-      this.spyCallbacks[i](this.currentPositionY(scrollSpyContainer));
+    var callbacks = this.scrollSpyContainers[this.scrollSpyContainers.indexOf(scrollSpyContainer)].spyCallbacks;
+    for(var i = 0; i < callbacks.length; i++) {
+      var position =this.currentPositionY(scrollSpyContainer);
+      callbacks[i](this.currentPositionY(scrollSpyContainer));
     }
   },
 
@@ -47,8 +56,12 @@ var scrollSpy = {
     this.spySetState.push(handler);
   },
 
-  addSpyHandler: function(handler){
-    this.spyCallbacks.push(handler);
+  addSpyHandler: function(handler, scrollSpyContainer) {
+    var container = this.scrollSpyContainers[this.scrollSpyContainers.indexOf(scrollSpyContainer)];
+    if(!container.spyCallbacks) {
+      container.spyCallbacks = [];
+    }
+    container.spyCallbacks.push(handler);
   },
 
   updateStates: function(){
@@ -58,11 +71,20 @@ var scrollSpy = {
       this.spySetState[i]();
     }
   },
+
   unmount: function () {
-    this.spyCallbacks = [];
+    for (var i = 0; i < this.scrollSpyContainers.length; i++) {
+      this.scrollSpyContainers[i].spyCallbacks = [];
+    }
     this.spySetState = [];
 
     document.removeEventListener('scroll', this.scrollHandler);
+  },
+
+  update: function() {
+    for (var i = 0; i < this.scrollSpyContainers.length; i++) {
+      this.scrollHandler(this.scrollSpyContainers[i]);
+    }
   }
 }
 

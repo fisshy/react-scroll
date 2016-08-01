@@ -9,6 +9,7 @@ var DirectLink = Scroll.DirectLink;
 var Element    = Scroll.Element;
 var Events     = Scroll.Events;
 var scroll     = Scroll.animateScroll;
+var scrollSpy  = Scroll.scrollSpy;
 
 var durationFn = function(deltaTop) {
     return deltaTop;
@@ -24,6 +25,8 @@ var Section = React.createClass({
     Events.scrollEvent.register('end', function() {
       console.log("end", arguments);
     });
+
+    scrollSpy.update();
 
   },
   scrollToTop: function() {
