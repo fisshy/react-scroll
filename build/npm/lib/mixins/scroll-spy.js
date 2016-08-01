@@ -29,7 +29,7 @@ var scrollSpy = {
     }
   },
 
-  isMounted(scrollSpyContainer) {
+  isMounted: function (scrollSpyContainer) {
     return this.scrollSpyContainers.indexOf(scrollSpyContainer) !== -1;
   },
 
