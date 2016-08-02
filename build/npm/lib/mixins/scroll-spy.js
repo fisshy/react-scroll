@@ -22,8 +22,8 @@ var scrollSpy = {
     var t = this;
     if (scrollSpyContainer) {
       var eventHandler = eventThrottler(function(event) {
-  			t.scrollHandler(scrollSpyContainer);
-  		});
+        t.scrollHandler(scrollSpyContainer);
+      });
       this.scrollSpyContainers.push(scrollSpyContainer);
       scrollSpyContainer.addEventListener('scroll', eventHandler);
     }
@@ -46,9 +46,11 @@ var scrollSpy = {
 
   scrollHandler: function (scrollSpyContainer) {
     var callbacks = this.scrollSpyContainers[this.scrollSpyContainers.indexOf(scrollSpyContainer)].spyCallbacks;
-    for(var i = 0; i < callbacks.length; i++) {
-      var position =this.currentPositionY(scrollSpyContainer);
-      callbacks[i](this.currentPositionY(scrollSpyContainer));
+    if (callbacks) {
+      for(var i = 0; i < callbacks.length; i++) {
+        var position =this.currentPositionY(scrollSpyContainer);
+        callbacks[i](this.currentPositionY(scrollSpyContainer));
+      }
     }
   },
 
