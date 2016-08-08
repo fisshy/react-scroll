@@ -303,6 +303,9 @@ module.exports = Helpers.Scroll(Link);
 
 #### Changelog
 
+> v1.2.0
+- Now using passive event listeners.
+
 > v1.1.0
 - now possible to set initial active link on componentDidMount ( see README or examples code )
 - removed unnecessary events for scroll.
