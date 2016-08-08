@@ -1,3 +1,5 @@
+var addPassiveEventListener = require('./passive-event-listeners');
+
 var events = ['mousedown', 'mousewheel', 'touchmove', 'keydown']
 
 module.exports = {
@@ -7,7 +9,7 @@ module.exports = {
 		}
 
 		for(var i = 0; i < events.length; i = i + 1) {
-			document.addEventListener(events[i], cancelEvent);
+			addPassiveEventListener(document, events[i], cancelEvent);
 		}
 	}
 };

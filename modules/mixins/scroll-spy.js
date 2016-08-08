@@ -1,3 +1,5 @@
+var addPassiveEventListener = require('./passive-event-listeners');
+
 var eventThrottler = function(eventHandler) {
   var eventHandlerTimeout;
   return function(event) {
@@ -25,7 +27,7 @@ var scrollSpy = {
         t.scrollHandler(scrollSpyContainer);
       });
       this.scrollSpyContainers.push(scrollSpyContainer);
-      scrollSpyContainer.addEventListener('scroll', eventHandler);
+      addPassiveEventListener(scrollSpyContainer, 'scroll', eventHandler);
     }
   },
 
