@@ -21,7 +21,7 @@ module.exports = {
   },
 
   get: function(name) {
-    return __mapped[name];
+    return __mapped[name] || document.getElementById(name);
   },
 
   setActiveLink: function(link) {
@@ -41,7 +41,8 @@ module.exports = {
       var target = this.get(to);
 
       if(!target) {
-        throw new Error("target Element not found");
+        console.warn("target Element not found");
+        return;
       }
 
       props = assign({}, props, { absolute : false });
