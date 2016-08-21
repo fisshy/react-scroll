@@ -117,8 +117,8 @@ var Helpers = {
             }
           }).bind(this));
 
-          var spyHandler = function(y) {
-            if(!element || this.props.isDynamic) {
+          var spyHandler = function(y, recalculateElementSizes) {
+            if(!element || this.props.isDynamic || recalculateElementSizes===true) {
                 element = scroller.get(to);
                 if(!element){ return;}
 
