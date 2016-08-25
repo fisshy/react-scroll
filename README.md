@@ -278,7 +278,7 @@ var Helpers = Scroll.Helpers;
 var Element = React.createClass({
   render: function () {
     return (
-      <div>
+      <div {...this.props}>
         {this.props.children}
       </div>
     );
@@ -290,7 +290,7 @@ module.exports = Helpers.Element(Element);
 var Link = React.createClass({
   render: function () {
     return (
-      <a>
+      <a {...this.props}>
         {this.props.children}
       </a>
     );
