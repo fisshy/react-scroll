@@ -28,7 +28,6 @@ var React   = require('react');
 var Scroll  = require('react-scroll');
 
 var Link       = Scroll.Link;
-var DirectLink = Scroll.DirectLink;
 var Element    = Scroll.Element;
 var Events     = Scroll.Events;
 var scroll     = Scroll.animateScroll;
@@ -74,9 +73,9 @@ var Section = React.createClass({
         <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} delay={1000}>
           Test 2 (delay)
         </Link>
-        <DirectLink className="test6" to="anchor" spy={true} smooth={true} duration={500}>
+        <Link className="test6" to="anchor" spy={true} smooth={true} duration={500}>
           Test 6 (anchor)
-        </DirectLink>
+        </Link>
         <Button activeClass="active" className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >
           Test 2
         </Button>
@@ -302,6 +301,8 @@ module.exports = Helpers.Scroll(Link);
 ```
 
 #### Changelog
+> v1.3.0
+- Remove directlink, now just use Link.
 
 > v1.2.0
 - Now using passive event listeners.
