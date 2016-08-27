@@ -5,7 +5,6 @@ import React    from 'react'
 /* Components to test */
 import Element    from '../components/Element.js';
 import Link       from '../components/Link.js';
-import DirectLink from '../components/DirectLink.js';
 import events     from '../mixins/scroll-events.js';
 /* Test */
 import expect   from 'expect'
@@ -28,7 +27,7 @@ describe('Page', () => {
           <li><Link to="test3" spy={true} smooth={true} duration={scrollDuration}>Test 3</Link></li>
           <li><Link to="test4" spy={true} smooth={true} duration={scrollDuration}>Test 4</Link></li>
           <li><Link to="test5" spy={true} smooth={true} duration={scrollDuration}>Test 5</Link></li>
-          <li><DirectLink to="anchor" spy={true} smooth={true} duration={scrollDuration}>Test 6</DirectLink></li>
+          <li><Link to="anchor" spy={true} smooth={true} duration={scrollDuration}>Test 6</Link></li>
         </ul>
         <Element name="test1" className="element">test 1</Element>
         <Element name="test2" className="element">test 2</Element>

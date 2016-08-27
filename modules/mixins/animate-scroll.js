@@ -126,7 +126,6 @@ var animateTopScroll = function(timestamp) {
 
 var setContainer = function (options) {
   if(!options || !options.containerId) {
-    console.log("remove container");
     __containerElement = null;
     return;
   }
