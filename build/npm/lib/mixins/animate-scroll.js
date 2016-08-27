@@ -125,17 +125,21 @@ var animateTopScroll = function(timestamp) {
 };
 
 var setContainer = function (options) {
-  if(!options || !options.containerId) { return; }
-	__containerElement = document.getElementById(options.containerId);
+  if(!options || !options.containerId) {
+    __containerElement = null;
+    return;
+  }
+  if(!__containerElement) {
+	   __containerElement = document.getElementById(options.containerId);
+  }
 };
 
 var startAnimateTopScroll = function(y, options, to, target) {
 
   window.clearTimeout(__delayTimeout);
 
-  if(!__containerElement) {
-    setContainer(options);
-  }
+  setContainer(options);
+
 
   __start           = null;
   __cancel          = false;
