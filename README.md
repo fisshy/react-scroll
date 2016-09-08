@@ -64,10 +64,13 @@ var Section = React.createClass({
   scrollMore: function() {
     scroll.scrollMore(100);
   },
+  handleSetActive: function(to) {
+    console.log(to);
+  },
   render: function () {
   	return (
       <div>
-        <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} >
+        <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} onSetActive={this.handleSetActive}>
           Test 1
         </Link>
         <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} delay={1000}>
@@ -149,6 +152,8 @@ React.render(
 
 > isDynamic - in case the distance has to be recalculated - if you have content that expands etc.
 
+> onSetActive - invoke whenever link is being set to active
+
 ```js
 <Link activeClass="active"
       to="target"
@@ -158,6 +163,7 @@ React.render(
       duration={500}
       delay={1000}
       isDynamic={true}
+      onSetActive={this.handleSetActive}
 >
   Your name
 </Link>

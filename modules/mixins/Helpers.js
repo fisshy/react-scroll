@@ -20,7 +20,8 @@ var protoTypes = {
   isDynamic: React.PropTypes.bool,
   onClick: React.PropTypes.func,
   duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func]),
-  absolute: React.PropTypes.bool
+  absolute: React.PropTypes.bool,
+  onSetActive: React.PropTypes.func
 };
 
 var Helpers = {
