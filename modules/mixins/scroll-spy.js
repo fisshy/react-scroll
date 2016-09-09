@@ -19,6 +19,7 @@ var scrollSpy = {
   spyCallbacks: [],
   spySetState: [],
   scrollSpyContainers: [],
+  recalcElementSize : false,
 
   mount: function (scrollSpyContainer) {
     var t = this;
@@ -46,13 +47,18 @@ var scrollSpy = {
     }
   },
 
+  recalculateElementSizes: function(){
+    this.recalcElementSize = true;
+  },
+
   scrollHandler: function (scrollSpyContainer) {
     var callbacks = this.scrollSpyContainers[this.scrollSpyContainers.indexOf(scrollSpyContainer)].spyCallbacks;
     if (callbacks) {
       for(var i = 0; i < callbacks.length; i++) {
         var position =this.currentPositionY(scrollSpyContainer);
-        callbacks[i](this.currentPositionY(scrollSpyContainer));
+        callbacks[i](this.currentPositionY(scrollSpyContainer), this.recalcElementSize);
       }
+      this.recalcElementSize = false;
     }
   },
 
