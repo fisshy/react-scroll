@@ -19,7 +19,9 @@ var protoTypes = {
   delay: React.PropTypes.number,
   isDynamic: React.PropTypes.bool,
   onClick: React.PropTypes.func,
-  duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func])
+  duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func]),
+  absolute: React.PropTypes.bool,
+  onSetActive: React.PropTypes.func
 };
 
 var Helpers = {
@@ -118,14 +120,23 @@ var Helpers = {
           }).bind(this));
 
           var spyHandler = function(y) {
+
+            var containerTop = 0;
+            if(scrollSpyContainer.getBoundingClientRect) {
+              var containerCords = scrollSpyContainer.getBoundingClientRect();
+              containerTop = containerCords.top;
+            }
+
             if(!element || this.props.isDynamic) {
                 element = scroller.get(to);
                 if(!element){ return;}
 
                 var cords = element.getBoundingClientRect();
-                elemTopBound = (cords.top + y);
+                elemTopBound = (cords.top - containerTop + y);
                 elemBottomBound = elemTopBound + cords.height;
             }
+
+
 
             var offsetY = y - this.props.offset;
             var isInside = (offsetY >= Math.floor(elemTopBound) && offsetY <= Math.floor(elemBottomBound));

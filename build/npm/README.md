@@ -28,7 +28,6 @@ var React   = require('react');
 var Scroll  = require('react-scroll');
 
 var Link       = Scroll.Link;
-var DirectLink = Scroll.DirectLink;
 var Element    = Scroll.Element;
 var Events     = Scroll.Events;
 var scroll     = Scroll.animateScroll;
@@ -65,18 +64,21 @@ var Section = React.createClass({
   scrollMore: function() {
     scroll.scrollMore(100);
   },
+  handleSetActive: function(to) {
+    console.log(to);
+  },
   render: function () {
   	return (
       <div>
-        <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} >
+        <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} onSetActive={this.handleSetActive}>
           Test 1
         </Link>
         <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} delay={1000}>
           Test 2 (delay)
         </Link>
-        <DirectLink className="test6" to="anchor" spy={true} smooth={true} duration={500}>
+        <Link className="test6" to="anchor" spy={true} smooth={true} duration={500}>
           Test 6 (anchor)
-        </DirectLink>
+        </Link>
         <Button activeClass="active" className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >
           Test 2
         </Button>
@@ -150,6 +152,8 @@ React.render(
 
 > isDynamic - in case the distance has to be recalculated - if you have content that expands etc.
 
+> onSetActive - invoke whenever link is being set to active
+
 ```js
 <Link activeClass="active"
       to="target"
@@ -159,6 +163,7 @@ React.render(
       duration={500}
       delay={1000}
       isDynamic={true}
+      onSetActive={this.handleSetActive}
 >
   Your name
 </Link>
@@ -302,6 +307,11 @@ module.exports = Helpers.Scroll(Link);
 ```
 
 #### Changelog
+> v1.4.0
+- It's now possible to nest scroll areas and get a callback when "link is active"
+
+> v1.3.0
+- Remove directlink, now just use Link.
 
 > v1.2.0
 - Now using passive event listeners.
