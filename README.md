@@ -149,6 +149,10 @@ React.render(
 
 > isDynamic - in case the distance has to be recalculated - if you have content that expands etc.
 
+> mightMove - in case the scroll position of the target is changing while scrolling to it -
+if you have content that expands above the target at the same time as scrolling;
+works best if you match durations for the animations and the scrolling
+
 ```js
 <Link activeClass="active"
       to="target"

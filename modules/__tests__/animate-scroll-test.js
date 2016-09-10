@@ -33,6 +33,7 @@ describe('AnimateScroll', () => {
         <a onClick={() => animateScroll.scrollTo(100)}>Scroll To 100!</a>
         <a onClick={() => animateScroll.scrollMore(10)}>Scroll More!</a>
         <div style={{height: '10000px'}}></div>
+        <div id="target" style={{position: 'absolute', top: '100px', transition: 'all 250ms'}}></div>
       </div>
 
   afterEach(function () {
@@ -116,6 +117,20 @@ describe('AnimateScroll', () => {
         }, waitDuration);
 
       }, waitDuration);
+    });
+  });
+
+  it('scrolls to the right position even if the target is moving', (done) => {
+    render(tallComponent, node, () => {
+      var target = document.getElementById('target');
+      var coordinates = target.getBoundingClientRect();
+      // the process of animating and scrolling together needs a little more time to finish than the default tests
+      animateScroll.animateTopScroll(coordinates.top, { duration: 250, mightMove: true  }, target, target);
+      target.style.top = "110px";
+      setTimeout(() => {
+        expect(window.scrollY).toEqual(110);
+        done();
+      }, 300)
     });
   });
 

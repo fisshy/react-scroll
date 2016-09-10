@@ -18,6 +18,7 @@ var protoTypes = {
   offset: React.PropTypes.number,
   delay: React.PropTypes.number,
   isDynamic: React.PropTypes.bool,
+  mightMove: React.PropTypes.bool,
   onClick: React.PropTypes.func,
   duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func]),
   absolute: React.PropTypes.bool

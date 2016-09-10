@@ -57,6 +57,9 @@ var __start;
 var __deltaTop;
 var __percent;
 var __delayTimeout;
+var __mightMove;
+var __absolute;
+var __offset;
 
 
 var currentPositionY = function() {
@@ -96,6 +99,11 @@ var animateTopScroll = function(timestamp) {
   if(__cancel) { return };
 
   __deltaTop = Math.round(__targetPositionY - __startPositionY);
+
+  if (__mightMove){
+    __targetPositionY = __absolute ? __target.offsetTop : (__target.getBoundingClientRect().top + __currentPositionY);
+    __targetPositionY += (__offset || 0);
+  }
 
   if (__start === null) {
     __start = timestamp;
@@ -151,6 +159,9 @@ var startAnimateTopScroll = function(y, options, to, target) {
   __duration        = isNaN(parseFloat(__duration)) ? 1000 : parseFloat(__duration);
   __to              = to;
   __target          = target;
+  __mightMove       = options.mightMove;
+  __absolute        = options.absolute;
+  __offset          = options.offset;
 
   if(options && options.delay > 0) {
     __delayTimeout = window.setTimeout(function animate() {
