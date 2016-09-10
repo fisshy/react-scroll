@@ -121,8 +121,11 @@ var Helpers = {
 
           var spyHandler = function(y) {
 
-            var containerCords = scrollSpyContainer.getBoundingClientRect();
-            var containerTop = containerCords.top;
+            var containerTop = 0;
+            if(scrollSpyContainer.getBoundingClientRect) {
+              var containerCords = scrollSpyContainer.getBoundingClientRect();
+              containerTop = containerCords.top;
+            }
 
             if(!element || this.props.isDynamic) {
                 element = scroller.get(to);
@@ -133,7 +136,7 @@ var Helpers = {
                 elemBottomBound = elemTopBound + cords.height;
             }
 
-            
+
 
             var offsetY = y - this.props.offset;
             var isInside = (offsetY >= Math.floor(elemTopBound) && offsetY <= Math.floor(elemBottomBound));

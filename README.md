@@ -307,6 +307,9 @@ module.exports = Helpers.Scroll(Link);
 ```
 
 #### Changelog
+> v1.4.0
+- It's now possible to nest scroll areas and get a callback when "link is active"
+
 > v1.3.0
 - Remove directlink, now just use Link.
 
