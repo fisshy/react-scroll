@@ -129,9 +129,8 @@ var setContainer = function (options) {
     __containerElement = null;
     return;
   }
-  if(!__containerElement) {
-	   __containerElement = document.getElementById(options.containerId);
-  }
+
+  __containerElement = document.getElementById(options.containerId);
 };
 
 var startAnimateTopScroll = function(y, options, to, target) {
