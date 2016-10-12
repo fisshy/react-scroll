@@ -76,11 +76,12 @@ var scrollSpy = {
     }
   },
 
-  unmount: function () {
+  unmount: function (stateHandler, spyHandler) {
     for (var i = 0; i < this.scrollSpyContainers.length; i++) {
-      this.scrollSpyContainers[i].spyCallbacks = [];
+      var callbacks = this.scrollSpyContainers[i].spyCallbacks;
+      callbacks.splice(callbacks.indexOf(spyHandler), 1);
     }
-    this.spySetState = [];
+    this.spySetState.splice(this.spySetState.indexOf(stateHandler), 1);
 
     document.removeEventListener('scroll', this.scrollHandler);
   },
