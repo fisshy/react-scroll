@@ -113,13 +113,15 @@ var Helpers = {
           var elemTopBound = 0;
           var elemBottomBound = 0;
 
-          scrollSpy.addStateHandler((function() {
+          this._stateHandler = function() {
             if(scroller.getActiveLink() != to) {
                 this.setState({ active : false });
             }
-          }).bind(this));
+          }.bind(this)
 
-          var spyHandler = function(y) {
+          scrollSpy.addStateHandler(this._stateHandler);
+
+          this._spyHandler = function(y) {
 
             var containerTop = 0;
             if(scrollSpyContainer.getBoundingClientRect) {
@@ -160,11 +162,11 @@ var Helpers = {
             }
           }.bind(this);
 
-          scrollSpy.addSpyHandler(spyHandler, scrollSpyContainer);
+          scrollSpy.addSpyHandler(this._spyHandler, scrollSpyContainer);
         }
       },
       componentWillUnmount: function() {
-        scrollSpy.unmount();
+        scrollSpy.unmount(this._stateHandler, this._spyHandler);
       },
       render: function() {
 
@@ -199,11 +201,19 @@ var Helpers = {
         id:   React.PropTypes.string
       },
       componentDidMount: function() {
-        var domNode = ReactDOM.findDOMNode(this);
-        defaultScroller.register(this.props.name, domNode);
+        this.registerElems(this.props.name);
+      },
+      componentWillReceiveProps: function(nextProps) {
+        if (this.props.name !== nextProps.name) {
+          this.registerElems(nextProps.name);
+        }
       },
       componentWillUnmount: function() {
         defaultScroller.unregister(this.props.name);
+      },
+      registerElems: function(name) {
+        var domNode = ReactDOM.findDOMNode(this);
+        defaultScroller.register(name, domNode);
       },
       render: function() {
         return React.createElement(Component, this.props);
