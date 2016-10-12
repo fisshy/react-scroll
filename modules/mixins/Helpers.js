@@ -195,7 +195,8 @@ var Helpers = {
   Element: function(Component) {
     return React.createClass({
       propTypes: {
-        name: React.PropTypes.string.isRequired
+        name: React.PropTypes.string,
+        id:   React.PropTypes.string
       },
       componentDidMount: function() {
         var domNode = ReactDOM.findDOMNode(this);

@@ -54,6 +54,8 @@ var Section = React.createClass({
                 <li> <a onClick={() => scroll.scrollToBottom()}>Scroll To Bottom</a></li>
                 <li> <a onClick={() => scroll.scrollMore(500)}>Scroll 500 More!</a></li>
                 <li> <a onClick={() => scroll.scrollMore(1000, { delay : 1500 })}>Scroll 1000 More! ( delay ) </a></li>
+                <li><Link activeClass="active" className="test8" to="same" spy={true} smooth={true} duration={500}>Same target</Link></li>
+                <li><Link activeClass="active" className="test9" to="same" spy={true} smooth={true} duration={500}>Same target</Link></li>
               </ul>
             </div>
           </div>
@@ -109,6 +111,11 @@ var Section = React.createClass({
           }}>
             second element inside container
           </Element>
+        </Element>
+
+
+        <Element id="same" className="element">
+          Two links point to this
         </Element>
 
         <a onClick={this.scrollToTop}>To the top!</a>
