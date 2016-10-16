@@ -79,9 +79,14 @@ var scrollSpy = {
   unmount: function (stateHandler, spyHandler) {
     for (var i = 0; i < this.scrollSpyContainers.length; i++) {
       var callbacks = this.scrollSpyContainers[i].spyCallbacks;
-      callbacks.splice(callbacks.indexOf(spyHandler), 1);
+      if(callbacks && callbacks.length) {
+        callbacks.splice(callbacks.indexOf(spyHandler), 1);
+      }
     }
-    this.spySetState.splice(this.spySetState.indexOf(stateHandler), 1);
+
+    if(this.spySetState && this.spySetState.length) {
+      this.spySetState.splice(this.spySetState.indexOf(stateHandler), 1);
+    }
 
     document.removeEventListener('scroll', this.scrollHandler);
   },
