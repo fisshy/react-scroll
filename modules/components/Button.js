@@ -5,7 +5,7 @@ var Helpers = require('../mixins/Helpers');
 
 var Button = React.createClass({
   render: function () {
-    return React.DOM.input(this.props, this.props.children);
+    return React.DOM.button(this.props, this.props.children);
   }
 });
 
