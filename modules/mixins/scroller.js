@@ -70,7 +70,6 @@ module.exports = {
         scrollOffset = target.offsetTop;
       } else {
         var coordinates = target.getBoundingClientRect();
-        var bodyRect = document.body.getBoundingClientRect();
         scrollOffset = coordinates.top;
       }
 
@@ -84,7 +83,9 @@ module.exports = {
         if(containerId && containerElement) {
           containerElement.scrollTop = scrollOffset;
         } else {
-          window.scrollTo(0, scrollOffset);
+          // window.scrollTo accepts only absolute values so body rectangle needs to be subtracted
+          var bodyRect = document.body.getBoundingClientRect();
+          window.scrollTo(0, scrollOffset - bodyRect.top);
         }
 
         if(events.registered['end']) {
