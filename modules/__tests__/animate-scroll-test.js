@@ -49,6 +49,7 @@ describe('AnimateScroll', () => {
 
   it('scrolls to an absolute position', (done) => {
     render(tallComponent, node, () => {
+      window.scrollTo(0, 1000);
       animateScroll.scrollTo(120, { duration : duration });
 
       setTimeout(() => {
