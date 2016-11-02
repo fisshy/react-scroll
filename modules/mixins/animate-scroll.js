@@ -16,14 +16,6 @@ var functionWrapper = function(value) {
 };
 
 /*
- * Sets the cancel trigger
- */
-
-cancelEvents.register(function() {
-  __cancel = true;
-});
-
-/*
  * Wraps window properties to allow server side rendering
  */
 var currentWindowProperties = function() {
@@ -136,6 +128,17 @@ var setContainer = function (options) {
 var startAnimateTopScroll = function(y, options, to, target) {
 
   window.clearTimeout(__delayTimeout);
+
+
+  if (!options.ignoreCancelEvents) {
+    /*
+     * Sets the cancel trigger
+     */
+
+    cancelEvents.register(function() {
+      __cancel = true;
+    });
+  }
 
   setContainer(options);
 
