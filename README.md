@@ -148,7 +148,7 @@ React.render(
 
 > duration - time of the scroll animation
 
-> delay - wait x seconds before scroll
+> delay - wait x milliseconds before scroll
 
 > isDynamic - in case the distance has to be recalculated - if you have content that expands etc.
 
