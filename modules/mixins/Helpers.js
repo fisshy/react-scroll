@@ -141,7 +141,7 @@ var Helpers = {
 
 
 
-            var offsetY = y - this.props.offset;
+            var offsetY = y - this.props.offset + this.props.scrolloffset;
             var isInside = (offsetY >= Math.floor(elemTopBound) && offsetY <= Math.floor(elemBottomBound));
             var isOutside = (offsetY < Math.floor(elemTopBound) || offsetY > Math.floor(elemBottomBound));
             var activeLink = scroller.getActiveLink();
