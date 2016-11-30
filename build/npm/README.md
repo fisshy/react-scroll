@@ -148,11 +148,13 @@ React.render(
 
 > duration - time of the scroll animation
 
-> delay - wait x seconds before scroll
+> delay - wait x milliseconds before scroll
 
 > isDynamic - in case the distance has to be recalculated - if you have content that expands etc.
 
 > onSetActive - invoke whenever link is being set to active
+
+> ignoreCancelEvents - ignores events which cancel animated scrolling
 
 ```js
 <Link activeClass="active"
@@ -164,6 +166,7 @@ React.render(
       delay={1000}
       isDynamic={true}
       onSetActive={this.handleSetActive}
+      ignoreCancelEvents={false}
 >
   Your name
 </Link>
