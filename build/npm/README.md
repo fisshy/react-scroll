@@ -140,7 +140,7 @@ React.render(
 
 > containerId - container to listen for scroll events and to perform scrolling in
 
-> spy - make Link selected when scroll is at it's targets position
+> spy - make Link selected when scroll is at its targets position
 
 > smooth - animate the scrolling
 

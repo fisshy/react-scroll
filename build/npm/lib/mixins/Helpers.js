@@ -16,6 +16,7 @@ var protoTypes = {
   spy: React.PropTypes.bool,
   smooth: React.PropTypes.bool,
   offset: React.PropTypes.number,
+  scrollOffset: React.PropTypes.number,
   delay: React.PropTypes.number,
   isDynamic: React.PropTypes.bool,
   onClick: React.PropTypes.func,
@@ -141,7 +142,7 @@ var Helpers = {
 
 
 
-            var offsetY = y - this.props.offset + this.props.scrolloffset;
+            var offsetY = y - this.props.offset + this.props.scrollOffset;
             var isInside = (offsetY >= Math.floor(elemTopBound) && offsetY <= Math.floor(elemBottomBound));
             var isOutside = (offsetY < Math.floor(elemTopBound) || offsetY > Math.floor(elemBottomBound));
             var activeLink = scroller.getActiveLink();
