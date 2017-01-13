@@ -21,7 +21,8 @@ var protoTypes = {
   onClick: React.PropTypes.func,
   duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func]),
   absolute: React.PropTypes.bool,
-  onSetActive: React.PropTypes.func
+  onSetActive: React.PropTypes.func,
+  ignoreCancelEvents: React.PropTypes.bool
 };
 
 var Helpers = {

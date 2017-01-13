@@ -140,7 +140,7 @@ React.render(
 
 > containerId - container to listen for scroll events and to perform scrolling in
 
-> spy - make Link selected when scroll is at it's targets position
+> spy - make Link selected when scroll is at its targets position
 
 > smooth - animate the scrolling
 
@@ -148,11 +148,13 @@ React.render(
 
 > duration - time of the scroll animation
 
-> delay - wait x seconds before scroll
+> delay - wait x milliseconds before scroll
 
 > isDynamic - in case the distance has to be recalculated - if you have content that expands etc.
 
 > onSetActive - invoke whenever link is being set to active
+
+> ignoreCancelEvents - ignores events which cancel animated scrolling
 
 ```js
 <Link activeClass="active"
@@ -164,6 +166,7 @@ React.render(
       delay={1000}
       isDynamic={true}
       onSetActive={this.handleSetActive}
+      ignoreCancelEvents={false}
 >
   Your name
 </Link>
