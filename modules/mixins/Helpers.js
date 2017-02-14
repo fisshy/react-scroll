@@ -22,6 +22,7 @@ var protoTypes = {
   duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func]),
   absolute: React.PropTypes.bool,
   onSetActive: React.PropTypes.func,
+  onSetInactive: React.PropTypes.func,
   ignoreCancelEvents: React.PropTypes.bool
 };
 
@@ -83,6 +84,10 @@ var Helpers = {
           scroller.setActiveLink(void 0);
           this.setState({ active : false });
 
+          if(this.props.onSetInactive) {
+            this.props.onSetInactive();
+          }
+
         } else if (isInside && activeLink != to) {
           scroller.setActiveLink(to);
           this.setState({ active : true });
@@ -116,6 +121,9 @@ var Helpers = {
 
           this._stateHandler = function() {
             if(scroller.getActiveLink() != to) {
+                if(this.state !== null && this.state.active && this.props.onSetInactive) {
+                  this.props.onSetInactive();
+                }
                 this.setState({ active : false });
             }
           }.bind(this)
@@ -149,6 +157,10 @@ var Helpers = {
             if (isOutside && activeLink === to) {
               scroller.setActiveLink(void 0);
               this.setState({ active : false });
+
+              if(this.props.onSetInactive) {
+                this.props.onSetInactive();
+              }
 
             } else if (isInside && activeLink != to) {
               scroller.setActiveLink(to);
