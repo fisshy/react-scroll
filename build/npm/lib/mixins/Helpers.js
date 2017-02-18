@@ -122,7 +122,7 @@ var Helpers = {
           this._stateHandler = function() {
             if(scroller.getActiveLink() != to) {
                 if(this.state !== null && this.state.active && this.props.onSetInactive) {
-                    this.props.onSetInactive();
+                  this.props.onSetInactive();
                 }
                 this.setState({ active : false });
             }

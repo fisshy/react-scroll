@@ -154,6 +154,8 @@ React.render(
 
 > onSetActive - invoke whenever link is being set to active
 
+> onSetInactive - invoke whenever link is lose the active status
+
 > ignoreCancelEvents - ignores events which cancel animated scrolling
 
 ```js
@@ -166,6 +168,7 @@ React.render(
       delay={1000}
       isDynamic={true}
       onSetActive={this.handleSetActive}
+      onSetInactive={this.handleSetInactive}
       ignoreCancelEvents={false}
 >
   Your name
