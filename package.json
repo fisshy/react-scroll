@@ -50,5 +50,9 @@
     "mocha": "^2.3.3",
     "webpack": "^1.6.0",
     "webpack-dev-server": "^1.7.0"
+  },
+  "peerDependencies": {
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1"
   }
 }
