@@ -29,11 +29,11 @@
     "scrolls"
   ],
   "dependencies": {
-    "object-assign": "^4.0.1",
-    "react": "^15.0.1",
-    "react-dom": "^15.0.1"
+    "object-assign": "^4.0.1"
   },
   "devDependencies": {
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
     "react-addons-test-utils": "^15.0.1",
     "babel": "^5.8.23",
     "babel-core": "^4.6.0",
@@ -50,5 +50,9 @@
     "mocha": "^2.3.3",
     "webpack": "^1.6.0",
     "webpack-dev-server": "^1.7.0"
+  },
+  "peerDependencies": {
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1"
   }
 }
