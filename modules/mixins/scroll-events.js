@@ -6,7 +6,7 @@ var Events = {
 			Events.registered[evtName] = callback;
 		},
 		remove: function(evtName) {
-			Events.registered[evtName] = null;
+			delete Events.registered[evtName];
 		}
 	}
 };
