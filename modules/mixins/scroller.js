@@ -4,20 +4,25 @@ var animateScroll = require('./animate-scroll');
 var events = require('./scroll-events');
 
 var __mapped = {};
+var __links = [];
 var __activeLink;
 
 module.exports = {
 
   unmount: function() {
     __mapped = {};
+    __links = [];
   },
 
   register: function(name, element){
     __mapped[name] = element;
+    __links.push(name);
   },
 
   unregister: function(name) {
     delete __mapped[name];
+    var linkIndex = __links.indexOf(name);
+    __links = [].concat(__links.slice(0, linkIndex)).concat(__links.slice(linkIndex + 1));
   },
 
   get: function(name) {
@@ -30,6 +35,23 @@ module.exports = {
 
   getActiveLink: function() {
     return __activeLink;
+  },
+
+  getLinks: function () {
+    return __links;
+  },
+
+  getNextLink: function () {
+    var currentIndex = __links.indexOf(__activeLink) || 0;
+    var nextItem = __links[currentIndex + 1];
+    return nextItem;
+  },
+
+  scrollToNext: function (props) {
+    var to = this.getNextLink();
+    if (to) {
+      this.scrollTo(to, props);
+    }
   },
 
   scrollTo: function(to, props) {
