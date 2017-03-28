@@ -203,8 +203,6 @@ var startAnimateTopScroll = function(y, options, to, target) {
   var easing = getAnimationType(options);
   var easedAnimate = animateTopScroll.bind(null, easing);
 
-  console.log(easing)
-
   if(options && options.delay > 0) {
     __delayTimeout = window.setTimeout(function animate() {
       requestAnimationFrameHelper.call(window, easedAnimate);
