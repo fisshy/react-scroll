@@ -318,7 +318,7 @@ module.exports = Helpers.Scroll(Link);
 ### Scroll Animations
 > Add a custom easing animation to the smooth option. This prop will accept a Boolean if you want the default, or any of the animations listed below
 
-```
+```js
 
 scroller.scrollTo('myScrollToElement', {
   duration: 1500,
