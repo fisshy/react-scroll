@@ -314,6 +314,56 @@ module.exports = Helpers.Scroll(Link);
 
 ```
 
+
+### Scroll Animations
+> Add a custom easing animation to the smooth option. This prop will accept a Boolean if you want the default, or any of the animations listed below
+
+```
+
+scroller.scrollTo('myScrollToElement', {
+  duration: 1500,
+  delay: 100,
+  smooth: "easeInOutQuint",
+  containerId: 'ContainerElementID',
+  ...
+})
+
+```
+
+> List of currently available animations:
+
+```
+linear
+	- no easing, no acceleration.
+easeInQuad
+	- accelerating from zero velocity.
+easeOutQuad
+	- decelerating to zero velocity.
+easeInOutQuad
+	- acceleration until halfway, then deceleration.
+easeInCubic
+	- accelerating from zero velocity.
+easeOutCubic
+	- decelerating to zero velocity.
+easeInOutCubic
+	- acceleration until halfway, then deceleration.
+easeInQuart
+	- accelerating from zero velocity.
+easeOutQuart
+	- decelerating to zero velocity.
+easeInOutQuart
+	-  acceleration until halfway, then deceleration.
+easeInQuint
+	- accelerating from zero velocity.
+easeOutQuint
+	- decelerating to zero velocity.
+easeInOutQuint
+	- acceleration until halfway, then deceleration.
+```
+
+A good visual reference can be found at [easings.net](http://easings.net/)
+
+
 #### Changelog
 > v1.4.0
 - It's now possible to nest scroll areas and get a callback when "link is active"
