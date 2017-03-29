@@ -234,6 +234,7 @@ var scrollMore = function(toY, options) {
 
 module.exports = {
   animateTopScroll: startAnimateTopScroll,
+  getAnimationType: getAnimationType,
   scrollToTop: scrollToTop,
   scrollToBottom: scrollToBottom,
   scrollTo: scrollTo,
