@@ -65,4 +65,4 @@ module.exports = {
   easeInOutQuint: function (x) {
     return x < .5 ? 16 * x * x * x * x * x : 1 + 16 * (--x) * x * x * x * x;
   }
-}
+};

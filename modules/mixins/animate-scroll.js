@@ -45,7 +45,7 @@ var getAnimationType = function (options) {
         return smooth.defaultEasing;
     }
   }
-}
+};
 
 /*
  * Function helper
