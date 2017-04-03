@@ -14,7 +14,7 @@ var protoTypes = {
   containerId: React.PropTypes.string,
   activeClass:React.PropTypes.string,
   spy: React.PropTypes.bool,
-  smooth: React.PropTypes.bool,
+  smooth: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.string]),
   offset: React.PropTypes.number,
   delay: React.PropTypes.number,
   isDynamic: React.PropTypes.bool,
