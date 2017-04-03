@@ -2,11 +2,50 @@ var assign = require('object-assign');
 
 var smooth = require('./smooth');
 
-var easing = smooth.defaultEasing;
-
 var cancelEvents = require('./cancel-events');
 
 var events = require('./scroll-events');
+
+/*
+ * Gets the easing type from the smooth prop within options.
+ */
+var getAnimationType = function (options) {
+  if (typeof options.smooth === Boolean && options.smooth === true) {
+    return smooth.defaultEasing;
+  } else {
+    var animationType = options.smooth;
+    switch (animationType) {
+      case "linear":
+        return smooth.linear;
+      case "easeInQuad":
+        return smooth.easeInQuad;
+      case "easeOutQuad":
+        return smooth.easeOutQuad;
+      case "easeInOutQuad":
+        return smooth.easeInOutQuad;
+      case "easeInCubic":
+        return smooth.easeInCubic;
+      case "easeOutCubic":
+        return smooth.easeOutQuad;
+      case "easeInOutCubic":
+        return smooth.easeInQuad;
+      case "easeInQuart":
+        return smooth.easeInQuart;
+      case "easeOutQuart":
+        return smooth.easeOutQuart;
+      case "easeInOutQuart":
+        return smooth.easeInOutQuart;
+      case "easeInQuint":
+        return smooth.easeInQuint;
+      case "easeOutQuint":
+        return smooth.easeInQuint;
+      case "easeInOutQuint":
+        return smooth.easeInOutQuint;
+      default:
+        return smooth.defaultEasing;
+    }
+  }
+};
 
 /*
  * Function helper
@@ -83,7 +122,7 @@ var scrollContainerHeight = function() {
   }
 };
 
-var animateTopScroll = function(timestamp) {
+var animateTopScroll = function(easing, timestamp) {
 
   // Cancel on specific events
   if(__cancel) { 
@@ -112,7 +151,8 @@ var animateTopScroll = function(timestamp) {
   }
 
   if(__percent < 1) {
-    requestAnimationFrameHelper.call(window, animateTopScroll);
+    var easedAnimate = animateTopScroll.bind(null, easing);
+    requestAnimationFrameHelper.call(window, easedAnimate);
     return;
   }
 
@@ -160,14 +200,17 @@ var startAnimateTopScroll = function(y, options, to, target) {
   __to              = to;
   __target          = target;
 
+  var easing = getAnimationType(options);
+  var easedAnimate = animateTopScroll.bind(null, easing);
+
   if(options && options.delay > 0) {
     __delayTimeout = window.setTimeout(function animate() {
-      requestAnimationFrameHelper.call(window, animateTopScroll);
+      requestAnimationFrameHelper.call(window, easedAnimate);
     }, options.delay);
     return;
   }
 
-  requestAnimationFrameHelper.call(window, animateTopScroll);
+  requestAnimationFrameHelper.call(window, easedAnimate);
 
 };
 
@@ -191,6 +234,7 @@ var scrollMore = function(toY, options) {
 
 module.exports = {
   animateTopScroll: startAnimateTopScroll,
+  getAnimationType: getAnimationType,
   scrollToTop: scrollToTop,
   scrollToBottom: scrollToBottom,
   scrollTo: scrollTo,
