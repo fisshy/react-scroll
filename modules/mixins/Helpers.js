@@ -7,23 +7,24 @@ var animateScroll = require('./animate-scroll');
 var scrollSpy = require('./scroll-spy');
 var defaultScroller = require('./scroller');
 var assign = require('object-assign');
+var PropTypes = require('prop-types');
 
 
 var protoTypes = {
-  to: React.PropTypes.string.isRequired,
-  containerId: React.PropTypes.string,
-  activeClass:React.PropTypes.string,
-  spy: React.PropTypes.bool,
-  smooth: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.string]),
-  offset: React.PropTypes.number,
-  delay: React.PropTypes.number,
-  isDynamic: React.PropTypes.bool,
-  onClick: React.PropTypes.func,
-  duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func]),
-  absolute: React.PropTypes.bool,
-  onSetActive: React.PropTypes.func,
-  onSetInactive: React.PropTypes.func,
-  ignoreCancelEvents: React.PropTypes.bool
+  to: PropTypes.string.isRequired,
+  containerId: PropTypes.string,
+  activeClass:PropTypes.string,
+  spy: PropTypes.bool,
+  smooth: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  offset: PropTypes.number,
+  delay: PropTypes.number,
+  isDynamic: PropTypes.bool,
+  onClick: PropTypes.func,
+  duration: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+  absolute: PropTypes.bool,
+  onSetActive: PropTypes.func,
+  onSetInactive: PropTypes.func,
+  ignoreCancelEvents: PropTypes.bool
 };
 
 var Helpers = {
@@ -32,19 +33,21 @@ var Helpers = {
 
     var scroller = customScroller || defaultScroller;
 
-    return React.createClass({
+    class _ extends React.Component{
 
-      propTypes: protoTypes,
+      constructor(props){
+        super(props);
+        this.scrollTo = this.scrollTo.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.spyHandler = this.spyHandler.bind(this);
 
-      getDefaultProps: function() {
-        return {offset: 0};
-      },
+      }
 
-      scrollTo : function(to, props) {
+      scrollTo(to, props) {
           scroller.scrollTo(to, props);
-      },
+      }
 
-      handleClick: function(event) {
+      handleClick(event) {
 
         /*
          * give the posibility to override onClick
@@ -66,9 +69,9 @@ var Helpers = {
          */
         this.scrollTo(this.props.to, this.props);
 
-      },
+      }
 
-      spyHandler: function(y) {
+      spyHandler(y) {
         var element = scroller.get(this.props.to);
         if (!element) return;
         var cords = element.getBoundingClientRect();
@@ -98,11 +101,9 @@ var Helpers = {
 
           scrollSpy.updateStates();
         }
-      },
+      }
 
-      componentDidMount: function() {
-
-
+      componentDidMount() {
 
         var containerId = this.props.containerId;
 
@@ -177,11 +178,11 @@ var Helpers = {
 
           scrollSpy.addSpyHandler(this._spyHandler, scrollSpyContainer);
         }
-      },
-      componentWillUnmount: function() {
+      }
+      componentWillUnmount() {
         scrollSpy.unmount(this._stateHandler, this._spyHandler);
-      },
-      render: function() {
+      }
+      render() {
 
         var className = "";
         if(this.state && this.state.active) {
@@ -203,35 +204,45 @@ var Helpers = {
 
         return React.createElement(Component, props);
       }
-    });
+    };
+    _.propTypes = protoTypes;
+    _.defaultProps={offset: 0};
+    return _;
   },
 
 
   Element: function(Component) {
-    return React.createClass({
-      propTypes: {
-        name: React.PropTypes.string,
-        id:   React.PropTypes.string
-      },
-      componentDidMount: function() {
+    class _ extends React.Component{
+
+      constructor (props){
+        super(props);
+        this.registerElems = this.registerElems.bind(this);
+      }
+
+      componentDidMount() {
         this.registerElems(this.props.name);
-      },
-      componentWillReceiveProps: function(nextProps) {
+      }
+      componentWillReceiveProps(nextProps) {
         if (this.props.name !== nextProps.name) {
           this.registerElems(nextProps.name);
         }
-      },
-      componentWillUnmount: function() {
+      }
+      componentWillUnmount() {
         defaultScroller.unregister(this.props.name);
-      },
-      registerElems: function(name) {
+      }
+      registerElems(name) {
         var domNode = ReactDOM.findDOMNode(this);
         defaultScroller.register(name, domNode);
-      },
-      render: function() {
+      }
+      render() {
         return React.createElement(Component, this.props);
       }
-    });
+    };
+    _.propTypes = {
+        name: PropTypes.string,
+        id:   PropTypes.string
+    }
+    return _;
   }
 };
 
