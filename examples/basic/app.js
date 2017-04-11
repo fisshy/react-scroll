@@ -10,7 +10,6 @@ var Element    = Scroll.Element;
 var Events     = Scroll.Events;
 var scroll     = Scroll.animateScroll;
 var scrollSpy  = Scroll.scrollSpy;
-var scroller = Scroll.scroller;
 
 var durationFn = function(deltaTop) {
     return deltaTop;
@@ -34,8 +33,6 @@ class Section extends React.Component{
     });
 
     scrollSpy.update();
-	window.s = scroll;
-	window.ss=scroller;
 
   }
   scrollToTop() {
