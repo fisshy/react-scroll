@@ -15,8 +15,14 @@ var durationFn = function(deltaTop) {
     return deltaTop;
 };
 
-var Section = React.createClass({
-  componentDidMount: function() {
+class Section extends React.Component{
+
+  constructor (props){
+      super(props);
+      this.scrollToTop = this.scrollToTop.bind(this);
+  }
+
+  componentDidMount() {
 
     Events.scrollEvent.register('begin', function() {
       console.log("begin", arguments);
@@ -28,15 +34,15 @@ var Section = React.createClass({
 
     scrollSpy.update();
 
-  },
-  scrollToTop: function() {
+  }
+  scrollToTop() {
     scroll.scrollToTop();
-  },
-  componentWillUnmount: function() {
+  }
+  componentWillUnmount() {
     Events.scrollEvent.remove('begin');
     Events.scrollEvent.remove('end');
-  },
-  render: function () {
+  }
+  render () {
     return (
       <div>
         <nav className="navbar navbar-default navbar-fixed-top">
@@ -123,7 +129,7 @@ var Section = React.createClass({
       </div>
     );
   }
-});
+};
 
 
 ReactDOM.render(
