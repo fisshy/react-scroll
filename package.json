@@ -1,6 +1,6 @@
 {
   "name": "react-scroll",
-  "version": "1.4.8",
+  "version": "1.5.0",
   "description": "A scroll component for React.js",
   "main": "modules",
   "repository": {
@@ -9,7 +9,7 @@
   },
   "scripts": {
     "examples": "webpack-dev-server --config examples/webpack.config.js --no-info --content-base examples",
-    "test": "./node_modules/karma/bin/karma start"
+    "test": "karma start"
   },
   "homepage": "https://github.com/fisshy/react-scroll",
   "bugs": "https://github.com/fisshy/react-scroll/issues",
