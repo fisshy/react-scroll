@@ -1,18 +1,5 @@
 var addPassiveEventListener = require('./passive-event-listeners');
-
-var eventThrottler = function(eventHandler) {
-  var eventHandlerTimeout;
-  return function(event) {
-    // ignore events as long as an eventHandler execution is in the queue
-    if ( !eventHandlerTimeout ) {
-      eventHandlerTimeout = setTimeout(function() {
-        eventHandlerTimeout = null;
-        eventHandler(event);
-        // The eventHandler will execute at a rate of 15fps
-      }, 66);
-    }
-  };
-};
+var throttle = require('lodash.throttle');
 
 var scrollSpy = {
 
@@ -23,9 +10,12 @@ var scrollSpy = {
   mount: function (scrollSpyContainer) {
     var t = this;
     if (scrollSpyContainer) {
-      var eventHandler = eventThrottler(function(event) {
+      // ignore events as long as an eventHandler execution is in the queue
+      // The eventHandler will execute at a rate of 15fps
+      var eventHandler = throttle(function(event) {
         t.scrollHandler(scrollSpyContainer);
-      });
+      }, 66);
+
       this.scrollSpyContainers.push(scrollSpyContainer);
       addPassiveEventListener(scrollSpyContainer, 'scroll', eventHandler);
     }
