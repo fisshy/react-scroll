@@ -1,3 +1,5 @@
+'use strict';
+
 exports.Link = require('./components/Link.js');
 exports.Button = require('./components/Button.js');
 exports.Element = require('./components/Element.js');
