@@ -9,8 +9,8 @@
   },
   "scripts": {
     "examples": "webpack-dev-server --config examples/webpack.config.js --no-info --content-base examples",
-    "build": "babel modules -d build/npm/lib --ignore '**/__tests__/**' && gulp",
-    "clean": "rm -rf build/npm/lib",
+    "build": "babel modules -d build/npm/modules --ignore '**/__tests__/**' && gulp",
+    "clean": "rm -rf build/npm/modules",
     "test": "karma start"
   },
   "homepage": "https://github.com/fisshy/react-scroll",
