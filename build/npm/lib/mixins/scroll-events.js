@@ -1,11 +1,12 @@
+"use strict";
 
 var Events = {
-	registered : {},
-	scrollEvent : {
-		register: function(evtName, callback) {
+	registered: {},
+	scrollEvent: {
+		register: function register(evtName, callback) {
 			Events.registered[evtName] = callback;
 		},
-		remove: function(evtName) {
+		remove: function remove(evtName) {
 			Events.registered[evtName] = null;
 		}
 	}
