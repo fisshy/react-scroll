@@ -1,6 +1,6 @@
 ## React Scroll
 
-Directive for basic scrolling and smooth scrolling.
+Component for basic scrolling and smooth scrolling.
 
 ### Install
 ```js
