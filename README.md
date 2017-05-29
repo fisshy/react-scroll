@@ -365,6 +365,15 @@ A good visual reference can be found at [easings.net](http://easings.net/)
 
 
 #### Changelog
+> 1.5.2
+- Fixes the way everything is built and transformed with babel.
+
+> 1.5.0
+- Now using class and extending React.Component to match later versions of react.
+
+> v1.4.8
+- Additional easings and animations added
+
 > v1.4.0
 - It's now possible to nest scroll areas and get a callback when "link is active"
 
