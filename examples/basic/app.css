@@ -11,6 +11,10 @@
 	padding-left:10px;
 }
 
+#offset {
+	padding-top:155px;
+}
+
 .active {
 	color:red !important;
 }

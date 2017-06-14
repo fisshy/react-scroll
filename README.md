@@ -144,7 +144,9 @@ React.render(
 
 > smooth - animate the scrolling
 
-> offset - scroll additional px ( like padding )
+> offset - element bound and scroll offset px ( like padding )
+
+> scrollOffset - additional scroll offset px ( used only by scrollTo )
 
 > duration - time of the scroll animation
 
