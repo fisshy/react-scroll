@@ -53,17 +53,19 @@ module.exports = {
       }
 
       var containerId = props.containerId;
-      var containerElement = containerId ? document.getElementById(containerId) : null;
+	  var container = props.container;
+	  
+      var containerElement = containerId ? document.getElementById(containerId) : (container && container.nodeType) ? container : null;
 
       var scrollOffset;
 
-      if(containerId && containerElement) {
+      if((containerId || container) && containerElement) {
         props.absolute = true;
         if(containerElement !== target.offsetParent) {
           if(!containerElement.contains(target)) {
-            throw new Error('Container with ID ' + containerId + ' is not a parent of target ' + to);
+            throw new Error('Container with ID ' + (containerId  || container) + ' is not a parent of target ' + to);
           } else {
-            throw new Error('Container with ID ' + containerId + ' is not a positioned element');
+            throw new Error('Container with ID ' + (containerId  || container)  + ' is not a positioned element');
           }
         }
 
@@ -80,7 +82,7 @@ module.exports = {
        * if animate is not provided just scroll into the view
        */
       if(!props.smooth) {
-        if(containerId && containerElement) {
+        if((containerId  || container) && containerElement) {
           containerElement.scrollTop = scrollOffset;
         } else {
           // window.scrollTo accepts only absolute values so body rectangle needs to be subtracted
