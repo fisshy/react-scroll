@@ -163,7 +163,7 @@ var animateTopScroll = function(easing, timestamp) {
 };
 
 var setContainer = function (options) {
-  if(!options || (!options.containerId && !options.container && !options.container.nodeType)) {
+  if(!options || (!options.containerId && (!options.container || !options.container.nodeType)) {
     __containerElement = null;
     return;
   }
