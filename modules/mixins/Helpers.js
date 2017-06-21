@@ -107,9 +107,18 @@ var Helpers = {
       componentDidMount() {
 
         var containerId = this.props.containerId;
-		var container = this.props.container;
+        var container = this.props.container;
 
-        var scrollSpyContainer = containerId ? document.getElementById(containerId) : (container && container.nodeType) ? container : document;
+        var scrollSpyContainer;
+
+        if(containerId) {
+          scrollSpyContainer = document.getElementById(containerId);
+        } else if (container && container.nodeType) {
+          scrollSpyContainer = container;
+        } else {
+          scrollSpyContainer = document;
+        }
+
 
         if(!scrollSpy.isMounted(scrollSpyContainer)) {
           scrollSpy.mount(scrollSpyContainer);

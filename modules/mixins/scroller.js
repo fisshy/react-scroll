@@ -53,9 +53,17 @@ module.exports = {
       }
 
       var containerId = props.containerId;
-	  var container = props.container;
-	  
-      var containerElement = containerId ? document.getElementById(containerId) : (container && container.nodeType) ? container : null;
+      var container = props.container;
+
+      var containerElement;
+
+      if(containerId) {
+        containerElement = document.getElementById(containerId);
+      } else if(container && container.nodeType) {
+        containerElement = container;
+      } else {
+        containerElement = null;
+      }
 
       var scrollOffset;
 
