@@ -365,6 +365,9 @@ A good visual reference can be found at [easings.net](http://easings.net/)
 
 
 #### Changelog
+> 1.5.3
+- Fixes react error
+
 > 1.5.2
 - Fixes the way everything is built and transformed with babel.
 
