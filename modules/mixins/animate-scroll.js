@@ -125,11 +125,11 @@ var scrollContainerHeight = function() {
 var animateTopScroll = function(easing, timestamp) {
 
   // Cancel on specific events
-  if(__cancel) { 
+  if(__cancel) {
     if(events.registered['end']) {
       events.registered['end'](__to, __target, __currentPositionY);
     }
-    return 
+    return
   };
 
   __deltaTop = Math.round(__targetPositionY - __startPositionY);
@@ -163,12 +163,12 @@ var animateTopScroll = function(easing, timestamp) {
 };
 
 var setContainer = function (options) {
-  if(!options || !options.containerId) {
+  if(!options || (!options.containerId && (!options.container || !options.container.nodeType))) {
     __containerElement = null;
     return;
   }
 
-  __containerElement = document.getElementById(options.containerId);
+  __containerElement = options.containerId ? document.getElementById(options.containerId) : options.container;
 };
 
 var startAnimateTopScroll = function(y, options, to, target) {

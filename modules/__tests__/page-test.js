@@ -19,6 +19,8 @@ describe('Page', () => {
 
   let scrollDuration = 10;
 
+  let lastDivStyle = {height:"2000px"};
+
   let component =
       <div>
         <ul>
@@ -34,17 +36,17 @@ describe('Page', () => {
         <Element name="test3" className="element">test 3</Element>
         <Element name="test4" className="element">test 4</Element>
         <Element name="test5" className="element">test 5</Element>
-        <div id="anchor" name="test6" className="element">test 6</div>
+        <div id="anchor" className="element" style={lastDivStyle}>test 6</div>
       </div>
 
   beforeEach(() => {
-    events.scrollEvent.remove('begin');
-    events.scrollEvent.remove('end');
+    unmountComponentAtNode(node)
   });
 
   afterEach(function () {
-    unmountComponentAtNode(node)
     window.scrollTo(0, 0);
+    events.scrollEvent.remove('begin');
+    events.scrollEvent.remove('end');
   });
 
   it('renders six elements of link/element', (done) => {

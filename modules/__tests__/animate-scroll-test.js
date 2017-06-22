@@ -37,6 +37,8 @@ describe('AnimateScroll', () => {
 
   afterEach(function () {
     window.scrollTo(0, 0);
+    node.style.cssText = "";
+    document.body.style.cssText = "";
 
     unmountComponentAtNode(node);
   });
@@ -54,6 +56,21 @@ describe('AnimateScroll', () => {
 
       setTimeout(() => {
         expect(window.scrollY).toEqual(120);
+        done();
+      }, waitDuration);
+    });
+  });
+
+  it('scrolls to a position given a node as a container ', (done) => {
+    render(tallComponent, node, () => {
+      
+      window.scrollTo(0, 0);
+      node.style.cssText = "position: fixed; top: 0; bottom: 200px; width 100%; overflow: scroll";
+      document.body.style.cssText = "overflow: hidden;";
+
+      animateScroll.scrollTo(400, { duration: duration, container : node });
+      setTimeout(() => {
+        expect(node.scrollTop).toEqual(400);
         done();
       }, waitDuration);
     });

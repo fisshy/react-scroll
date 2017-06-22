@@ -13,6 +13,7 @@ var PropTypes = require('prop-types');
 var protoTypes = {
   to: PropTypes.string.isRequired,
   containerId: PropTypes.string,
+  container: PropTypes.object,
   activeClass:PropTypes.string,
   spy: PropTypes.bool,
   smooth: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
@@ -106,8 +107,18 @@ var Helpers = {
       componentDidMount() {
 
         var containerId = this.props.containerId;
+        var container = this.props.container;
 
-        var scrollSpyContainer = containerId ? document.getElementById(containerId) : document;
+        var scrollSpyContainer;
+
+        if(containerId) {
+          scrollSpyContainer = document.getElementById(containerId);
+        } else if (container && container.nodeType) {
+          scrollSpyContainer = container;
+        } else {
+          scrollSpyContainer = document;
+        }
+
 
         if(!scrollSpy.isMounted(scrollSpyContainer)) {
           scrollSpy.mount(scrollSpyContainer);
