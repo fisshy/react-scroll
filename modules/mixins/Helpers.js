@@ -228,6 +228,9 @@ var Helpers = {
       constructor (props){
         super(props);
         this.registerElems = this.registerElems.bind(this);
+        this.childBindings = {
+          domNode: null
+        };
       }
 
       componentDidMount() {
@@ -242,11 +245,10 @@ var Helpers = {
         defaultScroller.unregister(this.props.name);
       }
       registerElems(name) {
-        var domNode = ReactDOM.findDOMNode(this);
-        defaultScroller.register(name, domNode);
+        defaultScroller.register(name, this.childBindings.domNode);
       }
       render() {
-        return React.createElement(Component, this.props);
+        return React.createElement(Component, Object.assign({}, this.props, { parentBindings: this.childBindings }));
       }
     };
     _.propTypes = {
