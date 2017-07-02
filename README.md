@@ -158,6 +158,8 @@ React.render(
 
 > ignoreCancelEvents - ignores events which cancel animated scrolling
 
+> tagName - specify the underlying HTML element to constitute the `Element` component
+
 ```js
 <Link activeClass="active"
       to="target"

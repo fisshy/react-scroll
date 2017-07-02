@@ -55,6 +55,7 @@ class Section extends React.Component{
                 <li><Link activeClass="active" className="test4" to="test4" spy={true} smooth={true} duration={500}>Test 4</Link></li>
                 <li><Link activeClass="active" className="test5" to="test5" spy={true} smooth={true} duration={500} delay={1000}>Test 5 ( delay )</Link></li>
                 <li><Link activeClass="active" className="test6" to="anchor" spy={true} smooth={true} duration={500}>Test 6 (anchor)</Link></li>
+                <li><Link activeClass="active" className="customTagName" to="customTagName" spy={true} smooth={true} duration={500}>Custom Tag</Link></li>
                 <li><Link activeClass="active" className="test7" to="test7" spy={true} smooth={true} duration={durationFn}>Test 7 (duration and container)</Link></li>
                 <li> <a onClick={() => scroll.scrollTo(100)}>Scroll To 100!</a></li>
                 <li> <a onClick={() => scroll.scrollToBottom()}>Scroll To Bottom</a></li>
@@ -67,7 +68,7 @@ class Section extends React.Component{
           </div>
         </nav>
 
-        <Element name="test1" className="element" >
+        <Element name="test1" className="element">
           test 1
         </Element>
 
@@ -90,6 +91,10 @@ class Section extends React.Component{
         <div id="anchor" className="element">
           test 6 (anchor)
         </div>
+
+        <Element name="customTagName" className="element" tagName="H1">
+          Custom &lt;h1&gt; tagName
+        </Element>
 
         <Link activeClass="active" to="firstInsideContainer" spy={true} smooth={true} duration={250} containerId="containerElement" style={{display:'inline-block', margin: '20px'}}>
           Go to first element inside container
