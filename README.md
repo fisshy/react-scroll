@@ -23,7 +23,19 @@ Checkout examples
 
 ### Usage
 ```js
+// ES6 Imports
+import Scroll from 'react-scroll'; // Imports all Mixins
+import {scroller} from 'react-scroll'; //Imports scroller mixin, can use as scroller.scrollTo()
 
+
+// Or Access Link,Element,etc as follows
+let Link       = Scroll.Link;
+let Element    = Scroll.Element;
+let Events     = Scroll.Events;
+let scroll     = Scroll.animateScroll;
+let scrollSpy  = Scroll.scrollSpy;
+
+// ES5
 var React   = require('react');
 var Scroll  = require('react-scroll');
 
@@ -228,6 +240,7 @@ scroller.scrollTo('myScrollToElement', {
   delay: 100,
   smooth: true,
   containerId: 'ContainerElementID',
+  offset: 50, // Scrolls to element + 50 pixels down the page
   ...
 })
 
