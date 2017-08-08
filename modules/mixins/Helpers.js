@@ -137,6 +137,8 @@ var Helpers = {
                   this.props.onSetInactive();
                 }
                 this.setState({ active : false });
+            } else {
+                this.setState ({ active: true })
             }
           }.bind(this)
 
