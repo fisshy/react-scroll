@@ -138,7 +138,7 @@ var Helpers = {
                 }
                 this.setState({ active : false });
             } else {
-                this.setState ({ active: true })
+                this.setState ({ active: true });
             }
           }.bind(this)
 
