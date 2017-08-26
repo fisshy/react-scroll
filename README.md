@@ -158,7 +158,7 @@ React.render(
 
 > offset - scroll additional px ( like padding )
 
-> duration - time of the scroll animation
+> duration - time of the scroll animation - can be a number or a function (`function (scrollDistanceInPx) { return duration; }`), that allows more granular control at run-time
 
 > delay - wait x milliseconds before scroll
 
