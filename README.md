@@ -378,6 +378,9 @@ A good visual reference can be found at [easings.net](http://easings.net/)
 
 
 #### Changelog
+> 1.5.5
+- React v16 support
+
 > 1.5.4
 - Allows testing with jsdom and jest. Uses ref instead of findDOMNode
 
