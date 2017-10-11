@@ -181,10 +181,12 @@ var startAnimateTopScroll = function(y, options, to, target) {
 };
 
 var scrollToTop = function (options) {
+  setContainer(options);
   startAnimateTopScroll(0, assign(options || {}, { absolute : true }));
 };
 
 var scrollTo = function (toY, options) {
+  setContainer(options);
   startAnimateTopScroll(toY, assign(options || {}, { absolute : true }));
 };
 
