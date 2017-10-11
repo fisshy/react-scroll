@@ -3,7 +3,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var animateScroll = require('./animate-scroll');
 var scrollSpy = require('./scroll-spy');
 var defaultScroller = require('./scroller');
 var assign = require('object-assign');
