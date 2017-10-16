@@ -1,5 +1,6 @@
 var assign = require('object-assign');
 
+var utils = require('./utils');
 var animateScroll = require('./animate-scroll');
 var events = require('./scroll-events');
 
@@ -56,31 +57,21 @@ module.exports = {
       var container = props.container;
 
       var containerElement;
-
       if(containerId) {
         containerElement = document.getElementById(containerId);
       } else if(container && container.nodeType) {
         containerElement = container;
       } else {
-        containerElement = null;
+        containerElement = utils.getScrollParent(target);
       }
 
+      props.absolute = true;
       var scrollOffset;
-
-      if((containerId || container) && containerElement) {
-        props.absolute = true;
-        if(containerElement !== target.offsetParent) {
-          if(!containerElement.contains(target)) {
-            throw new Error('Container with ID ' + (containerId  || container) + ' is not a parent of target ' + to);
-          } else {
-            throw new Error('Container with ID ' + (containerId  || container)  + ' is not a positioned element');
-          }
-        }
-
+      if (containerElement === document) {
         scrollOffset = target.offsetTop;
       } else {
         var coordinates = target.getBoundingClientRect();
-        scrollOffset = coordinates.top;
+        scrollOffset = containerElement.scrollTop + coordinates.top - containerElement.offsetTop;
       }
 
       scrollOffset += (props.offset || 0);
@@ -90,12 +81,12 @@ module.exports = {
        * if animate is not provided just scroll into the view
        */
       if(!props.smooth) {
-        if((containerId  || container) && containerElement) {
-          containerElement.scrollTop = scrollOffset;
-        } else {
+        if (containerElement === document) {
           // window.scrollTo accepts only absolute values so body rectangle needs to be subtracted
           var bodyRect = document.body.getBoundingClientRect();
           window.scrollTo(0, scrollOffset - bodyRect.top);
+        } else {
+          containerElement.scrollTop = scrollOffset;
         }
 
         if(events.registered['end']) {

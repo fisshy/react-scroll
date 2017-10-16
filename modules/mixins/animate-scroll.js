@@ -1,5 +1,6 @@
 var assign = require('object-assign');
 
+var utils = require('./utils');
 var smooth = require('./smooth');
 
 var cancelEvents = require('./cancel-events');
@@ -57,7 +58,7 @@ var __delayTimeout;
 
 
 var currentPositionY = function() {
-  if (__containerElement) {
+  if (__containerElement && __containerElement !== document && __containerElement !== document.body) {
         return __containerElement.scrollTop;
 	} else {
     var supportPageOffset = window.pageXOffset !== undefined;
@@ -110,7 +111,7 @@ var animateTopScroll = function(easing, timestamp) {
 
   __currentPositionY = __startPositionY + Math.ceil(__deltaTop * __percent);
 
-  if(__containerElement) {
+  if(__containerElement && __containerElement !== document && __containerElement !== document.body) {
     __containerElement.scrollTop = __currentPositionY;
   } else {
     window.scrollTo(0, __currentPositionY);
@@ -129,12 +130,15 @@ var animateTopScroll = function(easing, timestamp) {
 };
 
 var setContainer = function (options) {
-  if(!options || (!options.containerId && (!options.container || !options.container.nodeType))) {
-    __containerElement = null;
-    return;
-  }
-
-  __containerElement = options.containerId ? document.getElementById(options.containerId) : options.container;
+  __containerElement = !options
+    ? null
+    : options.containerId
+      ? document.getElementById(options.containerId)
+      : options.container && options.container.nodeType
+        ? options.container
+        : options.element && options.element.nodeType
+          ? utils.getScrollParent(options.element)
+          : document;
 };
 
 var startAnimateTopScroll = function(y, options, to, target) {
@@ -180,22 +184,35 @@ var startAnimateTopScroll = function(y, options, to, target) {
 
 };
 
+function proceedOptions(options) {
+  if (options && options.nodeType) {
+    options = { element: options };
+  } else {
+    options = assign({}, options);
+  }
+  options.absolute = true;
+
+  return options;
+}
+
 var scrollToTop = function (options) {
-  startAnimateTopScroll(0, assign(options || {}, { absolute : true }));
+  startAnimateTopScroll(0, proceedOptions(options));
 };
 
 var scrollTo = function (toY, options) {
-  startAnimateTopScroll(toY, assign(options || {}, { absolute : true }));
+  startAnimateTopScroll(toY, proceedOptions(options));
 };
 
 var scrollToBottom = function(options) {
+  options = proceedOptions(options);
   setContainer(options);
-  startAnimateTopScroll(scrollContainerHeight(), assign(options || {}, { absolute : true }));
+  startAnimateTopScroll(scrollContainerHeight(), options);
 };
 
 var scrollMore = function(toY, options) {
+  options = proceedOptions(options);
   setContainer(options);
-  startAnimateTopScroll(currentPositionY() + toY, assign(options || {}, { absolute : true }));
+  startAnimateTopScroll(currentPositionY() + toY, options);
 };
 
 module.exports = {

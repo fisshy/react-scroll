@@ -50,8 +50,8 @@ var scrollSpy = {
     var callbacks = this.scrollSpyContainers[this.scrollSpyContainers.indexOf(scrollSpyContainer)].spyCallbacks;
     if (callbacks) {
       for(var i = 0; i < callbacks.length; i++) {
-        var position =this.currentPositionY(scrollSpyContainer);
-        callbacks[i](this.currentPositionY(scrollSpyContainer));
+        var position = this.currentPositionY(scrollSpyContainer);
+        callbacks[i](position);
       }
     }
   },

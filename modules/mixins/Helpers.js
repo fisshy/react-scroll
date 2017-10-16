@@ -3,6 +3,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var utils = require('./utils');
 var scrollSpy = require('./scroll-spy');
 var defaultScroller = require('./scroller');
 var assign = require('object-assign');
@@ -28,7 +29,6 @@ var protoTypes = {
 };
 
 var Helpers = {
-
   Scroll: function (Component, customScroller) {
 
     var scroller = customScroller || defaultScroller;
@@ -44,7 +44,7 @@ var Helpers = {
       }
 
       scrollTo(to, props) {
-          scroller.scrollTo(to, props);
+        scroller.scrollTo(to, Object.assign({}, this.state, props));
       }
 
       handleClick(event) {
@@ -115,7 +115,7 @@ var Helpers = {
         } else if (container && container.nodeType) {
           scrollSpyContainer = container;
         } else {
-          scrollSpyContainer = document;
+          scrollSpyContainer = utils.getScrollParent(ReactDOM.findDOMNode(this));
         }
 
 
@@ -187,6 +187,10 @@ var Helpers = {
           }.bind(this);
 
           scrollSpy.addSpyHandler(this._spyHandler, scrollSpyContainer);
+
+          this.setState({
+            container: scrollSpyContainer
+          });
         }
       }
       componentWillUnmount() {
