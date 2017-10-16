@@ -69,7 +69,7 @@ var currentPositionY = function() {
 };
 
 var scrollContainerHeight = function() {
-  if(__containerElement) {
+  if(__containerElement && __containerElement !== document && __containerElement !== document.body) {
     return Math.max(
       __containerElement.scrollHeight,
       __containerElement.offsetHeight,
