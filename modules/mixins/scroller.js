@@ -83,8 +83,7 @@ module.exports = {
       if(!props.smooth) {
         if (containerElement === document) {
           // window.scrollTo accepts only absolute values so body rectangle needs to be subtracted
-          var bodyRect = document.body.getBoundingClientRect();
-          window.scrollTo(0, scrollOffset - bodyRect.top);
+          window.scrollTo(0, scrollOffset);
         } else {
           containerElement.scrollTop = scrollOffset;
         }

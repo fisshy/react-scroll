@@ -19,6 +19,30 @@ function getScrollParent(element, includeHidden) {
   return document;
 }
 
+function pushHash(hash) {
+  hash = hash
+    ? hash.indexOf('#') === 0
+      ? hash
+      : '#' + hash
+    : '';
+
+  if(history.pushState) {
+    var loc = window.location;
+    history.pushState(null, null, hash
+      ? hash
+      // remove hash
+      : loc.pathname + loc.search);
+  } else {
+    location.hash = hash;
+  }
+}
+
+function getHash() {
+  return window.location.hash.replace(/^#/, '');
+}
+
 module.exports = {
-  getScrollParent
+  getScrollParent,
+  pushHash,
+  getHash
 };
