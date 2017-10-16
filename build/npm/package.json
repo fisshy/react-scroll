@@ -2,7 +2,7 @@
   "name": "react-scroll",
   "version": "1.5.5",
   "description": "A scroll component for React.js",
-  "main": "build/npm/modules",
+  "main": "modules",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fisshy/react-scroll.git"
