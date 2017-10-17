@@ -1,0 +1,114 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js publish
+
+PATH: 
+  C:\Program Files\Docker\Docker\Resources\bin;C:\Program Files\Microsoft MPI\Bin\;C:\WinAVR-20100110\bin;C:\WinAVR-20100110\utils\bin;C:\Users\Kungen\.dnx\bin;D:\Dev\Go\bin;C:\Program Files (x86)\Nmap;C:\Java\apache-maven-3.3.9\bin;C:\Program Files\Java\jdk1.7.0_79\bin;C:\Program Files (x86)\Microsoft VS Code\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Python34;C:\Python34\Scripts;C:\Users\Kungen\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Docker Toolbox;C:\Users\Kungen\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin;C:\go_appengine;C:\Users\Kungen\AppData\Roaming\npm;C:\Program Files (x86)\Kubernetes\Minikube;D:\Dev\Kubectl;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\dotnet\;C:\Program Files\Anaconda3;C:\Program Files\Anaconda3\Scripts;C:\Program Files\Anaconda3\Library\bin;C:\Users\Kungen\AppData\Local\Programs\Git\cmd;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Go\bin;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files\Microsoft Service Fabric\bin\Fabric\Fabric.Code;C:\Program Files\Microsoft SDKs\Service Fabric\Tools\ServiceFabricLocalClusterManager;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\PuTTY\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\MSBuild\14.0\Bin\amd64;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin;C:\Users\Kungen\.dnx\bin;D:\Dev\Go\bin;C:\Users\Kungen\AppData\Local\Programs\Git\cmd;C:\Program Files (x86)\Nmap;C:\Java\apache-maven-3.3.9\bin;C:\Program Files\Java\jdk1.7.0_79\bin;C:\Users\Kungen\AppData\Local\atom\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Python34;C:\Python34\Scripts;C:\Users\Kungen\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Docker Toolbox;C:\Users\Kungen\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin;C:\go_appengine;D:\Dev\Kubectl;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\Microsoft VS Code\bin;C:\Program Files (x86)\MSBuild\14.0\Bin\amd64;C:\Users\Kungen\AppData\Roaming\npm;C:\Users\Kungen\AppData\Local\Yarn\bin
+
+Yarn version: 
+  1.1.0
+
+Node version: 
+  8.6.0
+
+Platform: 
+  win32 x64
+
+npm manifest: 
+  {
+    "name": "react-scroll",
+    "version": "1.5.5",
+    "description": "A scroll component for React.js",
+    "main": "modules",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/fisshy/react-scroll.git"
+    },
+    "scripts": {
+      "examples": "webpack-dev-server --config examples/webpack.config.js --no-info --content-base examples",
+      "build": "babel modules -d build/npm/modules --ignore '**/__tests__/**' && gulp",
+      "clean": "rm -rf build/npm/modules",
+      "test": "karma start"
+    },
+    "homepage": "https://github.com/fisshy/react-scroll",
+    "bugs": {
+      "url": "https://github.com/fisshy/react-scroll/issues"
+    },
+    "authors": [
+      "Joachim Karlsson"
+    ],
+    "license": "MIT",
+    "tags": [
+      "react",
+      "scroll"
+    ],
+    "keywords": [
+      "react",
+      "react-component",
+      "scroll",
+      "scroller",
+      "scrolls"
+    ],
+    "dependencies": {
+      "object-assign": "^4.1.1",
+      "prop-types": "^15.5.8"
+    },
+    "devDependencies": {
+      "babel-cli": "^6.24.1",
+      "babel-core": "^6.24.1",
+      "babel-loader": "^6.4.1",
+      "babel-plugin-transform-object-assign": "^6.22.0",
+      "babel-preset-es2015": "^6.24.1",
+      "babel-preset-react": "^6.24.1",
+      "expect": "^1.20.2",
+      "gulp": "^3.9.1",
+      "gulp-concat": "^2.6.1",
+      "karma": "^1.6.0",
+      "karma-chrome-launcher": "^2.0.0",
+      "karma-mocha": "^1.3.0",
+      "karma-mocha-reporter": "^2.2.3",
+      "karma-sourcemap-loader": "^0.3.7",
+      "karma-webpack": "^2.0.3",
+      "mocha": "^3.2.0",
+      "react": "^15.5.4",
+      "react-addons-test-utils": "^15.5.1",
+      "react-dom": "^15.5.4",
+      "webpack": "^2.4.1",
+      "webpack-dev-server": "^2.4.2"
+    },
+    "peerDependencies": {
+      "react": "^15.5.4 || ^16.0.0",
+      "react-dom": "^15.5.4 || ^16.0.0"
+    },
+    "babel": {
+      "presets": [
+        "es2015",
+        "react"
+      ],
+      "plugins": [
+        "transform-object-assign"
+      ]
+    },
+    "directories": {
+      "example": "examples"
+    },
+    "author": ""
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: https://registry.yarnpkg.com/react-scroll: You must be logged in to publish packages.
+      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:61779:18)
+      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:121917:22)
+      at emitTwo (events.js:125:13)
+      at Request.emit (events.js:213:7)
+      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:122900:10)
+      at emitOne (events.js:115:13)
+      at Request.emit (events.js:210:7)
+      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:122820:12)
+      at Object.onceWrapper (events.js:314:30)
+      at emitNone (events.js:110:20)
