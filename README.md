@@ -154,6 +154,8 @@ React.render(
 
 > spy - make Link selected when scroll is at its targets position
 
+> hashSpy - update hash based on spy.
+
 > smooth - animate the scrolling
 
 > offset - scroll additional px ( like padding )
@@ -175,6 +177,7 @@ React.render(
       to="target"
       spy={true}
       smooth={true}
+      hashSpy={true}
       offset={50}
       duration={500}
       delay={1000}
@@ -326,7 +329,6 @@ var Link = React.createClass({
 module.exports = Helpers.Scroll(Link);
 
 ```
-
 
 ### Scroll Animations
 > Add a custom easing animation to the smooth option. This prop will accept a Boolean if you want the default, or any of the animations listed below
