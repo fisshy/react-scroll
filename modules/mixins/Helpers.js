@@ -3,10 +3,13 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var utils = require('./utils');
 var scrollSpy = require('./scroll-spy');
 var defaultScroller = require('./scroller');
 var assign = require('object-assign');
 var PropTypes = require('prop-types');
+
+var scrollHash = require('./scroll-hash');
 
 
 var protoTypes = {
@@ -24,27 +27,30 @@ var protoTypes = {
   absolute: PropTypes.bool,
   onSetActive: PropTypes.func,
   onSetInactive: PropTypes.func,
-  ignoreCancelEvents: PropTypes.bool
+  ignoreCancelEvents: PropTypes.bool,
+  hashSpy: PropTypes.bool
 };
 
 var Helpers = {
-
   Scroll: function (Component, customScroller) {
 
     var scroller = customScroller || defaultScroller;
 
     class _ extends React.Component{
-
       constructor(props){
         super(props);
         this.scrollTo = this.scrollTo.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.stateHandler = this.stateHandler.bind(this);
         this.spyHandler = this.spyHandler.bind(this);
 
+        this.state = {
+          active: false
+        };
       }
 
       scrollTo(to, props) {
-          scroller.scrollTo(to, props);
+        scroller.scrollTo(to, Object.assign({}, this.state, props));
       }
 
       handleClick(event) {
@@ -71,40 +77,88 @@ var Helpers = {
 
       }
 
-      spyHandler(y) {
-        var element = scroller.get(this.props.to);
-        if (!element) return;
-        var cords = element.getBoundingClientRect();
-        var topBound = cords.top + y;
-        var bottomBound = topBound + cords.height;
-        var offsetY = y - this.props.offset;
+
+      stateHandler() {
         var to = this.props.to;
-        var isInside = (offsetY >= topBound && offsetY <= bottomBound);
-        var isOutside = (offsetY < topBound || offsetY > bottomBound);
-        var activeLink = scroller.getActiveLink();
 
-        if (isOutside && activeLink === to) {
-          scroller.setActiveLink(void 0);
-          this.setState({ active : false });
-
-          if(this.props.onSetInactive) {
+        if(scroller.getActiveLink() !== to) {
+          if(this.state !== null && this.state.active && this.props.onSetInactive) {
             this.props.onSetInactive();
           }
+          this.setState({ active : false });
+        }
+      }
 
-        } else if (isInside && activeLink != to) {
+      spyHandler(y) {
+        var scrollSpyContainer = this.getScrollSpyContainer();
+
+        if (scrollHash.isMounted() && !scrollHash.isInitialized()) {
+          return;
+        }
+
+        var to = this.props.to;
+
+        var element = null;
+        var elemTopBound = 0;
+        var elemBottomBound = 0;
+
+        var containerTop = 0;
+        if(scrollSpyContainer.getBoundingClientRect) {
+          var containerCords = scrollSpyContainer.getBoundingClientRect();
+          containerTop = containerCords.top;
+        }
+
+        if(!element || this.props.isDynamic) {
+          element = scroller.get(to);
+          if(!element){ return;}
+
+          var cords = element.getBoundingClientRect();
+          elemTopBound = (cords.top - containerTop + y);
+          elemBottomBound = elemTopBound + cords.height;
+        }
+
+        var offsetY = y - this.props.offset;
+        // var isInside = (offsetY >= Math.floor(elemTopBound) && offsetY <= Math.floor(elemBottomBound));
+        // var isOutside = (offsetY < Math.floor(elemTopBound) || offsetY > Math.floor(elemBottomBound));
+        var isInside = (offsetY >= Math.floor(elemTopBound) && offsetY < Math.floor(elemBottomBound));
+        var isOutside = (offsetY < Math.floor(elemTopBound) || offsetY >= Math.floor(elemBottomBound));
+        var activeLink = scroller.getActiveLink();
+
+        if (isOutside) {
+          if (to === activeLink) {
+            scroller.setActiveLink(void 0);
+          }
+
+          if (this.props.hashSpy && scrollHash.getHash() === to) {
+            scrollHash.changeHash();
+          }
+
+          if (this.props.spy && this.state.active) {
+            this.setState({ active : false });
+
+            if(this.props.onSetInactive) {
+              this.props.onSetInactive();
+            }
+          }
+        } else if (isInside && activeLink !== to) {
           scroller.setActiveLink(to);
-          this.setState({ active : true });
 
-          if(this.props.onSetActive) {
-            this.props.onSetActive(to);
+          if (this.props.hashSpy) {
+            scrollHash.changeHash(to);
+          }
+
+          if (this.props.spy) {
+            this.setState({ active : true });
+            if(this.props.onSetActive) {
+              this.props.onSetActive(to);
+            }
           }
 
           scrollSpy.updateStates();
         }
       }
 
-      componentDidMount() {
-
+      getScrollSpyContainer() {
         var containerId = this.props.containerId;
         var container = this.props.container;
 
@@ -115,86 +169,43 @@ var Helpers = {
         } else if (container && container.nodeType) {
           scrollSpyContainer = container;
         } else {
-          scrollSpyContainer = document;
+          scrollSpyContainer = utils.getScrollParent(ReactDOM.findDOMNode(this));
         }
 
+        return scrollSpyContainer;
+      }
 
-        if(!scrollSpy.isMounted(scrollSpyContainer)) {
-          scrollSpy.mount(scrollSpyContainer);
-        }
+      componentDidMount() {
+        if(this.props.spy || this.props.hashSpy) {
+          var scrollSpyContainer = this.getScrollSpyContainer();
 
+          if(!scrollSpy.isMounted(scrollSpyContainer)) {
+            scrollSpy.mount(scrollSpyContainer);
+          }
 
-        if(this.props.spy) {
-          var to = this.props.to;
-          var element = null;
-          var elemTopBound = 0;
-          var elemBottomBound = 0;
-
-          this._stateHandler = function() {
-            if(scroller.getActiveLink() != to) {
-                if(this.state !== null && this.state.active && this.props.onSetInactive) {
-                  this.props.onSetInactive();
-                }
-                this.setState({ active : false });
+          if (this.props.hashSpy) {
+            if(!scrollHash.isMounted()) {
+              scrollHash.mount(scroller);
             }
-          }.bind(this)
+          }
 
-          scrollSpy.addStateHandler(this._stateHandler);
+          if (this.props.spy) {
+            scrollSpy.addStateHandler(this.stateHandler);
+          }
 
-          this._spyHandler = function(y) {
+          scrollSpy.addSpyHandler(this.spyHandler, scrollSpyContainer);
 
-            var containerTop = 0;
-            if(scrollSpyContainer.getBoundingClientRect) {
-              var containerCords = scrollSpyContainer.getBoundingClientRect();
-              containerTop = containerCords.top;
-            }
-
-            if(!element || this.props.isDynamic) {
-                element = scroller.get(to);
-                if(!element){ return;}
-
-                var cords = element.getBoundingClientRect();
-                elemTopBound = (cords.top - containerTop + y);
-                elemBottomBound = elemTopBound + cords.height;
-            }
-
-
-
-            var offsetY = y - this.props.offset;
-            var isInside = (offsetY >= Math.floor(elemTopBound) && offsetY <= Math.floor(elemBottomBound));
-            var isOutside = (offsetY < Math.floor(elemTopBound) || offsetY > Math.floor(elemBottomBound));
-            var activeLink = scroller.getActiveLink();
-
-            if (isOutside && activeLink === to) {
-              scroller.setActiveLink(void 0);
-              this.setState({ active : false });
-
-              if(this.props.onSetInactive) {
-                this.props.onSetInactive();
-              }
-
-            } else if (isInside && activeLink != to) {
-              scroller.setActiveLink(to);
-              this.setState({ active : true });
-
-              if(this.props.onSetActive) {
-                this.props.onSetActive(to);
-              }
-
-              scrollSpy.updateStates();
-
-            }
-          }.bind(this);
-
-          scrollSpy.addSpyHandler(this._spyHandler, scrollSpyContainer);
+          this.setState({
+            container: scrollSpyContainer
+          });
         }
       }
       componentWillUnmount() {
-        scrollSpy.unmount(this._stateHandler, this._spyHandler);
+        scrollSpy.unmount(this.stateHandler, this.spyHandler);
       }
       render() {
-
         var className = "";
+
         if(this.state && this.state.active) {
           className = ((this.props.className || "") + " " + (this.props.activeClass || "active")).trim();
         } else {
