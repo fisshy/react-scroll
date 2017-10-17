@@ -378,6 +378,9 @@ A good visual reference can be found at [easings.net](http://easings.net/)
 
 
 #### Changelog
+> 1.6.0
+- Ability to scroll overflown elements and using hashes for history.
+
 > 1.5.5
 - React v16 support
 
