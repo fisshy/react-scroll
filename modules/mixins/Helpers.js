@@ -20,6 +20,7 @@ var protoTypes = {
   spy: PropTypes.bool,
   smooth: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   offset: PropTypes.number,
+  scrollOffset: PropTypes.number,
   delay: PropTypes.number,
   isDynamic: PropTypes.bool,
   onClick: PropTypes.func,
@@ -227,7 +228,7 @@ var Helpers = {
       }
     };
     _.propTypes = protoTypes;
-    _.defaultProps={offset: 0};
+    _.defaultProps={offset: 0, scrollOffset: 0};
     return _;
   },
 

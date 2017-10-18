@@ -62,6 +62,7 @@ class Section extends React.Component{
                 <li> <a onClick={() => scroll.scrollMore(1000, { delay : 1500 })}>Scroll 1000 More! ( delay ) </a></li>
                 <li><Link activeClass="active" className="test8" to="same" spy={true} smooth={true} duration={500}>Same target</Link></li>
                 <li><Link activeClass="active" className="test9" to="same" spy={true} smooth={true} duration={500}>Same target</Link></li>
+                <li><Link activeClass="active" className="test10" to="offset" spy={true} offset={100} scrollOffset={25}>Test offset</Link></li>
               </ul>
             </div>
           </div>
@@ -123,6 +124,10 @@ class Section extends React.Component{
         <Element id="same" className="element">
           Two links point to this
         </Element>
+
+        <div id="offset" className="element">
+          Offset
+        </div>
 
         <a onClick={this.scrollToTop}>To the top!</a>
 
