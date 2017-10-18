@@ -53,6 +53,12 @@ module.exports = {
         events.registered['begin'](to, target);
       }
 
+      Object.keys(events.registered).forEach(function(key) {
+        if (key !== 'begin' && key !== 'end') {
+          events.registered[key](to, target);
+        }
+      })
+
       var containerId = props.containerId;
       var container = props.container;
 
