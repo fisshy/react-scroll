@@ -89,7 +89,7 @@ describe('Page', () => {
 
       setTimeout(() => {
 
-        var scrollStop = scrollStart + expectedScrollTo
+        var scrollStop = Math.round(scrollStart + expectedScrollTo)
 
         expect(window.scrollY).toEqual(scrollStop);
 
@@ -120,7 +120,7 @@ describe('Page', () => {
 
       setTimeout(() => {
 
-        var scrollStop = scrollStart + expectedScrollTo
+        var scrollStop = Math.round(scrollStart + expectedScrollTo)
 
         expect(window.scrollY).toEqual(scrollStop);
 

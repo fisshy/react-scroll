@@ -1,11 +1,11 @@
 
-var Events = {
+const Events = {
 	registered : {},
 	scrollEvent : {
-		register: function(evtName, callback) {
+		register: (evtName, callback) => {
 			Events.registered[evtName] = callback;
 		},
-		remove: function(evtName) {
+		remove:(evtName) => {
 			Events.registered[evtName] = null;
 		}
 	}

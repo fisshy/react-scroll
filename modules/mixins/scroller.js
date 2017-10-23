@@ -1,45 +1,39 @@
-var assign = require('object-assign');
+const assign = require('object-assign');
 
-var utils = require('./utils');
-var animateScroll = require('./animate-scroll');
-var events = require('./scroll-events');
+const utils = require('./utils');
+const animateScroll = require('./animate-scroll');
+const events = require('./scroll-events');
 
-var __mapped = {};
-var __activeLink;
+let __mapped = {};
+let __activeLink;
 
 module.exports = {
 
-  unmount: function() {
+  unmount: () => {
     __mapped = {};
   },
 
-  register: function(name, element){
+  register: (name, element) => {
     __mapped[name] = element;
   },
 
-  unregister: function(name) {
+  unregister: (name) => {
     delete __mapped[name];
   },
 
-  get: function(name) {
-    return __mapped[name] || document.getElementById(name);
-  },
+  get: (name) => __mapped[name] || document.getElementById(name),
 
-  setActiveLink: function(link) {
-    __activeLink = link;
-  },
+  setActiveLink: (link) => __activeLink = link,
 
-  getActiveLink: function() {
-    return __activeLink;
-  },
+  getActiveLink: () => __activeLink,
 
-  scrollTo: function(to, props) {
+  scrollTo(to, props) {
 
      /*
      * get the mapped DOM element
      */
 
-      var target = this.get(to);
+      let target = this.get(to);
 
       if(!target) {
         console.warn("target Element not found");
@@ -53,10 +47,10 @@ module.exports = {
         events.registered['begin'](to, target);
       }
 
-      var containerId = props.containerId;
-      var container = props.container;
+      let containerId = props.containerId;
+      let container = props.container;
 
-      var containerElement;
+      let containerElement;
       if(containerId) {
         containerElement = document.getElementById(containerId);
       } else if(container && container.nodeType) {
@@ -66,11 +60,11 @@ module.exports = {
       }
 
       props.absolute = true;
-      var scrollOffset;
+      let scrollOffset;
       if (containerElement === document) {
         scrollOffset = target.offsetTop;
       } else {
-        var coordinates = target.getBoundingClientRect();
+        let coordinates = target.getBoundingClientRect();
         scrollOffset = containerElement.scrollTop + coordinates.top - containerElement.offsetTop;
       }
 

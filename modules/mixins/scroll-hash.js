@@ -1,7 +1,7 @@
-var addPassiveEventListener = require('./passive-event-listeners');
-var utils = require('./utils');
+const addPassiveEventListener = require('./passive-event-listeners');
+const utils = require('./utils');
 
-var scrollHash = {
+const scrollHash = {
   mountFlag: false,
   initialized: false,
   scroller: null,
@@ -25,23 +25,23 @@ var scrollHash = {
   },
 
   initStateFromHash() {
-    var hash = this.getHash();
+    let hash = this.getHash();
     if (hash) {
       // time to all component Elements can registered in componentDidMount phase
-      window.setTimeout(function() {
+      window.setTimeout(() => {
         this.scrollTo(hash, true);
         this.initialized = true;
-      }.bind(this), 10);
+      }, 10);
     } else {
       this.initialized = true;
     }
   },
 
   scrollTo(to, isInit) {
-    var scroller = this.scroller;
-    var element = scroller.get(to);
+    let scroller = this.scroller;
+    let element = scroller.get(to);
     if (element && (isInit || to !== scroller.getActiveLink())) {
-      var container = utils.getScrollParent(element);
+      let container = utils.getScrollParent(element);
       // scroller.setActiveLink(to);
       scroller.scrollTo(to, { container });
     }

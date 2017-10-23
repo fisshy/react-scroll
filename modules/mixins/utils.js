@@ -1,12 +1,12 @@
-function getScrollParent(element, includeHidden) {
-  var style = getComputedStyle(element);
-  var excludeStaticParent = style.position === "absolute";
-  var overflowRegex = includeHidden ? /(auto|scroll|hidden)/ : /(auto|scroll)/;
+const getScrollParent = (element, includeHidden) => {
+  let style = getComputedStyle(element);
+  let excludeStaticParent = style.position === "absolute";
+  let overflowRegex = includeHidden ? /(auto|scroll|hidden)/ : /(auto|scroll)/;
 
   if (style.position === "fixed") {
     return document;
   }
-  for (var parent = element; (parent = parent.parentElement);) {
+  for (let parent = element; (parent = parent.parentElement);) {
     style = getComputedStyle(parent);
     if (excludeStaticParent && style.position === "static") {
       continue;
@@ -19,7 +19,7 @@ function getScrollParent(element, includeHidden) {
   return document;
 }
 
-function pushHash(hash) {
+const pushHash = (hash) => {
   hash = hash
     ? hash.indexOf('#') === 0
       ? hash
@@ -27,7 +27,7 @@ function pushHash(hash) {
     : '';
 
   if(history.pushState) {
-    var loc = window.location;
+    let loc = window.location;
     history.pushState(null, null, hash
       ? hash
       // remove hash
@@ -36,8 +36,7 @@ function pushHash(hash) {
     location.hash = hash;
   }
 }
-
-function getHash() {
+const  getHash = () => {
   return window.location.hash.replace(/^#/, '');
 }
 

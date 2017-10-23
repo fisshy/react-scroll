@@ -4,7 +4,7 @@ module.exports = function (config) {
 
   config.set({
 
-    browsers: [ 'Chrome' ],
+    browsers: [ 'Chrome', 'Firefox' ],
     frameworks: [ 'mocha' ],
     reporters: [ 'mocha' ],
 
@@ -21,7 +21,15 @@ module.exports = function (config) {
       devtool: 'inline-source-map',
       module: {
         loaders: [
-          { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
+          { 
+            test: /\.js$/, 
+            exclude: /node_modules/, 
+            loader: 'babel-loader',
+            query: {
+              presets: ['es2015', 'react'],
+              plugins: ["transform-class-properties"]
+            } 
+          }
         ]
       }
     },
