@@ -108,13 +108,6 @@ describe('AnimateScroll', () => {
 
       setTimeout(() => {
         var offset = 16;
-
-        console.log("window.innerHeight", window.innerHeight);
-        console.log("node.offsetHeight", node.offsetHeight);
-        console.log("sum", node.offsetHeight - window.innerHeight + offset);
-        console.log("window.scrollY", window.scrollY);
-        console.log("currentPositionY", currentPositionY());
-
         expect(window.scrollY).toEqual(node.offsetHeight - window.innerHeight + offset);
         done();
       }, waitDuration);

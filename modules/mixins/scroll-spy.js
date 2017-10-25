@@ -1,4 +1,4 @@
-const addPassiveEventListener = require('./passive-event-listeners');
+const { addPassiveEventListener } = require('./passive-event-listeners');
 
 const eventThrottler = (eventHandler)  => {
   let eventHandlerTimeout;

@@ -1,6 +1,7 @@
-const addPassiveEventListener = require('./passive-event-listeners');
+const { addPassiveEventListener, removePassiveEventListener } = require('./passive-event-listeners');
 const events = ['mousedown', 'mousewheel', 'touchmove', 'keydown']
 
 module.exports = {
-	register : (cancelEvent) => (typeof document !== 'undefined') && events.forEach(event => addPassiveEventListener(document, event, cancelEvent))
+  subscribe : (cancelEvent) => (typeof document !== 'undefined') && events.forEach(event => addPassiveEventListener(document, event, cancelEvent)),
+  unsubscribe : (cancelEvent) => (typeof document !== 'undefined') && events.forEach(event => removePassiveEventListener(document, event, cancelEvent))
 };

@@ -53,7 +53,6 @@ let __deltaTop;
 let __percent;
 let __delayTimeout;
 
-
 const currentPositionY = () => {
   if (__containerElement && __containerElement !== document && __containerElement !== document.body) {
     return __containerElement.scrollTop;
@@ -86,13 +85,26 @@ const scrollContainerHeight = () => {
   }
 };
 
-const animateScroll = (easing, timestamp) => {
+const subscribeCancelEvents = (options) => {
+  if (!options.ignoreCancelEvents) {
+    cancelEvents.subscribe(cancelListener);
+  }
+}
+
+const unsubscribeCancelEvents = (options) => {
+  if (!options.ignoreCancelEvents) {
+    cancelEvents.unsubscribe(cancelListener);
+  }
+}
+
+const animateScroll = (easing, options, timestamp) => {
 
   // Cancel on specific events
   if (__cancel) {
     if (events.registered['end']) {
       events.registered['end'](__to, __target, __currentPositionY);
     }
+    unsubscribeCancelEvents(options);
     return
   };
 
@@ -115,13 +127,14 @@ const animateScroll = (easing, timestamp) => {
   }
 
   if (__percent < 1) {
-    let easedAnimate = animateScroll.bind(null, easing);
+    let easedAnimate = animateScroll.bind(null, easing, options);
     requestAnimationFrameHelper.call(window, easedAnimate);
     return;
   }
 
   if (events.registered['end']) {
     events.registered['end'](__to, __target, __currentPositionY);
+    unsubscribeCancelEvents(options);
   }
 
 };
@@ -138,20 +151,16 @@ const setContainer = (options) => {
           : document;
 };
 
+const cancelListener = () => {
+  __cancel = true;
+}
+
 const animateTopScroll = (y, options, to, target) => {
 
   window.clearTimeout(__delayTimeout);
 
-  if (!options.ignoreCancelEvents) {
-    /*
-     * Sets the cancel trigger
-     */
-
-    cancelEvents.register(() => {
-      __cancel = true;
-    });
-  }
-
+  subscribeCancelEvents(options);
+  
   setContainer(options);
 
   __start = null;
@@ -166,7 +175,7 @@ const animateTopScroll = (y, options, to, target) => {
   __target = target;
 
   let easing = getAnimationType(options);
-  let easedAnimate = animateScroll.bind(null, easing);
+  let easedAnimate = animateScroll.bind(null, easing, options);
 
   if (options && options.delay > 0) {
     __delayTimeout = window.setTimeout(() => {

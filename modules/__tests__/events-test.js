@@ -63,14 +63,14 @@ describe('Events', () => {
         var end = (to, target) => {
           expect(to).toEqual('test6')
           expect(Rtu.isDOMComponent(target)).toEqual(true);
+          done();
         };
 
         events.scrollEvent.register('begin', begin);
         events.scrollEvent.register('end', end);
 
         Rtu.Simulate.click(link);
-
-        done();
+        
     });
 
   });

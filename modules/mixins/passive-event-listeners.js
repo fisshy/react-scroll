@@ -3,7 +3,7 @@
  * Allowing the browser to continue scrolling without having to
  * to wait for the listener to return.
  */
-const addPassiveEventListener = (target, eventName, listener) => {
+export const addPassiveEventListener = (target, eventName, listener) => {
   const supportsPassiveOption = (() => {
     let supportsPassiveOption = false;
     try {
@@ -19,4 +19,7 @@ const addPassiveEventListener = (target, eventName, listener) => {
   target.addEventListener(eventName, listener, supportsPassiveOption ? { passive: true } : false);
 };
 
-module.exports = addPassiveEventListener;
+export const removePassiveEventListener = (target, eventName, listener) => {
+  target.removeEventListener(eventName, listener);
+}
+
