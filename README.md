@@ -380,7 +380,7 @@ A good visual reference can be found at [easings.net](http://easings.net/)
 
 
 #### Changelog
-> 1.6.2
+> 1.6.3
 - Simplified cancelation events
 - Now possible to nest containers
 
