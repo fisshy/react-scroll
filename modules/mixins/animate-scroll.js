@@ -53,6 +53,10 @@ let __deltaTop;
 let __percent;
 let __delayTimeout;
 
+cancelEvents.subscribe(() => {
+  __cancel = true;
+});
+
 const currentPositionY = () => {
   if (__containerElement && __containerElement !== document && __containerElement !== document.body) {
     return __containerElement.scrollTop;
@@ -85,26 +89,13 @@ const scrollContainerHeight = () => {
   }
 };
 
-const subscribeCancelEvents = (options) => {
-  if (!options.ignoreCancelEvents) {
-    cancelEvents.subscribe(cancelListener);
-  }
-}
-
-const unsubscribeCancelEvents = (options) => {
-  if (!options.ignoreCancelEvents) {
-    cancelEvents.unsubscribe(cancelListener);
-  }
-}
-
 const animateScroll = (easing, options, timestamp) => {
 
   // Cancel on specific events
-  if (__cancel) {
+  if (!options.ignoreCancelEvents && __cancel) {
     if (events.registered['end']) {
       events.registered['end'](__to, __target, __currentPositionY);
     }
-    unsubscribeCancelEvents(options);
     return
   };
 
@@ -134,7 +125,6 @@ const animateScroll = (easing, options, timestamp) => {
 
   if (events.registered['end']) {
     events.registered['end'](__to, __target, __currentPositionY);
-    unsubscribeCancelEvents(options);
   }
 
 };
@@ -151,16 +141,10 @@ const setContainer = (options) => {
           : document;
 };
 
-const cancelListener = () => {
-  __cancel = true;
-}
-
 const animateTopScroll = (y, options, to, target) => {
 
   window.clearTimeout(__delayTimeout);
 
-  subscribeCancelEvents(options);
-  
   setContainer(options);
 
   __start = null;
