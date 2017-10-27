@@ -380,6 +380,10 @@ A good visual reference can be found at [easings.net](http://easings.net/)
 
 
 #### Changelog
+> 1.6.2
+- Simplified cancelation events
+- Now possible to nest containers
+
 > 1.6.1
 - Ability to scroll overflown elements and using hashes for history.
 
