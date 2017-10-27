@@ -15,16 +15,8 @@ var currentPositionY = function () {
 
 describe('AnimateScroll', () => {
 
-  let node = document.createElement('div');
-
-  document.body.innerHtml = "";
-
-  document.body.appendChild(node);
-
+  let node;
   const duration = 10;
-
-  // the bigger the difference between the 2 the better,
-  // For some reason, sometimes test just fail because the animation did complete in time!
   const waitDuration = duration * 10;
 
   let tallComponent =
@@ -35,12 +27,19 @@ describe('AnimateScroll', () => {
       <div style={{ height: '10000px' }}></div>
     </div>
 
+  beforeEach(() => {
+    node = document.createElement('div');
+    document.body.appendChild(node);
+  })
+
   afterEach(function () {
     window.scrollTo(0, 0);
     node.style.cssText = "";
     document.body.style.cssText = "";
 
     unmountComponentAtNode(node);
+    document.body.removeChild(node);
+    document.body.innerHtml = "";
   });
 
   it('renders a component taller than the window height', () => {
@@ -149,7 +148,6 @@ describe('AnimateScroll', () => {
 
   it('can take a function as a duration argument', (done) => {
     render(tallComponent, node, () => {
-      console.log("window.scrollY", window.scrollY);
       animateScroll.scrollTo(120, { duration: (v) => v });
       expect(window.scrollY).toEqual(0);
 

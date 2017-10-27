@@ -66,6 +66,7 @@ const Helpers = {
         /*
          * do the magic!
          */
+        console.log("scroll to", this.props.to)
         this.scrollTo(this.props.to, this.props);
 
       }

@@ -14,11 +14,7 @@ import assert   from 'assert';
 
 describe('Events', () => {
 
-  let node = document.createElement('div');
-  document.body.innerHtml = "";
-
-  document.body.appendChild(node)
-
+  let node;
   let scrollDuration = 10;
 
   let component =
@@ -40,13 +36,16 @@ describe('Events', () => {
       </div>
 
   beforeEach(function () {
-    unmountComponentAtNode(node);
+    node = document.createElement('div');
+    document.body.innerHtml = "";
+    document.body.appendChild(node)
   });
 
   afterEach(() => {
-    // clean up the events after each test
     events.scrollEvent.remove('begin');
     events.scrollEvent.remove('end');
+    unmountComponentAtNode(node);
+    document.body.removeChild(node);
   });
 
   it('direct link calls begin and end event', (done) => {

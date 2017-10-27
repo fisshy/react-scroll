@@ -98,13 +98,13 @@ class Section extends React.Component{
         <Link activeClass="active" to="secondInsideContainer" spy={true} smooth={true} duration={250} containerId="containerElement" style={{display:'inline-block', margin: '20px'}}>
           Go to second element inside container
         </Link>
+        
         <Element name="test7" className="element" id="containerElement" style={{
           position: 'relative',
           height:'200px',
           overflow:'scroll',
           marginBottom: '100px'
         }}>
-          test 7 (duration and container)
 
           <Element name="firstInsideContainer" style={{
             marginBottom: '200px'

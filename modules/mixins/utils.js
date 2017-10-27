@@ -36,12 +36,16 @@ const pushHash = (hash) => {
     location.hash = hash;
   }
 }
+
 const  getHash = () => {
   return window.location.hash.replace(/^#/, '');
 }
 
+const filterElementInContainer = (container) => (element) => container.contains ? container != element && container.contains(element) : !!(container.compareDocumentPosition(element) & 16)
+
 module.exports = {
   getScrollParent,
   pushHash,
-  getHash
+  getHash,
+  filterElementInContainer
 };

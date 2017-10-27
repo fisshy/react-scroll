@@ -11,7 +11,7 @@ $ npm install react-scroll
 ```js
 $ npm install
 $ npm test
-$ npm run examples
+$ npm start
 ```
 
 ### Examples

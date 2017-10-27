@@ -1,0 +1,68 @@
+body {
+	margin: 0 !important;
+  padding: 0 !important;
+  height: 100%;
+}
+html {
+  height: 100%;
+}
+
+#example {
+  height: 100%;
+}
+
+#example div:first-child {
+  height: 100%;
+}
+
+.element {
+	height:95%;
+	background-color: #ededed;
+	border-top:1px solid #000;
+	padding-top:55px;
+  padding-left:10px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.relative {
+  position: relative;
+}
+
+.fixed-size {
+  height: 400px;
+}
+
+.active {
+	color:red !important;
+}
+
+.navbar {
+  width: 100%;
+  height: 5%;
+  margin-bottom: 0px !important;
+  background-color: #fff;
+  box-sizing: border-box;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.navbar ul {
+  margin:0;
+  list-style: none;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.navbar ul li {
+  display:inline-block;
+  padding:5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}

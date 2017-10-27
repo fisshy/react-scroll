@@ -13,41 +13,41 @@ import assert   from 'assert';
 
 describe('Page', () => {
 
-  let node = document.createElement('div');
-
-  document.body.appendChild(node)
-
+  let node;
   let scrollDuration = 10;
 
   let lastDivStyle = {height:"2000px"};
 
-  // todo there is fail in "is active when clicked" when name="test3" (same as in events-test.js)
   let component =
       <div>
         <ul>
           <li><Link to="test1" spy={true} smooth={true} duration={scrollDuration}>Test 1</Link></li>
           <li><Link to="test2" spy={true} smooth={true} duration={scrollDuration}>Test 2</Link></li>
-          <li><Link to="test30" spy={true} smooth={true} duration={scrollDuration}>Test 3</Link></li>
+          <li><Link to="test3" spy={true} smooth={true} duration={scrollDuration}>Test 3</Link></li>
           <li><Link to="test4" spy={true} smooth={true} duration={scrollDuration}>Test 4</Link></li>
           <li><Link to="test5" spy={true} smooth={true} duration={scrollDuration}>Test 5</Link></li>
           <li><Link to="anchor" spy={true} smooth={true} duration={scrollDuration}>Test 6</Link></li>
         </ul>
         <Element name="test1" className="element">test 1</Element>
         <Element name="test2" className="element">test 2</Element>
-        <Element name="test30" className="element">test 3</Element>
+        <Element name="test3" className="element">test 3</Element>
         <Element name="test4" className="element">test 4</Element>
         <Element name="test5" className="element">test 5</Element>
         <div id="anchor" className="element" style={lastDivStyle}>test 6</div>
       </div>
 
   beforeEach(() => {
-    unmountComponentAtNode(node)
+    node = document.createElement('div');
+    document.body.appendChild(node)
+    
   });
 
   afterEach(function () {
     window.scrollTo(0, 0);
     events.scrollEvent.remove('begin');
     events.scrollEvent.remove('end');
+    unmountComponentAtNode(node)
+    document.body.removeChild(node);
   });
 
   it('renders six elements of link/element', (done) => {

@@ -4,7 +4,7 @@ const utils = require('./utils');
 const animateScroll = require('./animate-scroll');
 const events = require('./scroll-events');
 
-let __mapped = {};
+let __mapped = []
 let __activeLink;
 
 module.exports = {
@@ -14,24 +14,20 @@ module.exports = {
   },
 
   register: (name, element) => {
-    __mapped[name] = element;
+    __mapped.push({ name, element });
   },
 
   unregister: (name) => {
     delete __mapped[name];
   },
 
-  get: (name) => __mapped[name] || document.getElementById(name),
+  get: (name) => __mapped[name] || document.getElementById(name) || document.getElementsByName(name)[0],
 
   setActiveLink: (link) => __activeLink = link,
 
   getActiveLink: () => __activeLink,
 
   scrollTo(to, props) {
-
-     /*
-     * get the mapped DOM element
-     */
 
       let target = this.get(to);
 
@@ -41,11 +37,6 @@ module.exports = {
       }
 
       props = assign({}, props, { absolute : false });
-
-
-      if(events.registered['begin']) {
-        events.registered['begin'](to, target);
-      }
 
       let containerId = props.containerId;
       let container = props.container;
@@ -59,17 +50,22 @@ module.exports = {
         containerElement = utils.getScrollParent(target);
       }
 
+      if(events.registered['begin']) {
+        events.registered['begin'](to, target);
+      }
+
       props.absolute = true;
+
       let scrollOffset;
       if (containerElement === document) {
         scrollOffset = target.offsetTop;
       } else {
-        let coordinates = target.getBoundingClientRect();
-        scrollOffset = containerElement.scrollTop + coordinates.top - containerElement.offsetTop;
+        let style = getComputedStyle(containerElement);
+        let isRelative = style.position === "relative";
+        scrollOffset = isRelative ? target.offsetTop : (target.offsetTop - containerElement.offsetTop);
       }
 
       scrollOffset += (props.offset || 0);
-
 
       /*
        * if animate is not provided just scroll into the view
