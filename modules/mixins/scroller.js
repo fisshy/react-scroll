@@ -4,7 +4,7 @@ const utils = require('./utils');
 const animateScroll = require('./animate-scroll');
 const events = require('./scroll-events');
 
-let __mapped = []
+let __mapped = {}
 let __activeLink;
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
   },
 
   register: (name, element) => {
-    __mapped.push({ name, element });
+    __mapped[name] = element;
   },
 
   unregister: (name) => {
