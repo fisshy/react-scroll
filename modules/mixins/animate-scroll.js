@@ -7,17 +7,11 @@ const events = require('./scroll-events');
 /*
  * Gets the easing type from the smooth prop within options.
  */
-const getAnimationType = (options) => {
-  return smooth[options.smooth] || smooth.defaultEasing;
-};
-
+const getAnimationType = (options) => smooth[options.smooth] || smooth.defaultEasing;
 /*
  * Function helper
  */
-const functionWrapper = (value) => {
-  return typeof value === 'function' ? value : function () { return value; };
-};
-
+const functionWrapper = (value) => typeof value === 'function' ? value : function () { return value; };
 /*
  * Wraps window properties to allow server side rendering
  */
@@ -151,6 +145,14 @@ const animateTopScroll = (y, options, to, target) => {
   __cancel = false;
   __startPositionY = currentPositionY();
   __targetPositionY = options.absolute ? y : y + __startPositionY;
+
+  if(__startPositionY === __targetPositionY) {
+    if (events.registered['end']) {
+      events.registered['end'](__to, __target, __currentPositionY);
+    }
+    return;
+  }
+
   __deltaTop = Math.round(__targetPositionY - __startPositionY);
 
   __duration = functionWrapper(options.duration)(__deltaTop);
