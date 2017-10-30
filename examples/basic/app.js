@@ -10,6 +10,7 @@ var Element    = Scroll.Element;
 var Events     = Scroll.Events;
 var scroll     = Scroll.animateScroll;
 var scrollSpy  = Scroll.scrollSpy;
+var scroller  = Scroll.scroller;
 
 var durationFn = function(deltaTop) {
     return deltaTop;
@@ -38,6 +39,21 @@ class Section extends React.Component{
   scrollToTop() {
     scroll.scrollToTop();
   }
+  scrollTo() {
+    scroller.scrollTo('scroll-to-element', {
+      duration: 800,
+      delay: 0,
+      smooth: 'easeInOutQuart'
+    })
+  }
+  scrollToWithContainer() {
+    scroller.scrollTo('scroll-container-second-element', {
+      duration: 800,
+      delay: 0,
+      smooth: 'easeInOutQuart',
+      containerId: 'scroll-container'
+    })
+  }
   componentWillUnmount() {
     Events.scrollEvent.remove('begin');
     Events.scrollEvent.remove('end');
@@ -62,6 +78,8 @@ class Section extends React.Component{
                 <li> <a onClick={() => scroll.scrollMore(1000, { delay : 1500 })}>Scroll 1000 More! ( delay ) </a></li>
                 <li><Link activeClass="active" className="test8" to="same" spy={true} smooth={true} duration={500}>Same target</Link></li>
                 <li><Link activeClass="active" className="test9" to="same" spy={true} smooth={true} duration={500}>Same target</Link></li>
+                <li><a className="test1" to="test1" onClick={() => this.scrollTo()} >Scroll to element</a></li>
+                <li><a className="test1" to="test1" onClick={() => this.scrollToWithContainer()} >Scroll to element within container</a></li>
               </ul>
             </div>
           </div>
@@ -122,6 +140,31 @@ class Section extends React.Component{
 
         <Element id="same" className="element">
           Two links point to this
+        </Element>
+
+
+        <Element name="scroll-to-element" className="element">
+          Scroll to element
+        </Element>
+
+        <Element name="test8" className="element" id="scroll-container" style={{
+          position: 'relative',
+          height:'200px',
+          overflow:'scroll',
+          marginBottom: '100px'
+        }}>
+
+          <Element name="scroll-container-first-element" style={{
+            marginBottom: '200px'
+          }}>
+            first element inside container
+          </Element>
+
+          <Element name="scroll-container-second-element" style={{
+            marginBottom: '200px'
+          }}>
+            second element inside container
+          </Element>
         </Element>
 
         <a onClick={this.scrollToTop}>To the top!</a>
