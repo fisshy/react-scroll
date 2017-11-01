@@ -254,8 +254,7 @@ const Helpers = {
 
     Element.propTypes = {
         name: PropTypes.string,
-        id:   PropTypes.string,
-        class
+        id:   PropTypes.string
     }
 
     return Element;
