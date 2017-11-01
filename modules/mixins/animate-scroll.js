@@ -128,11 +128,13 @@ const setContainer = (options) => {
     ? null
     : options.containerId
       ? document.getElementById(options.containerId)
-      : options.container && options.container.nodeType
-        ? options.container
-        : options.element && options.element.nodeType
-          ? utils.getScrollParent(options.element)
-          : document;
+      : options.containerClassName 
+        ? document.querySelectorAll('.' + options.containerClassName)[0] 
+        : options.container && options.container.nodeType
+          ? options.container
+          : options.element && options.element.nodeType
+            ? utils.getScrollParent(options.element)
+            : document;
 };
 
 const animateTopScroll = (y, options, to, target) => {
