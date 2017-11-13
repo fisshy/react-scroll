@@ -2,17 +2,18 @@
   "name": "react-scroll",
   "version": "1.6.4",
   "description": "A scroll component for React.js",
-  "main": "modules",
+  "main": "build/npm/modules",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fisshy/react-scroll.git"
   },
   "scripts": {
     "examples": "webpack-dev-server --config examples/webpack.config.js --no-info --content-base examples",
-    "build": "babel modules -d build/npm/modules --ignore '**/__tests__/**' --plugins transform-class-properties && gulp",
+    "build": "npm i && babel modules -d build/npm/modules --ignore '**/__tests__/**' --plugins transform-class-properties && gulp",
     "clean": "rm -rf build/npm/modules",
     "test": "karma start",
-    "start": "npm run examples"
+    "start": "npm run examples",
+    "postinstall": "npm run build"
   },
   "homepage": "https://github.com/fisshy/react-scroll",
   "bugs": {
