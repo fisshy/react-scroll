@@ -227,6 +227,9 @@ const Helpers = {
       }
 
       componentDidMount() {
+        if (typeof window === 'undefined') {
+          return false;
+        }
         this.registerElems(this.props.name);
       }
       componentWillReceiveProps(nextProps) {
@@ -235,6 +238,9 @@ const Helpers = {
         }
       }
       componentWillUnmount() {
+        if (typeof window === 'undefined') {
+          return false;
+        }
         defaultScroller.unregister(this.props.name);
       }
       registerElems(name) {
