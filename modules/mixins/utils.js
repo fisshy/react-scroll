@@ -11,7 +11,7 @@ const getScrollParent = (element, includeHidden) => {
     if (excludeStaticParent && style.position === "static") {
       continue;
     }
-    if (overflowRegex.test(style.overflow + style.overflowY + style.overflowX)) {
+    if (overflowRegex.test(style.overflow)) {
       return parent;
     }
   }

@@ -1,0 +1,14 @@
+.fake-height {
+  height: 1200px;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #ededed;
+}
+
+.active {
+  color: red;
+}
