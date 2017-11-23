@@ -33,8 +33,6 @@ class Section extends React.Component{
       console.log("end", arguments);
     });
 
-    scrollSpy.update();
-
   }
   scrollToTop() {
     scroll.scrollToTop();

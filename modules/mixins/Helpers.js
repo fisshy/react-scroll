@@ -80,6 +80,7 @@ const Helpers = {
       }
 
       spyHandler = (y) => {
+
         let scrollSpyContainer = this.getScrollSpyContainer();
 
         if (scrollHash.isMounted() && !scrollHash.isInitialized()) {

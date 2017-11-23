@@ -18,7 +18,6 @@ const scrollHash = {
   },
 
   mapContainer(to, container) {
-    console.log("map", to, container);
     this.containers[to] = container;
   },
 
