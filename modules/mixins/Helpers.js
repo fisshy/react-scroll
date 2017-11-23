@@ -6,7 +6,6 @@ const ReactDOM = require('react-dom');
 const utils = require('./utils');
 const scrollSpy = require('./scroll-spy');
 const defaultScroller = require('./scroller');
-const assign = require('object-assign');
 const PropTypes = require('prop-types');
 const scrollHash = require('./scroll-hash');
 
@@ -196,7 +195,7 @@ const Helpers = {
           className = this.props.className;
         }
 
-        var props = assign({}, this.props);
+        var props = Object.assign({}, this.props);
 
         for(var prop in protoTypes) {
           if(props.hasOwnProperty(prop)) {

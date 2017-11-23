@@ -1,4 +1,3 @@
-const assign = require('object-assign');
 const utils = require('./utils');
 const smooth = require('./smooth');
 const cancelEvents = require('./cancel-events');
@@ -173,7 +172,7 @@ const animateTopScroll = (y, options, to, target) => {
 };
 
 const proceedOptions = (options) => {
-  options = assign({}, options);
+  options = Object.assign({}, options);
   options.absolute = true;
   return options;
 }

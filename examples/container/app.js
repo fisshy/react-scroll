@@ -23,13 +23,18 @@ class Section extends React.Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-default">
+        <nav className="navbar navbar-default static">
           <ul className="nav navbar-nav">
             <li><Link activeClass="active" to="first" spy={true} smooth={true} duration={250} containerId="containerElement">1st element</Link></li>
             <li><Link activeClass="active" to="second" spy={true} smooth={true} duration={250} containerId="containerElement">2nd element</Link></li>
             <li><Link activeClass="active" to="nestedContainer" spy={true} smooth={true} duration={250} containerId="containerElement">nested container element</Link></li>
             <li><Link activeClass="active" to="fourth" spy={true} smooth={true} duration={250} containerId="containerElement">4th element</Link></li>
             <li><Link activeClass="active" to="relativeContainer" spy={true} smooth={true} duration={250} containerId="containerElement">nested relative container element</Link></li>
+            <li><Link activeClass="active" to="rel1" spy={true} smooth={true} duration={250} >rel 1</Link></li>
+            <li><Link activeClass="active" to="rel2" spy={true} smooth={true} duration={250} >rel 2</Link></li>
+            <li><Link activeClass="active" to="rel3" spy={true} smooth={true} duration={250} >rel 3</Link></li>
+            <li><Link activeClass="active" to="rel4" spy={true} smooth={true} duration={250} >rel 4</Link></li>
+            <li><Link activeClass="active" to="normal" spy={true} smooth={true} duration={250} >normal</Link></li>
           </ul>
         </nav>
 
@@ -73,6 +78,16 @@ class Section extends React.Component {
           </Element>
 
         </Element>
+
+        <div className="relative">
+          <Element name="rel1" className="element big">relative 1</Element>
+          <Element name="rel2" className="element big">relative 2</Element>
+          <Element name="rel3" className="element big">relative 3</Element>
+          <Element name="rel4" className="element big">relative 4</Element>
+        </div>
+
+        <Element name="normal" className="element big">normal</Element>
+
       </div>
     );
   }
