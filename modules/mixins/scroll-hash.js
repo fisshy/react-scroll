@@ -5,6 +5,7 @@ const scrollHash = {
   mountFlag: false,
   initialized: false,
   scroller: null,
+  containers: {},
 
   mount(scroller) {
     this.scroller = scroller;
@@ -14,6 +15,11 @@ const scrollHash = {
 
     this.initStateFromHash();
     this.mountFlag = true;
+  },
+
+  mapContainer(to, container) {
+    console.log("map", to, container);
+    this.containers[to] = container;
   },
 
   isMounted() {
@@ -27,7 +33,6 @@ const scrollHash = {
   initStateFromHash() {
     let hash = this.getHash();
     if (hash) {
-      // time to all component Elements can registered in componentDidMount phase
       window.setTimeout(() => {
         this.scrollTo(hash, true);
         this.initialized = true;
@@ -41,8 +46,7 @@ const scrollHash = {
     let scroller = this.scroller;
     let element = scroller.get(to);
     if (element && (isInit || to !== scroller.getActiveLink())) {
-      let container = utils.getScrollParent(element);
-      // scroller.setActiveLink(to);
+      let container = this.containers[to] || document;
       scroller.scrollTo(to, { container });
     }
   },
@@ -61,9 +65,9 @@ const scrollHash = {
     this.scrollTo(this.getHash());
   },
 
-  // todo - think about when unmount? (it can work without Links, while any element with id exists)
   unmount() {
     this.scroller = null;
+    this.containers = null;
     window.removeEventListener('hashchange', this.handleHashChange);
   },
 };

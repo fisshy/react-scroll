@@ -150,11 +150,11 @@ React.render(
 
 > to - target to scroll to
 
-> containerId - container to listen for scroll events and to perform scrolling in
+> containerId - container to listen for scroll events and to perform scrolling in 
 
 > spy - make Link selected when scroll is at its targets position
 
-> hashSpy - update hash based on spy.
+> hashSpy - update hash based on spy, containerId has to be set to scroll a specific element.
 
 > smooth - animate the scrolling
 

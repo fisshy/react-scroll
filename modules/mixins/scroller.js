@@ -47,7 +47,7 @@ module.exports = {
       } else if(container && container.nodeType) {
         containerElement = container;
       } else {
-        containerElement = utils.getScrollParent(target);
+        containerElement = document;
       }
 
       if(events.registered['begin']) {

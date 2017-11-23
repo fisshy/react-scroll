@@ -50,19 +50,19 @@ class Section extends React.Component{
           <div className="container-fluid">
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav">
-                <li><Link activeClass="active" className="test1" to="test1" spy={true} duration={500} >Test 1</Link></li>
-                <li><Link activeClass="active" className="test2" to="test2" spy={true} duration={500}>Test 2</Link></li>
-                <li><Link activeClass="active" className="test3" to="test3" spy={true} duration={500} smooth={true}>Test 3</Link></li>
-                <li><Link activeClass="active" className="test4" to="test4" spy={true} duration={500} smooth={true}>Test 4</Link></li>
-                <li><Link activeClass="active" className="test5" to="test5" spy={true} duration={500} delay={1000}>Test 5 ( delay )</Link></li>
-                <li><Link activeClass="active" className="test6" to="anchor" spy={true} duration={500}>Test 6 (anchor)</Link></li>
-                <li><Link activeClass="active" className="test7" to="test7" spy={true} duration={durationFn}>Test 7 (duration and container)</Link></li>
-                <li> <a onClick={(event) => scroll.scrollTo(100, event.target) }>Scroll To 100!</a></li>
-                <li> <a onClick={(event) => scroll.scrollToBottom(event.target)}>Scroll To Bottom</a></li>
-                <li> <a onClick={(event) => scroll.scrollMore(500, event.target)}>Scroll 500 More!</a></li>
-                <li> <a onClick={(event) => scroll.scrollMore(1000, { element: event.target , delay : 1500 })}>Scroll 1000 More! ( delay ) </a></li>
-                <li><Link activeClass="active" className="test8" to="same" spy={true} smooth={true} duration={500}>Same target</Link></li>
-                <li><Link activeClass="active" className="test9" to="same" spy={true} smooth={true} duration={500}>Same target</Link></li>
+                <li><Link containerId="scroll-container" activeClass="active" className="test1" to="test1" spy={true} duration={500} >Test 1</Link></li>
+                <li><Link containerId="scroll-container" activeClass="active" className="test2" to="test2" spy={true} duration={500}>Test 2</Link></li>
+                <li><Link containerId="scroll-container" activeClass="active" className="test3" to="test3" spy={true} duration={500} smooth={true}>Test 3</Link></li>
+                <li><Link containerId="scroll-container" activeClass="active" className="test4" to="test4" spy={true} duration={500} smooth={true}>Test 4</Link></li>
+                <li><Link containerId="scroll-container" activeClass="active" className="test5" to="test5" spy={true} duration={500} delay={1000}>Test 5 ( delay )</Link></li>
+                <li><Link containerId="scroll-container" activeClass="active" className="test6" to="anchor" spy={true} duration={500}>Test 6 (anchor)</Link></li>
+                <li><Link containerId="scroll-container" activeClass="active" className="test7" to="test7" spy={true} duration={durationFn}>Test 7 (duration and container)</Link></li>
+                <li> <a onClick={(event) => scroll.scrollTo(100, { containerId : "scroll-container"} ) }>Scroll To 100!</a></li>
+                <li> <a onClick={(event) => scroll.scrollToBottom({ containerId : "scroll-container"} )}>Scroll To Bottom</a></li>
+                <li> <a onClick={(event) => scroll.scrollMore(500, { containerId : "scroll-container"} )}>Scroll 500 More!</a></li>
+                <li> <a onClick={(event) => scroll.scrollMore(1000, { containerId : "scroll-container" , delay : 1500 })}>Scroll 1000 More! ( delay ) </a></li>
+                <li><Link containerId="scroll-container" activeClass="active" className="test8" to="same" spy={true} smooth={true} duration={500}>Same target</Link></li>
+                <li><Link containerId="scroll-container" activeClass="active" className="test9" to="same" spy={true} smooth={true} duration={500}>Same target</Link></li>
               </ul>
             </div>
           </div>

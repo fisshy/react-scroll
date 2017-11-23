@@ -154,7 +154,7 @@ const Helpers = {
           return container;
         } 
 
-        return utils.getScrollParent(ReactDOM.findDOMNode(this));
+        return document;
       }
 
       componentDidMount() {
@@ -169,6 +169,7 @@ const Helpers = {
             if(!scrollHash.isMounted()) {
               scrollHash.mount(scroller);
             }
+            scrollHash.mapContainer(this.props.to, scrollSpyContainer);
           }
 
           if (this.props.spy) {
@@ -180,6 +181,7 @@ const Helpers = {
           this.setState({
             container: scrollSpyContainer
           });
+
         }
       }
       componentWillUnmount() {
