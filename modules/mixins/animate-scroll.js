@@ -30,29 +30,27 @@ const requestAnimationFrameHelper = (() => {
     };
 })();
 
+const makeData = () => ({
+  currentPositionY : 0,
+  startPositionY : 0,
+  targetPositionY : 0,
+  progress : 0,
+  duration : 0,
+  cancel : false,
 
-let __currentPositionY = 0;
-let __startPositionY = 0;
-let __targetPositionY = 0;
-let __progress = 0;
-let __duration = 0;
-let __cancel = false;
-
-let __target;
-let __containerElement;
-let __to;
-let __start;
-let __deltaTop;
-let __percent;
-let __delayTimeout;
-
-cancelEvents.subscribe(() => {
-  __cancel = true;
+  target: null,
+  containerElement: null,
+  to: null,
+  start: null,
+  deltaTop: null,
+  percent: null,
+  delayTimeout: null
 });
 
-const currentPositionY = () => {
-  if (__containerElement && __containerElement !== document && __containerElement !== document.body) {
-    return __containerElement.scrollTop;
+const currentPositionY = (options) => {
+  const containerElement = options.data.containerElement;
+  if (containerElement && containerElement !== document && containerElement !== document.body) {
+    return containerElement.scrollTop;
   } else {
     var supportPageOffset = window.pageXOffset !== undefined;
     var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
@@ -61,12 +59,13 @@ const currentPositionY = () => {
   }
 };
 
-const scrollContainerHeight = () => {
-  if (__containerElement && __containerElement !== document && __containerElement !== document.body) {
+const scrollContainerHeight = (options) => {
+  const containerElement = options.data.containerElement;
+  if (containerElement && containerElement !== document && containerElement !== document.body) {
     return Math.max(
-      __containerElement.scrollHeight,
-      __containerElement.offsetHeight,
-      __containerElement.clientHeight
+      containerElement.scrollHeight,
+      containerElement.offsetHeight,
+      containerElement.clientHeight
     );
   } else {
     let body = document.body;
@@ -83,47 +82,48 @@ const scrollContainerHeight = () => {
 };
 
 const animateScroll = (easing, options, timestamp) => {
+  const data = options.data;
 
   // Cancel on specific events
-  if (!options.ignoreCancelEvents && __cancel) {
+  if (!options.ignoreCancelEvents && data.cancel) {
     if (events.registered['end']) {
-      events.registered['end'](__to, __target, __currentPositionY);
+      events.registered['end'](data.to, data.target, data.currentPositionY);
     }
     return
   };
 
-  __deltaTop = Math.round(__targetPositionY - __startPositionY);
+  data.deltaTop = Math.round(data.targetPositionY - data.startPositionY);
 
-  if (__start === null) {
-    __start = timestamp;
+  if (data.start === null) {
+    data.start = timestamp;
   }
 
-  __progress = timestamp - __start;
+  data.progress = timestamp - data.start;
 
-  __percent = (__progress >= __duration ? 1 : easing(__progress / __duration));
+  data.percent = (data.progress >= data.duration ? 1 : easing(data.progress / data.duration));
 
-  __currentPositionY = __startPositionY + Math.ceil(__deltaTop * __percent);
+  data.currentPositionY = data.startPositionY + Math.ceil(data.deltaTop * data.percent);
 
-  if (__containerElement && __containerElement !== document && __containerElement !== document.body) {
-    __containerElement.scrollTop = __currentPositionY;
+  if (data.containerElement && data.containerElement !== document && data.containerElement !== document.body) {
+    data.containerElement.scrollTop = data.currentPositionY;
   } else {
-    window.scrollTo(0, __currentPositionY);
+    window.scrollTo(0, data.currentPositionY);
   }
 
-  if (__percent < 1) {
+  if (data.percent < 1) {
     let easedAnimate = animateScroll.bind(null, easing, options);
     requestAnimationFrameHelper.call(window, easedAnimate);
     return;
   }
 
   if (events.registered['end']) {
-    events.registered['end'](__to, __target, __currentPositionY);
+    events.registered['end'](data.to, data.target, data.currentPositionY);
   }
 
 };
 
 const setContainer = (options) => {
-  __containerElement = !options
+  options.data.containerElement = !options
     ? null
     : options.containerId
       ? document.getElementById(options.containerId)
@@ -133,35 +133,40 @@ const setContainer = (options) => {
 };
 
 const animateTopScroll = (y, options, to, target) => {
+  options.data = options.data || makeData();
 
-  window.clearTimeout(__delayTimeout);
+  window.clearTimeout(options.data.delayTimeout);
+
+  cancelEvents.subscribe(() => {
+    options.data.cancel = true;
+  });
 
   setContainer(options);
 
-  __start = null;
-  __cancel = false;
-  __startPositionY = currentPositionY();
-  __targetPositionY = options.absolute ? y : y + __startPositionY;
+  options.data.start = null;
+  options.data.cancel = false;
+  options.data.startPositionY = currentPositionY(options);
+  options.data.targetPositionY = options.absolute ? y : y + options.data.startPositionY;
 
-  if(__startPositionY === __targetPositionY) {
+  if(options.data.startPositionY === options.data.targetPositionY) {
     if (events.registered['end']) {
-      events.registered['end'](__to, __target, __currentPositionY);
+      events.registered['end'](options.data.to, options.data.target, options.data.currentPositionY);
     }
     return;
   }
 
-  __deltaTop = Math.round(__targetPositionY - __startPositionY);
+  options.data.deltaTop = Math.round(options.data.targetPositionY - options.data.startPositionY);
 
-  __duration = functionWrapper(options.duration)(__deltaTop);
-  __duration = isNaN(parseFloat(__duration)) ? 1000 : parseFloat(__duration);
-  __to = to;
-  __target = target;
+  options.data.duration = functionWrapper(options.duration)(options.data.deltaTop);
+  options.data.duration = isNaN(parseFloat(options.data.duration)) ? 1000 : parseFloat(options.data.duration);
+  options.data.to = to;
+  options.data.target = target;
 
   let easing = getAnimationType(options);
   let easedAnimate = animateScroll.bind(null, easing, options);
 
   if (options && options.delay > 0) {
-    __delayTimeout = window.setTimeout(() => {
+    options.data.delayTimeout = window.setTimeout(() => {
       requestAnimationFrameHelper.call(window, easedAnimate);
     }, options.delay);
     return;
@@ -173,6 +178,7 @@ const animateTopScroll = (y, options, to, target) => {
 
 const proceedOptions = (options) => {
   options = Object.assign({}, options);
+  options.data = options.data || makeData();
   options.absolute = true;
   return options;
 }
@@ -188,13 +194,13 @@ const scrollTo = (toY, options) => {
 const scrollToBottom = (options) => {
   options = proceedOptions(options);
   setContainer(options);
-  animateTopScroll(scrollContainerHeight(), options);
+  animateTopScroll(scrollContainerHeight(options), options);
 };
 
 const scrollMore = (toY, options) => {
   options = proceedOptions(options);
   setContainer(options);
-  animateTopScroll(currentPositionY() + toY, options);
+  animateTopScroll(currentPositionY(options) + toY, options);
 };
 
 module.exports = {
