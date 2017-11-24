@@ -1,5 +1,3 @@
-const assign = require('object-assign');
-
 const utils = require('./utils');
 const animateScroll = require('./animate-scroll');
 const events = require('./scroll-events');
@@ -36,7 +34,7 @@ module.exports = {
         return;
       }
 
-      props = assign({}, props, { absolute : false });
+      props = Object.assign({}, props, { absolute : false });
 
       let containerId = props.containerId;
       let container = props.container;
@@ -47,32 +45,22 @@ module.exports = {
       } else if(container && container.nodeType) {
         containerElement = container;
       } else {
-        containerElement = utils.getScrollParent(target);
+        containerElement = document;
       }
 
-      if(events.registered['begin']) {
-        events.registered['begin'](to, target);
+      if(events.registered.begin) {
+        events.registered.begin(to, target);
       }
 
       props.absolute = true;
 
-      let scrollOffset;
-      if (containerElement === document) {
-        scrollOffset = target.offsetTop;
-      } else {
-        let style = getComputedStyle(containerElement);
-        let isRelative = style.position === "relative";
-        scrollOffset = isRelative ? target.offsetTop : (target.offsetTop - containerElement.offsetTop);
-      }
-
-      scrollOffset += (props.offset || 0);
+      let scrollOffset = utils.scrollOffset(containerElement, target) + (props.offset || 0);
 
       /*
        * if animate is not provided just scroll into the view
        */
       if(!props.smooth) {
         if (containerElement === document) {
-          // window.scrollTo accepts only absolute values so body rectangle needs to be subtracted
           window.scrollTo(0, scrollOffset);
         } else {
           containerElement.scrollTop = scrollOffset;

@@ -1,4 +1,3 @@
-const assign = require('object-assign');
 const utils = require('./utils');
 const smooth = require('./smooth');
 const cancelEvents = require('./cancel-events');
@@ -130,9 +129,7 @@ const setContainer = (options) => {
       ? document.getElementById(options.containerId)
       : options.container && options.container.nodeType
         ? options.container
-        : options.element && options.element.nodeType
-          ? utils.getScrollParent(options.element)
-          : document;
+        : document;
 };
 
 const animateTopScroll = (y, options, to, target) => {
@@ -175,13 +172,8 @@ const animateTopScroll = (y, options, to, target) => {
 };
 
 const proceedOptions = (options) => {
-  if (options && options.nodeType) {
-    options = { element: options };
-  } else {
-    options = assign({}, options);
-  }
+  options = Object.assign({}, options);
   options.absolute = true;
-
   return options;
 }
 

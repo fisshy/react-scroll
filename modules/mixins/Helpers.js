@@ -6,7 +6,6 @@ const ReactDOM = require('react-dom');
 const utils = require('./utils');
 const scrollSpy = require('./scroll-spy');
 const defaultScroller = require('./scroller');
-const assign = require('object-assign');
 const PropTypes = require('prop-types');
 const scrollHash = require('./scroll-hash');
 
@@ -81,6 +80,7 @@ const Helpers = {
       }
 
       spyHandler = (y) => {
+
         let scrollSpyContainer = this.getScrollSpyContainer();
 
         if (scrollHash.isMounted() && !scrollHash.isInitialized()) {
@@ -154,7 +154,7 @@ const Helpers = {
           return container;
         } 
 
-        return utils.getScrollParent(ReactDOM.findDOMNode(this));
+        return document;
       }
 
       componentDidMount() {
@@ -169,6 +169,7 @@ const Helpers = {
             if(!scrollHash.isMounted()) {
               scrollHash.mount(scroller);
             }
+            scrollHash.mapContainer(this.props.to, scrollSpyContainer);
           }
 
           if (this.props.spy) {
@@ -180,6 +181,7 @@ const Helpers = {
           this.setState({
             container: scrollSpyContainer
           });
+
         }
       }
       componentWillUnmount() {
@@ -194,7 +196,7 @@ const Helpers = {
           className = this.props.className;
         }
 
-        var props = assign({}, this.props);
+        var props = Object.assign({}, this.props);
 
         for(var prop in protoTypes) {
           if(props.hasOwnProperty(prop)) {
