@@ -1,7 +1,8 @@
 "use strict";
 
-var React = require('react');
-var Helpers = require('../mixins/Helpers');
+import React from 'react';
+import ScrollElement from '../mixins/scroll-element';
+const PropTypes = require('prop-types');
 
 class Element extends React.Component{
   render() {
@@ -19,4 +20,9 @@ class Element extends React.Component{
   }
 };
 
-module.exports = Helpers.Element(Element);
+Element.propTypes = {
+  name: PropTypes.string,
+  id:   PropTypes.string
+}
+
+export default ScrollElement(Element);

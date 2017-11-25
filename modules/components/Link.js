@@ -3,14 +3,10 @@
 var React = require('react');
 var Helpers = require('../mixins/Helpers');
 
-class Link extends React.Component{
-  render() {
-    return (
-      <a {...this.props}>
-        {this.props.children}
-      </a>
-    );
-  }
+import ScrollLink from '../mixins/scroll-link';
+
+class LinkElement extends React.Component {
+  render = () => (<a {...this.props}>{this.props.children}</a>)
 };
 
-module.exports = Helpers.Scroll(Link);
+export default ScrollLink(LinkElement);

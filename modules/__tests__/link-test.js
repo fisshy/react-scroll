@@ -1,10 +1,8 @@
 import { render, unmountComponentAtNode } from 'react-dom'
-import expect from 'expect'
 import React from 'react'
-
-var Link = require('../components/Link.js');
-
-var assert = require('assert');
+import expect from 'expect'
+import assert from 'assert';
+import Link from '../components/Link';
 
 describe('Link', function() {
   
