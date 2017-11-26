@@ -60,6 +60,7 @@
     "react": "^16.0.0",
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^16.0.0",
+    "sinon": "^4.1.2",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.2"
   },

@@ -120,7 +120,7 @@ export default (Component, customScroller) => {
 
         if (this.props.spy && this.state.active) {
           this.setState({ active: false });
-          this.props.onSetInactive && this.props.onSetInactive();
+          this.props.onSetInactive && this.props.onSetInactive(to, element);
         }
 
         return scrollSpy.updateStates();
@@ -133,7 +133,7 @@ export default (Component, customScroller) => {
 
         if (this.props.spy) {
           this.setState({ active: true });
-          this.props.onSetActive && this.props.onSetActive(to);
+          this.props.onSetActive && this.props.onSetActive(to, element);
         }
         return scrollSpy.updateStates();
       }
@@ -143,7 +143,7 @@ export default (Component, customScroller) => {
       let containerId = this.props.containerId;
       let container = this.props.container;
 
-      if (containerId) {
+      if (containerId && !container) {
         return document.getElementById(containerId);
       }
 

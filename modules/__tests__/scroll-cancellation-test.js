@@ -6,7 +6,7 @@ import expect   from 'expect'
 import assert   from 'assert';
 import scroll from '../mixins/animate-scroll.js';
 
-describe('scroll cancellation', () => {
+describe('Scroll cancelation', () => {
   let node = document.createElement('div');
   document.body.innerHtml = "";
 
@@ -53,13 +53,13 @@ describe('scroll cancellation', () => {
   });
 });
 
-function wait(ms) {
+const  wait = (ms) => {
   return new Promise((res, rej) => {
     setTimeout(res, ms);
   })
 }
 
-function dispatchDOMKeydownEvent(keyCode, element) {
+const dispatchDOMKeydownEvent = (keyCode, element) => {
   const event = document.createEvent("KeyboardEvent");
   const initMethod = typeof event.initKeyboardEvent !== 'undefined' ? "initKeyboardEvent" : "initKeyEvent";
   event[initMethod]("keydown", true, true, window, 0, 0, 0, 0, 0, keyCode);
