@@ -150,11 +150,11 @@ React.render(
 
 > to - target to scroll to
 
-> containerId - container to listen for scroll events and to perform scrolling in
+> containerId - container to listen for scroll events and to perform scrolling in 
 
 > spy - make Link selected when scroll is at its targets position
 
-> hashSpy - update hash based on spy.
+> hashSpy - update hash based on spy, containerId has to be set to scroll a specific element.
 
 > smooth - animate the scrolling
 
@@ -380,6 +380,9 @@ A good visual reference can be found at [easings.net](http://easings.net/)
 
 
 #### Changelog
+> 1.6.5
+- Refactored some logic regarding hashspy, now have to set containerId if you want to scroll a specific element.
+
 > 1.6.3
 - Simplified cancelation events
 - Now possible to nest containers
@@ -436,8 +439,3 @@ A good visual reference can be found at [easings.net](http://easings.net/)
 
 > v1.0.17
 - isDynamic property has been added. To allow scrollSpy to recalculate components that expand
-
-#### Things that needs to be done - feel free to contribute.
-- Being able to use react-scroll within a div.
-- Integrate react-scroll with react-router
-- Hash-scrolling.

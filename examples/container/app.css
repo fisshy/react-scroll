@@ -47,6 +47,12 @@ html {
   display: flex;
   align-content: center;
   justify-content: center;
+  
+}
+
+.static {
+  position: fixed;
+  z-index: 1001;
 }
 
 .navbar ul {
@@ -65,4 +71,8 @@ html {
   display: flex;
   align-content: center;
   justify-content: center;
+}
+
+.big {
+  height: 1000px !important;
 }

@@ -28,6 +28,7 @@ const scrollSpy = {
       scrollSpy.scrollSpyContainers.push(scrollSpyContainer);
       addPassiveEventListener(scrollSpyContainer, 'scroll', eventHandler);
     }
+    
   },
 
   isMounted(scrollSpyContainer) {
@@ -62,6 +63,8 @@ const scrollSpy = {
     }
 
     container.spyCallbacks.push(handler);
+
+    handler(scrollSpy.currentPositionY(scrollSpyContainer));
   },
 
   updateStates() {
