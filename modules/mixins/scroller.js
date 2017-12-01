@@ -56,6 +56,8 @@ module.exports = {
 
       let scrollOffset = utils.scrollOffset(containerElement, target) + (props.offset || 0);
 
+      scrollOffset += (props.scrollOffset || 0);
+
       /*
        * if animate is not provided just scroll into the view
        */

@@ -160,6 +160,8 @@ React.render(
 
 > offset - scroll additional px ( like padding )
 
+> scrollOffset - scroll to offset (fixed headers e.g)
+
 > duration - time of the scroll animation - can be a number or a function (`function (scrollDistanceInPx) { return duration; }`), that allows more granular control at run-time
 
 > delay - wait x milliseconds before scroll
