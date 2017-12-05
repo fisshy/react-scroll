@@ -302,7 +302,8 @@ Events.scrollEvent.remove('end');
 ```js
 var React   = require('react');
 var Scroll  = require('react-scroll');
-var Helpers = Scroll.Helpers;
+var ScrollLink = Scroll.ScrollLink;
+var ScrollElement = Scroll.ScrollElement;
 
 var Element = React.createClass({
   render: function () {
@@ -314,7 +315,7 @@ var Element = React.createClass({
   }
 });
 
-module.exports = Helpers.Element(Element);
+module.exports = ScrollElement(Element);
 
 var Link = React.createClass({
   render: function () {
@@ -326,7 +327,7 @@ var Link = React.createClass({
   }
 });
 
-module.exports = Helpers.Scroll(Link);
+module.exports = ScrollLink(Link);
 
 ```
 

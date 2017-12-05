@@ -5,3 +5,7 @@ export { default as scroll } from './mixins/scroller.js';
 export { default as Events } from './mixins/scroll-events.js';
 export { default as scrollSpy } from './mixins/scroll-spy.js';
 export { default as animateScroll } from './mixins/animate-scroll.js';
+
+export { default as ScrollLink } from './mixins/scroll-link.js';
+export { default as ScrollElement } from './mixins/scroll-element.js';
+export { default as Helpers } from './mixins/Helpers.js';

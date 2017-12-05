@@ -15,7 +15,7 @@ const protoTypes = {
   to: PropTypes.string.isRequired,
   containerId: PropTypes.string,
   container: PropTypes.object,
-  activeClass:PropTypes.string,
+  activeClass: PropTypes.string,
   spy: PropTypes.bool,
   smooth: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   offset: PropTypes.number,
@@ -33,10 +33,12 @@ const protoTypes = {
 const Helpers = {
   Scroll(Component, customScroller) {
 
+    console.warn("Helpers.Scroll is deprecated since v1.7.0");
+
     const scroller = customScroller || defaultScroller;
 
-    class Scroll extends React.Component{
-      constructor(props){
+    class Scroll extends React.Component {
+      constructor(props) {
         super(props);
         this.state = {
           active: false
@@ -53,7 +55,7 @@ const Helpers = {
          * give the posibility to override onClick
          */
 
-        if(this.props.onClick) {
+        if (this.props.onClick) {
           this.props.onClick(event);
         }
 
@@ -73,11 +75,11 @@ const Helpers = {
 
 
       stateHandler = () => {
-        if(scroller.getActiveLink() !== this.props.to) {
-          if(this.state !== null && this.state.active && this.props.onSetInactive) {
+        if (scroller.getActiveLink() !== this.props.to) {
+          if (this.state !== null && this.state.active && this.props.onSetInactive) {
             this.props.onSetInactive();
           }
-          this.setState({ active : false });
+          this.setState({ active: false });
         }
       }
 
@@ -95,14 +97,14 @@ const Helpers = {
         let elemBottomBound = 0;
         let containerTop = 0;
 
-        if(scrollSpyContainer.getBoundingClientRect) {
+        if (scrollSpyContainer.getBoundingClientRect) {
           let containerCords = scrollSpyContainer.getBoundingClientRect();
           containerTop = containerCords.top;
         }
 
-        if(!element || this.props.isDynamic) {
+        if (!element || this.props.isDynamic) {
           element = scroller.get(to);
-          if(!element){ return;}
+          if (!element) { return; }
 
           let cords = element.getBoundingClientRect();
           elemTopBound = (cords.top - containerTop + y);
@@ -124,20 +126,20 @@ const Helpers = {
           }
 
           if (this.props.spy && this.state.active) {
-            this.setState({ active : false });
+            this.setState({ active: false });
             this.props.onSetInactive && this.props.onSetInactive();
           }
 
           return scrollSpy.updateStates();
         }
-        
-        if(isInside && activeLink !== to) {
+
+        if (isInside && activeLink !== to) {
           scroller.setActiveLink(to);
 
           this.props.hashSpy && scrollHash.changeHash(to);
 
           if (this.props.spy) {
-            this.setState({ active : true });
+            this.setState({ active: true });
             this.props.onSetActive && this.props.onSetActive(to);
           }
           return scrollSpy.updateStates();
@@ -148,27 +150,27 @@ const Helpers = {
         let containerId = this.props.containerId;
         let container = this.props.container;
 
-        if(containerId) {
+        if (containerId) {
           return document.getElementById(containerId);
         }
 
-        if(container && container.nodeType) {
+        if (container && container.nodeType) {
           return container;
-        } 
+        }
 
         return document;
       }
 
       componentDidMount() {
-        if(this.props.spy || this.props.hashSpy) {
+        if (this.props.spy || this.props.hashSpy) {
           let scrollSpyContainer = this.getScrollSpyContainer();
 
-          if(!scrollSpy.isMounted(scrollSpyContainer)) {
+          if (!scrollSpy.isMounted(scrollSpyContainer)) {
             scrollSpy.mount(scrollSpyContainer);
           }
 
           if (this.props.hashSpy) {
-            if(!scrollHash.isMounted()) {
+            if (!scrollHash.isMounted()) {
               scrollHash.mount(scroller);
             }
             scrollHash.mapContainer(this.props.to, scrollSpyContainer);
@@ -192,7 +194,7 @@ const Helpers = {
       render() {
         var className = "";
 
-        if(this.state && this.state.active) {
+        if (this.state && this.state.active) {
           className = ((this.props.className || "") + " " + (this.props.activeClass || "active")).trim();
         } else {
           className = this.props.className;
@@ -200,8 +202,8 @@ const Helpers = {
 
         var props = Object.assign({}, this.props);
 
-        for(var prop in protoTypes) {
-          if(props.hasOwnProperty(prop)) {
+        for (var prop in protoTypes) {
+          if (props.hasOwnProperty(prop)) {
             delete props[prop];
           }
         }
@@ -214,16 +216,19 @@ const Helpers = {
     };
 
     Scroll.propTypes = protoTypes;
-    
-    Scroll.defaultProps={offset: 0};
+
+    Scroll.defaultProps = { offset: 0 };
 
     return Scroll;
   },
 
   Element(Component) {
-    class Element extends React.Component{
 
-      constructor (props){
+    console.warn("Helpers.Element is deprecated since v1.7.0");
+
+    class Element extends React.Component {
+
+      constructor(props) {
         super(props);
         this.childBindings = {
           domNode: null
@@ -256,8 +261,8 @@ const Helpers = {
     };
 
     Element.propTypes = {
-        name: PropTypes.string,
-        id:   PropTypes.string
+      name: PropTypes.string,
+      id: PropTypes.string
     }
 
     return Element;
