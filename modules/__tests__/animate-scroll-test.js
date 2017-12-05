@@ -68,7 +68,7 @@ describe('AnimateScroll', () => {
       animateScroll.scrollTo(120, { duration: duration });
 
       setTimeout(() => {
-        expect(window.scrollY).toEqual(120);
+        expect(window.scrollY || window.pageYOffset).toEqual(120);
         done();
       }, waitDuration);
     });
@@ -95,7 +95,7 @@ describe('AnimateScroll', () => {
       animateScroll.scrollTo(200, { duration: duration });
 
       setTimeout(() => {
-        expect(window.scrollY).toEqual(200);
+        expect(window.scrollY || window.pageYOffset).toEqual(200);
 
         done();
       }, waitDuration);
@@ -109,7 +109,7 @@ describe('AnimateScroll', () => {
       animateScroll.scrollToTop({ duration: duration });
 
       setTimeout(() => {
-        expect(window.scrollY).toEqual(0);
+        expect(window.scrollY || window.pageYOffset).toEqual(0);
         done();
       }, waitDuration);
     });
@@ -121,7 +121,7 @@ describe('AnimateScroll', () => {
 
       setTimeout(() => {
         var offset = 16;
-        expect(window.scrollY).toEqual(node.offsetHeight - window.innerHeight + offset);
+        expect(window.scrollY || window.pageYOffset).toEqual(node.offsetHeight - window.innerHeight + offset);
         done();
       }, waitDuration);
     });
@@ -134,13 +134,13 @@ describe('AnimateScroll', () => {
       animateScroll.scrollMore(10, { duration: duration });
 
       setTimeout(() => {
-        expect(window.scrollY).toEqual(121);
+        expect(window.scrollY || window.pageYOffset).toEqual(121);
 
         animateScroll.scrollMore(10, { duration: duration });
 
         // do it again!
         setTimeout(() => {
-          expect(window.scrollY).toEqual(131);
+          expect(window.scrollY || window.pageYOffset).toEqual(131);
 
           done();
         }, waitDuration);
@@ -154,7 +154,7 @@ describe('AnimateScroll', () => {
       animateScroll.scrollTo(120, { duration: 0 });
 
       setTimeout(() => {
-        expect(window.scrollY).toEqual(120);
+        expect(window.scrollY || window.pageYOffset).toEqual(120);
         done();
       }, 100);
     });
@@ -163,10 +163,10 @@ describe('AnimateScroll', () => {
   it('can take a function as a duration argument', (done) => {
     render(tallComponent, node, () => {
       animateScroll.scrollTo(120, { duration: (v) => v });
-      expect(window.scrollY).toEqual(0);
+      expect(window.scrollY || window.pageYOffset).toEqual(0);
 
       setTimeout(() => {
-        expect(window.scrollY).toEqual(120);
+        expect(window.scrollY || window.pageYOffset).toEqual(120);
         done();
       }, 150);
     });

@@ -1,9 +1,9 @@
 /* React */
 import { render, unmountComponentAtNode, findDOMNode } from 'react-dom'
-import Rtu      from 'react-dom/test-utils'
-import React    from 'react'
-import expect   from 'expect'
-import assert   from 'assert';
+import Rtu from 'react-dom/test-utils'
+import React from 'react'
+import expect from 'expect'
+import assert from 'assert';
 import scroll from '../mixins/animate-scroll.js';
 
 describe('Scroll cancelation', () => {
@@ -14,11 +14,11 @@ describe('Scroll cancelation', () => {
 
   beforeEach(function () {
     unmountComponentAtNode(node);
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   });
 
   describe("when scrolling is triggered by keydown handlers", () => {
-    it("can scroll on keydown multiple times in a row", async () => {
+    it("can scroll on keydown multiple times in a row", (done) => {
       const duration = 100;
       const distance = 100;
 
@@ -26,37 +26,42 @@ describe('Scroll cancelation', () => {
         handleKeyDown = () => {
           scroll.scrollMore(distance, { smooth: true, duration });
         }
-        render () {
+        render() {
           return (
             <div>
               <input onKeyDown={this.handleKeyDown} />
-              <div style={{height: "3000px", width: "100%", background: "repeating-linear-gradient(to bottom, white, black 100px)"}}/>
+              <div style={{ height: "3000px", width: "100%", background: "repeating-linear-gradient(to bottom, white, black 100px)" }} />
             </div>
           );
         }
       }
 
-      render(<TestComponent/>, node);
+      render(<TestComponent />, node);
 
       dispatchDOMKeydownEvent(13, node.querySelector('input'));
-      await wait(duration*2);
-      expect(window.scrollY).toBeGreaterThanOrEqualTo(distance);
+      wait(duration * 2, () => {
+        expect(window.scrollY || window.pageYOffset).toBeGreaterThanOrEqualTo(distance);
 
-      dispatchDOMKeydownEvent(13, node.querySelector('input'));
-      await wait(duration*2);
-      expect(window.scrollY).toBeGreaterThanOrEqualTo(distance * 2);
+        dispatchDOMKeydownEvent(13, node.querySelector('input'));
+        wait(duration * 2, () => {
+          expect(window.scrollY || window.pageYOffset).toBeGreaterThanOrEqualTo(distance * 2);
 
-      dispatchDOMKeydownEvent(13, node.querySelector('input'));
-      await wait(duration*2);
-      expect(window.scrollY).toBeGreaterThanOrEqualTo(distance * 3);
+          dispatchDOMKeydownEvent(13, node.querySelector('input'));
+          wait(duration * 2, () => {
+            expect(window.scrollY || window.pageYOffset).toBeGreaterThanOrEqualTo(distance * 3);
+            done();
+          });
+
+        })
+
+      })
+
     });
   });
 });
 
-const  wait = (ms) => {
-  return new Promise((res, rej) => {
-    setTimeout(res, ms);
-  })
+const wait = (ms, cb) => {
+  setTimeout(cb, ms);
 }
 
 const dispatchDOMKeydownEvent = (keyCode, element) => {

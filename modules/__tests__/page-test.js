@@ -11,10 +11,8 @@ import expect from 'expect';
 import assert from 'assert';
 import sinon from 'sinon';
 
-const wait = (ms) => {
-  return new Promise((res, rej) => {
-    setTimeout(res, ms);
-  })
+const wait = (ms, cb) => {
+  setTimeout(cb, ms);
 }
 
 describe('Page', () => {
@@ -73,7 +71,7 @@ describe('Page', () => {
   })
 
   it('it is at top in start', (done) => {
-    expect(window.scrollY).toEqual(0);
+    expect(window.scrollY || window.pageYOffset).toEqual(0);
     done();
   });
 
@@ -89,7 +87,7 @@ describe('Page', () => {
 
       Rtu.Simulate.click(link);
 
-      var scrollStart = window.scrollY;
+      var scrollStart = window.scrollY || window.pageYOffset;
 
       /* Let it scroll, duration is based on param sent to Link */
 
@@ -97,7 +95,7 @@ describe('Page', () => {
 
         var scrollStop = Math.round(scrollStart + expectedScrollTo)
 
-        expect(window.scrollY).toEqual(scrollStop);
+        expect(window.scrollY || window.pageYOffset).toEqual(scrollStop);
 
         expect(link.className).toEqual('active');
 
@@ -122,13 +120,13 @@ describe('Page', () => {
       Rtu.Simulate.click(link);
 
       /* Let it scroll, duration is based on param sent to Link */
-      var scrollStart = window.scrollY;
+      var scrollStart = window.scrollY || window.pageYOffset;
 
       setTimeout(() => {
 
         var scrollStop = Math.round(scrollStart + expectedScrollTo)
 
-        expect(window.scrollY).toEqual(scrollStop);
+        expect(window.scrollY || window.pageYOffset).toEqual(scrollStop);
 
         expect(link.className).toEqual('active');
 
@@ -140,7 +138,7 @@ describe('Page', () => {
 
   })
 
-  it('should call onSetActive', async () => {
+  it('should call onSetActive', (done) => {
 
     let onSetActive = sinon.spy();
     let onSetInactive = sinon.spy();
@@ -169,17 +167,17 @@ describe('Page', () => {
 
     Rtu.Simulate.click(link);
 
-    await wait(scrollDuration + 500);
-
-    expect(onSetActive.calledOnce).toEqual(true);
-
-    link = node.querySelectorAll('a')[4];
-
-    Rtu.Simulate.click(link);
-
-    await wait(scrollDuration + 500);
-
-    expect(onSetInactive.calledOnce).toEqual(true);
+    wait(scrollDuration + 500, () => {
+      expect(onSetActive.calledOnce).toEqual(true);
+      
+          link = node.querySelectorAll('a')[4];
+      
+          Rtu.Simulate.click(link);
+      
+          wait(scrollDuration + 500, () => {
+            expect(onSetInactive.calledOnce).toEqual(true);
+            done();
+          })
+    })
   });
-
 });

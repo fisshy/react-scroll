@@ -4,7 +4,7 @@ module.exports = function (config) {
 
   config.set({
 
-    browsers: [ 'Chrome', 'Firefox' ],
+    browsers: [ 'Chrome', 'Firefox'],
     frameworks: [ 'mocha' ],
     reporters: [ 'mocha' ],
 

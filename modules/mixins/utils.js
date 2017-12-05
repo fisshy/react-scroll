@@ -23,7 +23,7 @@ const  getHash = () => {
 const filterElementInContainer = (container) => (element) => container.contains ? container != element && container.contains(element) : !!(container.compareDocumentPosition(element) & 16)
 
 const scrollOffset = (c, t) => c === document ? 
-      t.getBoundingClientRect().top + window.scrollY : getComputedStyle(c).position === "relative" ? t.offsetTop : (t.offsetTop - c.offsetTop)
+      t.getBoundingClientRect().top + (window.scrollY || window.pageYOffset) : getComputedStyle(c).position === "relative" ? t.offsetTop : (t.offsetTop - c.offsetTop)
 
 export default {
   pushHash,
