@@ -1,18 +1,11 @@
 "use strict";
 
-var React     = require('react');
-var ReactDOM  = require('react-dom');
-var Scroll    = require('react-scroll');
+import React     from 'react';
+import ReactDOM  from 'react-dom';
 
-var Link       = Scroll.Link;
-var DirectLink = Scroll.DirectLink;
-var Element    = Scroll.Element;
-var Events     = Scroll.Events;
-var scroll     = Scroll.animateScroll;
-var scrollSpy  = Scroll.scrollSpy;
-var scroller  = Scroll.scroller;
+import { Link, DirectLink, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
-var durationFn = function(deltaTop) {
+const durationFn = function(deltaTop) {
     return deltaTop;
 };
 

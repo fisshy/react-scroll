@@ -1,7 +1,7 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const scroller = require('./scroller');
-const PropTypes = require('prop-types');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import scroller from './scroller';
+import PropTypes from 'prop-types';
 
 
 export default (Component) => {

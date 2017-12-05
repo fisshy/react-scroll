@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = {
+export default {
  /*
   * https://github.com/oblador/angular-scroll (duScrollDefaultEasing)
   */

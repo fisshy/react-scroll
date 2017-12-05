@@ -1,7 +1,7 @@
-const utils = require('./utils');
-const smooth = require('./smooth');
-const cancelEvents = require('./cancel-events');
-const events = require('./scroll-events');
+import utils from './utils';
+import smooth from './smooth';
+import cancelEvents from './cancel-events';
+import events from './scroll-events';
 
 /*
  * Gets the easing type from the smooth prop within options.
@@ -203,7 +203,7 @@ const scrollMore = (toY, options) => {
   animateTopScroll(currentPositionY(options) + toY, options);
 };
 
-module.exports = {
+export default {
   animateTopScroll,
   getAnimationType,
   scrollToTop,

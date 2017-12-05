@@ -1,5 +1,5 @@
-const addPassiveEventListener = require('./passive-event-listeners');
-const utils = require('./utils');
+import { addPassiveEventListener } from './passive-event-listeners';
+import utils from './utils';
 
 const scrollHash = {
   mountFlag: false,
@@ -71,4 +71,4 @@ const scrollHash = {
   },
 };
 
-module.exports = scrollHash;
+export default scrollHash;

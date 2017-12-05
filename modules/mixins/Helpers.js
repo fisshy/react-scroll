@@ -1,5 +1,7 @@
 "use strict";
 
+/* DEPRECATED */
+
 const React = require('react');
 const ReactDOM = require('react-dom');
 

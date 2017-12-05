@@ -24,8 +24,8 @@ Checkout examples
 ### Usage
 ```js
 // ES6 Imports
-import Scroll from 'react-scroll'; // Imports all Mixins
-import {scroller} from 'react-scroll'; //Imports scroller mixin, can use as scroller.scrollTo()
+import * as Scroll from 'react-scroll';
+import { Link, DirectLink, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 
 // Or Access Link,Element,etc as follows
@@ -380,6 +380,11 @@ A good visual reference can be found at [easings.net](http://easings.net/)
 
 
 #### Changelog
+> 1.7.0
+- Deprecated Helpers.js
+- Allow mulptiple scrolls
+- Support es6/es5 imports.
+
 > 1.6.5
 - Refactored some logic regarding hashspy, now have to set containerId if you want to scroll a specific element.
 

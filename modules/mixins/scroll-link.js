@@ -1,11 +1,11 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React  from 'react';
+import ReactDOM from 'react-dom';
 
-const utils = require('./utils');
-const scrollSpy = require('./scroll-spy');
-const defaultScroller = require('./scroller');
-const PropTypes = require('prop-types');
-const scrollHash = require('./scroll-hash');
+import utils from'./utils';
+import scrollSpy from'./scroll-spy';
+import defaultScroller from'./scroller';
+import PropTypes from'prop-types';
+import scrollHash from'./scroll-hash';
 
 const protoTypes = {
   to: PropTypes.string.isRequired,

@@ -25,7 +25,7 @@ const filterElementInContainer = (container) => (element) => container.contains 
 const scrollOffset = (c, t) => c === document ? 
       t.getBoundingClientRect().top + window.scrollY : getComputedStyle(c).position === "relative" ? t.offsetTop : (t.offsetTop - c.offsetTop)
 
-module.exports = {
+export default {
   pushHash,
   getHash,
   filterElementInContainer,

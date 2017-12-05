@@ -1,11 +1,11 @@
-const utils = require('./utils');
-const animateScroll = require('./animate-scroll');
-const events = require('./scroll-events');
+import utils  from './utils';
+import animateScroll from './animate-scroll';
+import events from'./scroll-events';
 
 let __mapped = {}
 let __activeLink;
 
-module.exports = {
+export default {
 
   unmount: () => {
     __mapped = {};

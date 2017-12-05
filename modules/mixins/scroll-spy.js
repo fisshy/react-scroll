@@ -1,4 +1,4 @@
-const { addPassiveEventListener } = require('./passive-event-listeners');
+import { addPassiveEventListener } from './passive-event-listeners';
 
 const eventThrottler = (eventHandler)  => {
   let eventHandlerTimeout;
@@ -84,4 +84,4 @@ const scrollSpy = {
   update: () => scrollSpy.scrollSpyContainers.forEach(c => scrollSpy.scrollHandler(c))
 }
 
-module.exports = scrollSpy;
+export default scrollSpy;

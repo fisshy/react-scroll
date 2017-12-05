@@ -1,9 +1,9 @@
 "use strict";
 
-var React = require('react');
-var Helpers = require('../mixins/Helpers');
+import React from 'react';
+import ScrollLink from '../mixins/scroll-link';
 
-class Button extends React.Component{
+class ButtonElement extends React.Component{
   render() {
     return (
       <input {...this.props}>
@@ -13,4 +13,4 @@ class Button extends React.Component{
   }
 };
 
-module.exports = Helpers.Scroll(Button);
+export default ScrollLink(ButtonElement);

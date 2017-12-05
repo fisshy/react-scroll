@@ -2,9 +2,9 @@
 
 import React from 'react';
 import ScrollElement from '../mixins/scroll-element';
-const PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-class Element extends React.Component{
+class ElementWrapper extends React.Component{
   render() {
     // Remove `parentBindings` from props
     let newProps = Object.assign({}, this.props);
@@ -20,9 +20,9 @@ class Element extends React.Component{
   }
 };
 
-Element.propTypes = {
+ElementWrapper.propTypes = {
   name: PropTypes.string,
   id:   PropTypes.string
 }
 
-export default ScrollElement(Element);
+export default ScrollElement(ElementWrapper);
