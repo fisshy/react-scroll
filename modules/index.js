@@ -1,11 +1,15 @@
-export { default as Link }  from './components/Link.js';
-export { default as Button }  from './components/Button.js';
-export { default as Element }  from './components/Element.js';
-export { default as scroller } from './mixins/scroller.js';
-export { default as Events } from './mixins/scroll-events.js';
-export { default as scrollSpy } from './mixins/scroll-spy.js';
-export { default as animateScroll } from './mixins/animate-scroll.js';
+import  Link   from './components/Link.js';
+import  Button   from './components/Button.js';
+import  Element  from './components/Element.js';
+import  scroller  from './mixins/scroller.js';
+import  Events  from './mixins/scroll-events.js';
+import  scrollSpy  from './mixins/scroll-spy.js';
+import  animateScroll  from './mixins/animate-scroll.js';
+import  ScrollLink  from './mixins/scroll-link.js';
+import  ScrollElement  from './mixins/scroll-element.js';
+import  Helpers  from './mixins/Helpers.js';
 
-export { default as ScrollLink } from './mixins/scroll-link.js';
-export { default as ScrollElement } from './mixins/scroll-element.js';
-export { default as Helpers } from './mixins/Helpers.js';
+
+export { Link, Button, Element, scroller, Events, scrollSpy, animateScroll, ScrollLink, ScrollElement, Helpers }
+
+export default { Link, Button, Element, scroller, Events, scrollSpy, animateScroll, ScrollLink, ScrollElement, Helpers }

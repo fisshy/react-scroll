@@ -2,7 +2,7 @@
 
 import React     from 'react';
 import ReactDOM  from 'react-dom';
-import * as Scroll    from 'react-scroll';
+import Scroll    from 'react-scroll';
 
 var Link       = Scroll.Link;
 var DirectLink = Scroll.DirectLink;
