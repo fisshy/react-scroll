@@ -16,7 +16,7 @@ $ npm start
 
 ### Examples
 Checkout examples
->> [Code](https://github.com/fisshy/react-scroll/blob/master/examples/basic/app.js)
+> [Code](https://github.com/fisshy/react-scroll/blob/master/examples/basic/app.js)
 ```js
 $ npm start
 ```
