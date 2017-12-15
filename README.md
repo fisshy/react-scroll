@@ -16,10 +16,10 @@ $ npm start
 
 ### Examples
 Checkout examples
-> Basic
->> [Live](http://fisshy.github.io/react-scroll-example/basic/index.html)
->> Or
 >> [Code](https://github.com/fisshy/react-scroll/blob/master/examples/basic/app.js)
+```js
+$ npm start
+```
 
 ### Usage
 ```js
