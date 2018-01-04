@@ -30,7 +30,7 @@ export default (Component, customScroller) => {
 
   const scroller = customScroller || defaultScroller;
 
-  class Link extends React.Component {
+  class Link extends React.PureComponent {
     constructor(props) {
       super(props);
       this.state = {
