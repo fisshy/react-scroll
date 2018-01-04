@@ -66,16 +66,6 @@ export default (Component, customScroller) => {
 
     }
 
-
-    stateHandler = () => {
-      if (scroller.getActiveLink() !== this.props.to) {
-        if (this.state !== null && this.state.active && this.props.onSetInactive) {
-          this.props.onSetInactive();
-        }
-        this.setState({ active: false });
-      }
-    }
-
     spyHandler = (y) => {
 
       let scrollSpyContainer = this.getScrollSpyContainer();
@@ -123,7 +113,6 @@ export default (Component, customScroller) => {
           this.props.onSetInactive && this.props.onSetInactive(to, element);
         }
 
-        return scrollSpy.updateStates();
       }
 
       if (isInside && activeLink !== to) {
@@ -135,7 +124,6 @@ export default (Component, customScroller) => {
           this.setState({ active: true });
           this.props.onSetActive && this.props.onSetActive(to, element);
         }
-        return scrollSpy.updateStates();
       }
     }
 
@@ -167,10 +155,6 @@ export default (Component, customScroller) => {
             scrollHash.mount(scroller);
           }
           scrollHash.mapContainer(this.props.to, scrollSpyContainer);
-        }
-
-        if (this.props.spy) {
-          scrollSpy.addStateHandler(this.stateHandler);
         }
 
         scrollSpy.addSpyHandler(this.spyHandler, scrollSpyContainer);

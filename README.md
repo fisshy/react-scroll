@@ -381,6 +381,10 @@ A good visual reference can be found at [easings.net](http://easings.net/)
 
 
 #### Changelog
+
+> 1.7.5
+- Improved performance.
+
 > 1.7.0
 - Deprecated Helpers.js
 - Allow mulptiple scrolls
