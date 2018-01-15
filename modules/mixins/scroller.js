@@ -19,7 +19,7 @@ export default {
     delete __mapped[name];
   },
 
-  get: (name) => __mapped[name] || document.getElementById(name) || document.getElementsByName(name)[0],
+  get: (name) => __mapped[name] || document.getElementById(name) || document.getElementsByName(name)[0] || document.getElementsByClassName(name)[0],
 
   setActiveLink: (link) => __activeLink = link,
 
