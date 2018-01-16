@@ -381,6 +381,8 @@ A good visual reference can be found at [easings.net](http://easings.net/)
 
 
 #### Changelog
+> 1.7.6
+- Support targeting elements with className 
 
 > 1.7.5
 - Improved performance.
