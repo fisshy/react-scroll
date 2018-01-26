@@ -1,6 +1,6 @@
 ## React Scroll
 
-Component for basic scrolling and smooth scrolling.
+Component for animating vertical scrolling.
 
 ### Install
 ```js
