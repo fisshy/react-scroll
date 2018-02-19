@@ -1,18 +1,8 @@
+import throttle from "lodash.throttle";
 import { addPassiveEventListener } from './passive-event-listeners';
 
-const eventThrottler = (eventHandler)  => {
-  let eventHandlerTimeout;
-  return (event) => {
-    // ignore events as long as an eventHandler execution is in the queue
-    if ( !eventHandlerTimeout ) {
-      eventHandlerTimeout = setTimeout(() => {
-        eventHandlerTimeout = null;
-        eventHandler(event);
-        // The eventHandler will execute at a rate of 15fps
-      }, 66);
-    }
-  };
-};
+// The eventHandler will execute at a rate of 15fps
+const eventThrottler = (eventHandler)  => throttle(eventHandler, 66);
 
 const scrollSpy = {
 
