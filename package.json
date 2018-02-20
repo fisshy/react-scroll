@@ -34,6 +34,7 @@
     "scrolls"
   ],
   "dependencies": {
+    "lodash.throttle": "^4.1.1",
     "prop-types": "^15.5.8"
   },
   "devDependencies": {
