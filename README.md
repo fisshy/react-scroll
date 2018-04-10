@@ -37,7 +37,7 @@ $ npm start
 ```js
 // ES6 Imports
 import * as Scroll from 'react-scroll';
-import { Link, DirectLink, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 
 // Or Access Link,Element,etc as follows
