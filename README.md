@@ -393,6 +393,9 @@ A good visual reference can be found at [easings.net](http://easings.net/)
 
 
 #### Changelog
+> 1.7.9
+- Set active now properly sets it's state after unmount and mount. 
+
 > 1.7.7
 - Minor performance improvements
 
