@@ -115,7 +115,7 @@ export default (Component, customScroller) => {
 
       }
 
-      if (isInside && activeLink !== to) {
+      if (isInside && (activeLink !== to || this.state.active === false)) {
         scroller.setActiveLink(to);
 
         this.props.hashSpy && scrollHash.changeHash(to);
