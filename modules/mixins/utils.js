@@ -7,8 +7,7 @@ const pushHash = (hash) => {
 
   if(history.pushState) {
     let loc = window.location;
-    history.pushState(null, null, hash
-      ? hash
+    history.pushState(null, null, hash ? loc.pathname + loc.search + hash
       // remove hash
       : loc.pathname + loc.search);
   } else {
