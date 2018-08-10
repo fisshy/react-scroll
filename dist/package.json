@@ -11,7 +11,7 @@
     "examples":
       "webpack-dev-server --config examples/webpack.config.js --no-info --content-base examples",
     "build":
-      "babel modules -d build/npm/modules --ignore '**/__tests__/**' --plugins transform-class-properties && gulp",
+      "babel modules -d dist --ignore '**/__tests__/**' --plugins transform-class-properties && gulp",
     "clean": "rm -rf build/npm/modules",
     "test": "karma start",
     "start": "npm run examples"
