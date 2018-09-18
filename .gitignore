@@ -5,4 +5,5 @@ dist
 bower_components
 .idea/
 npm-debug.log
+debug.log
 build
