@@ -1,7 +1,9 @@
 "use strict";
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var ReactDOM = require('react-dom');
+var PropTypes = require('prop-types');
 
 var animateScroll = require('./animate-scroll');
 var scrollSpy = require('./scroll-spy');
@@ -10,20 +12,20 @@ var assign = require('object-assign');
 
 
 var protoTypes = {
-	to: React.PropTypes.string.isRequired,
-	containerId: React.PropTypes.string,
-	activeClass: React.PropTypes.string,
-	spy: React.PropTypes.bool,
-	smooth: React.PropTypes.bool,
-	spyOffset: React.PropTypes.number,
-	offset: React.PropTypes.number,
-	delay: React.PropTypes.number,
-	isDynamic: React.PropTypes.bool,
-	onClick: React.PropTypes.func,
-	duration: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func]),
-	absolute: React.PropTypes.bool,
-	onSetActive: React.PropTypes.func,
-	ignoreCancelEvents: React.PropTypes.bool
+	to: PropTypes.string.isRequired,
+	containerId: PropTypes.string,
+	activeClass: PropTypes.string,
+	spy: PropTypes.bool,
+	smooth: PropTypes.bool,
+	spyOffset: PropTypes.number,
+	offset: PropTypes.number,
+	delay: PropTypes.number,
+	isDynamic: PropTypes.bool,
+	onClick: PropTypes.func,
+	duration: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+	absolute: PropTypes.bool,
+	onSetActive: PropTypes.func,
+	ignoreCancelEvents: PropTypes.bool
 };
 
 var Helpers = {
@@ -32,7 +34,7 @@ var Helpers = {
 
 		var scroller = customScroller || defaultScroller;
 
-		return React.createClass({
+		return createReactClass({
 
 			propTypes: protoTypes,
 
@@ -198,10 +200,10 @@ var Helpers = {
 
 
 	Element: function (Component) {
-		return React.createClass({
+		return createReactClass({
 			propTypes: {
-				name: React.PropTypes.string,
-				id: React.PropTypes.string
+				name: PropTypes.string,
+				id: PropTypes.string
 			},
 			componentDidMount: function () {
 				this.registerElems(this.props.name);

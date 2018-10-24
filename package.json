@@ -9,7 +9,7 @@
   },
   "scripts": {
     "examples": "webpack-dev-server --config examples/webpack.config.js --no-info --content-base examples",
-    "test": "./node_modules/karma/bin/karma start"
+    "test": "karma start"
   },
   "homepage": "https://github.com/fisshy/react-scroll",
   "bugs": "https://github.com/fisshy/react-scroll/issues",
@@ -30,11 +30,12 @@
   ],
   "dependencies": {
     "object-assign": "^4.0.1",
-    "react": "^15.0.1",
-    "react-dom": "^15.0.1"
+    "react": "^16.0.0",
+    "create-react-class": "15.6.3",
+    "react-dom": "^16.0.0",
+    "react-dom-factories": "^1.0.2"
   },
   "devDependencies": {
-    "react-addons-test-utils": "^15.0.1",
     "babel": "^5.8.23",
     "babel-core": "^4.6.0",
     "babel-loader": "^4.0.0",
@@ -48,6 +49,7 @@
     "karma-sourcemap-loader": "^0.3.6",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.3.3",
+    "prop-types": "^15.5.10",
     "webpack": "^1.6.0",
     "webpack-dev-server": "^1.7.0"
   }

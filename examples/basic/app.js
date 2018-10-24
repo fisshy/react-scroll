@@ -3,6 +3,7 @@
 var React     = require('react');
 var ReactDOM  = require('react-dom');
 var Scroll    = require('react-scroll');
+var createReactClass = require('create-react-class');
 
 var Link       = Scroll.Link;
 var DirectLink = Scroll.DirectLink;
@@ -15,7 +16,7 @@ var durationFn = function(deltaTop) {
     return deltaTop;
 };
 
-var Section = React.createClass({
+var Section = createReactClass({
   componentDidMount: function() {
 
     Events.scrollEvent.register('begin', function() {

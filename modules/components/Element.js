@@ -2,10 +2,12 @@
 
 var React = require('react');
 var Helpers = require('../mixins/Helpers');
+var createReactClass = require('create-react-class');
+var DOM = require('react-dom-factories');
 
-var Element = React.createClass({
+var Element = createReactClass({
   render: function () {
-    return React.DOM.div(this.props, this.props.children);
+    return DOM.div(this.props, this.props.children);
   }
 });
 

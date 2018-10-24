@@ -1,11 +1,14 @@
 "use strict";
 
 var React = require('react');
+var createReactClass = require('create-react-class');
+var DOM = require('react-dom-factories');
+
 var Helpers = require('../mixins/Helpers');
 
-var Button = React.createClass({
+var Button = createReactClass({
   render: function () {
-    return React.DOM.input(this.props, this.props.children);
+    return DOM.input(this.props, this.props.children);
   }
 });
 
