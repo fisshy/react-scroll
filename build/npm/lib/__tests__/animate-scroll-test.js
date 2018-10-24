@@ -1,5 +1,5 @@
 import {render, unmountComponentAtNode} from 'react-dom'
-import Rtu      from 'react-addons-test-utils'
+import Rtu      from 'react-dom/test-utils'
 import React    from 'react'
 
 import expect from 'expect'

@@ -1,11 +1,13 @@
 "use strict";
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Helpers = require('../mixins/Helpers');
+var DOM = require('react-dom-factories');
 
-var Link = React.createClass({
+var Link = createReactClass({
   render: function () {
-    return React.DOM.a(this.props, this.props.children);
+    return DOM.a(this.props, this.props.children);
   }
 });
 
