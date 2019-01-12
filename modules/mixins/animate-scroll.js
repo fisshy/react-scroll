@@ -61,24 +61,24 @@ const currentPositionY = (options) => {
 
 const scrollContainerHeight = (options) => {
   const containerElement = options.data.containerElement;
+  const body = document.body;
+  const htmlEl = document.documentElement;
+  
   if (containerElement && containerElement !== document && containerElement !== document.body) {
     return Math.max(
       containerElement.scrollHeight,
       containerElement.offsetHeight,
       containerElement.clientHeight
     );
-  } else {
-    let body = document.body;
-    let html = document.documentElement;
-
-    return Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    );
   }
+
+  return Math.max(
+    body.scrollHeight,
+    body.offsetHeight,
+    htmlEl.clientHeight,
+    htmlEl.scrollHeight,
+    htmlEl.offsetHeight
+  );
 };
 
 const animateScroll = (easing, options, timestamp) => {
