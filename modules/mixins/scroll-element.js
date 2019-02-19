@@ -15,24 +15,22 @@ export default (Component) => {
       }
 
       componentDidMount() {
-        if (typeof window === 'undefined') {
-          return false;
-        }
         this.registerElems(this.props.name);
       }
-      componentWillReceiveProps(nextProps) {
-        if (this.props.name !== nextProps.name) {
-          this.registerElems(nextProps.name);
+      componentDidUpdate(prevProps) {
+        if (this.props.name !== prevProps.name) {
+          this.registerElems(this.props.name);
         }
       }
       componentWillUnmount() {
-        if (typeof window === 'undefined') {
-          return false;
+        if (typeof window !== 'undefined') {
+          scroller.unregister(this.props.name);
         }
-        scroller.unregister(this.props.name);
       }
       registerElems(name) {
-        scroller.register(name, this.childBindings.domNode);
+        if (typeof window !== 'undefined') {
+          scroller.register(name, this.childBindings.domNode);
+        }
       }
       render() {
         return React.createElement(Component, Object.assign({}, this.props, { parentBindings: this.childBindings }));
