@@ -1,7 +1,5 @@
 import React  from 'react';
-import ReactDOM from 'react-dom';
 
-import utils from'./utils';
 import scrollSpy from'./scroll-spy';
 import defaultScroller from'./scroller';
 import PropTypes from'prop-types';
@@ -187,6 +185,7 @@ export default (Component, customScroller) => {
 
       props.className = className;
       props.onClick = this.handleClick;
+
 
       return React.createElement(Component, props);
     }
