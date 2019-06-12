@@ -62,11 +62,7 @@ const currentPositionY = (options) => {
 const scrollContainerHeight = (options) => {
   const containerElement = options.data.containerElement;
   if (containerElement && containerElement !== document && containerElement !== document.body) {
-    return Math.max(
-      containerElement.scrollHeight,
-      containerElement.offsetHeight,
-      containerElement.clientHeight
-    );
+    return containerElement.scrollHeight - containerElement.offsetHeight;
   } else {
     let body = document.body;
     let html = document.documentElement;
