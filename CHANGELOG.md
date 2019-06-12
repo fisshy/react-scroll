@@ -1,4 +1,7 @@
 #### Changelog
+> 1.7.12
+- Animating scroll-time is now consistent
+
 > 1.7.11
 - Should now scroll to exact position
 
