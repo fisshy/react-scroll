@@ -82,7 +82,6 @@ class Section extends React.Component{
                 <li><Link activeClass="active" className="test6" to="anchor" spy={true} smooth={true} duration={500}>Test 6 (anchor)</Link></li>
                 <li><Link activeClass="active" className="test7" to="test7" spy={true} smooth={true} duration={durationFn}>Test 7 (duration and container)</Link></li>
                 <li> <a onClick={() => animateScroll.scrollTo(100)}>Scroll To 100!</a></li>
-                <li> <a onClick={() => animateScroll.scrollTo(100)}>Scroll To 100+-50offset!</a></li>
                 <li> <a onClick={() => animateScroll.scrollToBottom()}>Scroll To Bottom</a></li>
                 <li> <a onClick={() => animateScroll.scrollMore(500)}>Scroll 500 More!</a></li>
                 <li> <a onClick={() => animateScroll.scrollMore(1000, { delay : 1500 })}>Scroll 1000 More! ( delay ) </a></li>
