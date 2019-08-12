@@ -56,6 +56,10 @@ export default {
        * if animate is not provided just scroll into the view
        */
       if(!props.smooth) {
+        if(events.registered['begin']) {
+          events.registered['begin'](to, target);
+        }
+
         if (containerElement === document) {
           window.scrollTo(0, scrollOffset);
         } else {
