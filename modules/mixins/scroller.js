@@ -1,6 +1,6 @@
 import utils  from './utils';
 import animateScroll from './animate-scroll';
-import events from'./scroll-events';
+import events from './scroll-events';
 
 let __mapped = {}
 let __activeLink;
@@ -46,10 +46,6 @@ export default {
         containerElement = container;
       } else {
         containerElement = document;
-      }
-
-      if(events.registered.begin) {
-        events.registered.begin(to, target);
       }
 
       props.absolute = true;
