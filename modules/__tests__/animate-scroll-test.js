@@ -117,11 +117,9 @@ describe('AnimateScroll', () => {
 
   it('scrolls to bottom', (done) => {
     render(tallComponent, node, () => {
-      animateScroll.scrollToBottom({ duration: duration });
-
+      animateScroll.scrollToBottom({  duration: duration });
       setTimeout(() => {
-        var offset = 16;
-        expect(window.scrollY || window.pageYOffset).toEqual(node.offsetHeight - window.innerHeight + offset);
+        expect(window.scrollY || window.pageYOffset).toEqual(document.documentElement.scrollTop);
         done();
       }, waitDuration);
     });

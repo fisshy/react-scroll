@@ -163,11 +163,17 @@ const animateTopScroll = (y, options, to, target) => {
 
   if (options && options.delay > 0) {
     options.data.delayTimeout = window.setTimeout(() => {
+      if (events.registered['begin']) {
+        events.registered['begin'](options.data.to, options.data.target);
+      }
       requestAnimationFrameHelper.call(window, easedAnimate);
     }, options.delay);
     return;
   }
 
+  if (events.registered['begin']) {
+    events.registered['begin'](options.data.to, options.data.target);
+  }
   requestAnimationFrameHelper.call(window, easedAnimate);
 
 };

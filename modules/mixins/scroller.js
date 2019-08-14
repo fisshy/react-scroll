@@ -1,6 +1,6 @@
 import utils  from './utils';
 import animateScroll from './animate-scroll';
-import events from'./scroll-events';
+import events from './scroll-events';
 
 let __mapped = {}
 let __activeLink;
@@ -48,10 +48,6 @@ export default {
         containerElement = document;
       }
 
-      if(events.registered.begin) {
-        events.registered.begin(to, target);
-      }
-
       props.absolute = true;
 
       let scrollOffset = utils.scrollOffset(containerElement, target) + (props.offset || 0);
@@ -60,6 +56,10 @@ export default {
        * if animate is not provided just scroll into the view
        */
       if(!props.smooth) {
+        if(events.registered['begin']) {
+          events.registered['begin'](to, target);
+        }
+
         if (containerElement === document) {
           window.scrollTo(0, scrollOffset);
         } else {
