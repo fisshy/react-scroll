@@ -1,4 +1,6 @@
 #### Changelog
+> 1.7.13
+- Removed deprecated warnings, Ensure 'begin' event fires on all scroll events. 
 > 1.7.12
 - Animating scroll-time is now consistent
 
