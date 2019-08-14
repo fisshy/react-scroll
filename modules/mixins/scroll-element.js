@@ -20,7 +20,7 @@ export default (Component) => {
         }
         this.registerElems(this.props.name);
       }
-      componentWillReceiveProps(nextProps) {
+      UNSAFE_componentWillReceiveProps(nextProps) {
         if (this.props.name !== nextProps.name) {
           this.registerElems(nextProps.name);
         }
