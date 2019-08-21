@@ -20,9 +20,9 @@ export default (Component) => {
         }
         this.registerElems(this.props.name);
       }
-      UNSAFE_componentWillReceiveProps(nextProps) {
-        if (this.props.name !== nextProps.name) {
-          this.registerElems(nextProps.name);
+      componentDidUpdate(prevProps) {
+        if (this.props.name !== prevProps.name) {
+          this.registerElems(this.props.name);
         }
       }
       componentWillUnmount() {
