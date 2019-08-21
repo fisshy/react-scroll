@@ -5,44 +5,20 @@ import PropTypes from 'prop-types';
 
 
 export default (Component) => {
-    class Element extends React.Component{
+  function Element(props) {
+    const childBindings = React.useRef({ domNode: null });
+    React.useEffect(() => {
+      scroller.register(props.name, childBindings.current.domNode);
+      return () => scroller.unregister(props.name);
+    }, [props.name]);
 
-      constructor (props){
-        super(props);
-        this.childBindings = {
-          domNode: null
-        };
-      }
-
-      componentDidMount() {
-        if (typeof window === 'undefined') {
-          return false;
-        }
-        this.registerElems(this.props.name);
-      }
-      UNSAFE_componentWillReceiveProps(nextProps) {
-        if (this.props.name !== nextProps.name) {
-          this.registerElems(nextProps.name);
-        }
-      }
-      componentWillUnmount() {
-        if (typeof window === 'undefined') {
-          return false;
-        }
-        scroller.unregister(this.props.name);
-      }
-      registerElems(name) {
-        scroller.register(name, this.childBindings.domNode);
-      }
-      render() {
-        return React.createElement(Component, Object.assign({}, this.props, { parentBindings: this.childBindings }));
-      }
-    };
-
-    Element.propTypes = {
-        name: PropTypes.string,
-        id:   PropTypes.string
-    }
-
-    return Element;
+    return React.createElement(Component, Object.assign({}, props, { parentBindings: childBindings.current }));
   }
+
+  Element.propTypes = {
+    name: PropTypes.string,
+    id:   PropTypes.string,
+  };
+
+  return Element;
+}
