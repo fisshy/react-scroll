@@ -1,4 +1,6 @@
 #### Changelog
+> 1.7.14
+- Removed unsafe warnings
 > 1.7.13
 - Removed deprecated warnings, Ensure 'begin' event fires on all scroll events. 
 > 1.7.12
