@@ -48,6 +48,8 @@ const scrollSpy = {
   addSpyHandler(handler, scrollSpyContainer) {
     let container = scrollSpy.scrollSpyContainers[scrollSpy.scrollSpyContainers.indexOf(scrollSpyContainer)];
     
+    if(container === null || container === undefined) return null
+
     if(!container.spyCallbacks) {
       container.spyCallbacks = [];
     }
