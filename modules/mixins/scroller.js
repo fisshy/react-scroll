@@ -50,6 +50,7 @@ export default {
 
       props.absolute = true;
 
+      
       let scrollOffset = utils.scrollOffset(containerElement, target) + (props.offset || 0);
 
       /*
