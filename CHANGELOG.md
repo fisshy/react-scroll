@@ -1,4 +1,6 @@
 #### Changelog
+> 1.7.16
+- Fixes issues from 1.7.15
 > 1.7.15
 - Fixed calculation for the offset
 > 1.7.14
