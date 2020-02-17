@@ -320,7 +320,7 @@ var ScrollElement = Scroll.ScrollElement;
 var Element = React.createClass({
   render: function () {
     return (
-      <div {...this.props}>
+      <div {...this.props}  ref={(el) => { this.props.parentBindings.domNode = el; }}>
         {this.props.children}
       </div>
     );
