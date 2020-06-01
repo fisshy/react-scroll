@@ -9,7 +9,7 @@ const pushHash = hash => {
       hash
         ? loc.pathname + loc.search + hash
         : // remove hash
-          loc.pathname + loc.search
+        loc.pathname + loc.search
     );
   } else {
     location.hash = hash;
@@ -25,12 +25,20 @@ const filterElementInContainer = container => element =>
     ? container != element && container.contains(element)
     : !!(container.compareDocumentPosition(element) & 16);
 
-const scrollOffset = (c, t) => {
-  return c === document
-    ? t.getBoundingClientRect().top + (window.scrollY || window.pageYOffset)
-    : getComputedStyle(c).position !== "static"
-    ? t.offsetTop
-    : t.offsetTop - c.offsetTop;
+const scrollOffset = (c, t, horizontal) => {
+  if (horizontal) {
+    return c === document
+      ? t.getBoundingClientRect().left + (window.scrollX || window.pageXOffset)
+      : getComputedStyle(c).position !== "static"
+        ? t.offsetLeft
+        : t.offsetLeft - c.offsetLeft;
+  } else {
+    return c === document
+      ? t.getBoundingClientRect().top + (window.scrollY || window.pageYOffset)
+      : getComputedStyle(c).position !== "static"
+        ? t.offsetTop
+        : t.offsetTop - c.offsetTop;
+  }
 };
 export default {
   pushHash,

@@ -31,21 +31,33 @@ const requestAnimationFrameHelper = (() => {
 })();
 
 const makeData = () => ({
-  currentPositionY : 0,
-  startPositionY : 0,
-  targetPositionY : 0,
-  progress : 0,
-  duration : 0,
-  cancel : false,
+  currentPosition: 0,
+  startPosition: 0,
+  targetPosition: 0,
+  progress: 0,
+  duration: 0,
+  cancel: false,
 
   target: null,
   containerElement: null,
   to: null,
   start: null,
-  deltaTop: null,
+  delta: null,
   percent: null,
   delayTimeout: null
 });
+
+const currentPositionX = (options) => {
+  const containerElement = options.data.containerElement;
+  if (containerElement && containerElement !== document && containerElement !== document.body) {
+    return containerElement.scrollLeft;
+  } else {
+    var supportPageOffset = window.pageXOffset !== undefined;
+    var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
+    return supportPageOffset ? window.pageXOffset : isCSS1Compat ?
+      document.documentElement.scrollLeft : document.body.scrollLeft;
+  }
+};
 
 const currentPositionY = (options) => {
   const containerElement = options.data.containerElement;
@@ -56,6 +68,24 @@ const currentPositionY = (options) => {
     var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
     return supportPageOffset ? window.pageYOffset : isCSS1Compat ?
       document.documentElement.scrollTop : document.body.scrollTop;
+  }
+};
+
+const scrollContainerWidth = (options) => {
+  const containerElement = options.data.containerElement;
+  if (containerElement && containerElement !== document && containerElement !== document.body) {
+    return containerElement.scrollWidth - containerElement.offsetWidth;
+  } else {
+    let body = document.body;
+    let html = document.documentElement;
+
+    return Math.max(
+      body.scrollWidth,
+      body.offsetWidth,
+      html.clientWidth,
+      html.scrollWidth,
+      html.offsetWidth
+    );
   }
 };
 
@@ -88,7 +118,7 @@ const animateScroll = (easing, options, timestamp) => {
     return
   };
 
-  data.deltaTop = Math.round(data.targetPositionY - data.startPositionY);
+  data.delta = Math.round(data.targetPosition - data.startPosition);
 
   if (data.start === null) {
     data.start = timestamp;
@@ -98,12 +128,20 @@ const animateScroll = (easing, options, timestamp) => {
 
   data.percent = (data.progress >= data.duration ? 1 : easing(data.progress / data.duration));
 
-  data.currentPositionY = data.startPositionY + Math.ceil(data.deltaTop * data.percent);
+  data.currentPosition = data.startPosition + Math.ceil(data.delta * data.percent);
 
   if (data.containerElement && data.containerElement !== document && data.containerElement !== document.body) {
-    data.containerElement.scrollTop = data.currentPositionY;
+    if (options.horizontal) {
+      data.containerElement.scrollLeft = data.currentPosition;
+    } else {
+      data.containerElement.scrollTop = data.currentPosition;
+    }
   } else {
-    window.scrollTo(0, data.currentPositionY);
+    if (options.horizontal) {
+      window.scrollTo(data.currentPosition, 0);
+    } else {
+      window.scrollTo(0, data.currentPosition);
+    }
   }
 
   if (data.percent < 1) {
@@ -113,7 +151,7 @@ const animateScroll = (easing, options, timestamp) => {
   }
 
   if (events.registered['end']) {
-    events.registered['end'](data.to, data.target, data.currentPositionY);
+    events.registered['end'](data.to, data.target, data.currentPosition);
   }
 
 };
@@ -128,7 +166,7 @@ const setContainer = (options) => {
         : document;
 };
 
-const animateTopScroll = (y, options, to, target) => {
+const animateTopScroll = (scrollOffset, options, to, target) => {
   options.data = options.data || makeData();
 
   window.clearTimeout(options.data.delayTimeout);
@@ -141,19 +179,21 @@ const animateTopScroll = (y, options, to, target) => {
 
   options.data.start = null;
   options.data.cancel = false;
-  options.data.startPositionY = currentPositionY(options);
-  options.data.targetPositionY = options.absolute ? y : y + options.data.startPositionY;
+  options.data.startPosition = options.horizontal ? currentPositionX(options) : currentPositionY(options);
+  options.data.targetPosition = options.absolute
+    ? scrollOffset
+    : scrollOffset + options.data.startPosition;
 
-  if(options.data.startPositionY === options.data.targetPositionY) {
+  if (options.data.startPosition === options.data.targetPosition) {
     if (events.registered['end']) {
-      events.registered['end'](options.data.to, options.data.target, options.data.currentPositionY);
+      events.registered['end'](options.data.to, options.data.target, options.data.currentPosition);
     }
     return;
   }
 
-  options.data.deltaTop = Math.round(options.data.targetPositionY - options.data.startPositionY);
+  options.data.delta = Math.round(options.data.targetPosition - options.data.startPosition);
 
-  options.data.duration = functionWrapper(options.duration)(options.data.deltaTop);
+  options.data.duration = functionWrapper(options.duration)(options.data.delta);
   options.data.duration = isNaN(parseFloat(options.data.duration)) ? 1000 : parseFloat(options.data.duration);
   options.data.to = to;
   options.data.target = target;
@@ -189,20 +229,24 @@ const scrollToTop = (options) => {
   animateTopScroll(0, proceedOptions(options));
 };
 
-const scrollTo = (toY, options) => {
-  animateTopScroll(toY, proceedOptions(options));
+const scrollTo = (toPosition, options) => {
+  animateTopScroll(toPosition, proceedOptions(options));
 };
 
 const scrollToBottom = (options) => {
   options = proceedOptions(options);
   setContainer(options);
-  animateTopScroll(scrollContainerHeight(options), options);
+  animateTopScroll(options.horizontal
+    ? scrollContainerWidth(options)
+    : scrollContainerHeight(options),
+    options);
 };
 
-const scrollMore = (toY, options) => {
+const scrollMore = (toPosition, options) => {
   options = proceedOptions(options);
   setContainer(options);
-  animateTopScroll(currentPositionY(options) + toY, options);
+  const currentPosition = options.horizontal ? currentPositionX(options) : currentPositionY(options)
+  animateTopScroll(toPosition + currentPosition, options);
 };
 
 export default {
