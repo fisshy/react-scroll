@@ -3,11 +3,13 @@
 Component for animating vertical scrolling.
 
 ### Install
+
 ```js
 $ npm install react-scroll
 ```
 
 ### Run
+
 ```js
 $ npm install
 $ npm test
@@ -15,9 +17,11 @@ $ npm start
 ```
 
 ### Examples
+
 Checkout examples
 
-Live example 
+Live example
+
 > [Basic](https://codesandbox.io/s/basic-6t84k)
 
 > [Basic-Keydown](https://codesandbox.io/s/l94kv62o4m)
@@ -29,48 +33,46 @@ Live example
 > [With-overflow](https://codesandbox.io/s/l94kv62o4m)
 
 > [Code](https://github.com/fisshy/react-scroll/blob/master/examples/basic/app.js)
+
 ```js
 $ npm start
 ```
 
 ### Usage
+
 ```js
 // ES6 Imports
 import * as Scroll from 'react-scroll';
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-
+import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 // Or Access Link,Element,etc as follows
-let Link       = Scroll.Link;
-let Element    = Scroll.Element;
-let Events     = Scroll.Events;
-let scroll     = Scroll.animateScroll;
-let scrollSpy  = Scroll.scrollSpy;
+let Link      = Scroll.Link;
+let Element   = Scroll.Element;
+let Events    = Scroll.Events;
+let scroll    = Scroll.animateScroll;
+let scrollSpy = Scroll.scrollSpy;
 
 // ES5
-var React   = require('react');
-var Scroll  = require('react-scroll');
+var React  = require('react');
+var Scroll = require('react-scroll');
 
-var Link       = Scroll.Link;
-var Element    = Scroll.Element;
-var Events     = Scroll.Events;
-var scroll     = Scroll.animateScroll;
-var scrollSpy  = Scroll.scrollSpy;
-
+var Link      = Scroll.Link;
+var Element   = Scroll.Element;
+var Events    = Scroll.Events;
+var scroll    = Scroll.animateScroll;
+var scrollSpy = Scroll.scrollSpy;
 
 var Section = React.createClass({
   componentDidMount: function() {
-
     Events.scrollEvent.register('begin', function(to, element) {
-      console.log("begin", arguments);
+      console.log('begin', arguments);
     });
 
     Events.scrollEvent.register('end', function(to, element) {
-      console.log("end", arguments);
+      console.log('end', arguments);
     });
 
     scrollSpy.update();
-
   },
   componentWillUnmount: function() {
     Events.scrollEvent.remove('begin');
@@ -92,7 +94,7 @@ var Section = React.createClass({
     console.log(to);
   },
   render: function () {
-  	return (
+    return (
       <div>
         <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} onSetActive={this.handleSetActive}>
           Test 1
@@ -119,7 +121,6 @@ var Section = React.createClass({
           test 6 (anchor)
         </div>
 
-
         <Link to="firstInsideContainer" containerId="containerElement">
           Go to first element inside container
         </Link>
@@ -145,7 +146,7 @@ var Section = React.createClass({
         <br/>
         <a onClick={this.scrollMore}>Scroll 100px more from the current position!</a>
       </div>
-	);
+    );
   }
 });
 
@@ -153,7 +154,6 @@ React.render(
   <Section />,
   document.getElementById('example')
 );
-
 ```
 
 ### Props/Options
@@ -207,34 +207,28 @@ React.render(
 > Scroll To Top
 
 ```js
-
 var Scroll = require('react-scroll');
 var scroll = Scroll.animateScroll;
 
 scroll.scrollToTop(options);
-
 ```
 
 > Scroll To Bottom
 
 ```js
-
 var Scroll = require('react-scroll');
 var scroll = Scroll.animateScroll;
 
 scroll.scrollToBottom(options);
-
 ```
 
 > Scroll To (position)
 
 ```js
-
 var Scroll = require('react-scroll');
 var scroll = Scroll.animateScroll;
 
 scroll.scrollTo(100, options);
-
 ```
 
 > Scroll To (Element)
@@ -242,9 +236,8 @@ scroll.scrollTo(100, options);
 animateScroll.scrollTo(positionInPixels, props = {});
 
 ```js
-
-var Scroll = require('react-scroll');
-var Element = Scroll.Element;
+var Scroll   = require('react-scroll');
+var Element  = Scroll.Element;
 var scroller = Scroll.scroller;
 
 <Element name="myScrollToElement"></Element>
@@ -258,18 +251,15 @@ scroller.scrollTo('myScrollToElement', {
   offset: 50, // Scrolls to element + 50 pixels down the page
   ...
 })
-
 ```
 
 > Scroll More (px)
 
 ```js
-
 var Scroll = require('react-scroll');
 var scroll = Scroll.animateScroll;
 
 scroll.scrollMore(10, options);
-
 ```
 
 ### Scroll events
@@ -277,14 +267,12 @@ scroll.scrollMore(10, options);
 > begin - start of the scrolling
 
 ```js
-
 var Scroll = require('react-scroll');
 var Events = Scroll.Events;
 
 Events.scrollEvent.register('begin', function(to, element) {
-  console.log("begin", to, element);
+  console.log('begin', to, element);
 });
-
 ```
 
 > end - end of the scrolling/animation
@@ -292,29 +280,24 @@ Events.scrollEvent.register('begin', function(to, element) {
 ```js
 
 Events.scrollEvent.register('end', function(to, element) {
-  console.log("end", to, element);
+  console.log('end', to, element);
 });
-
 ```
-
 
 > Remove events
 
 ```js
-
 Events.scrollEvent.remove('begin');
 Events.scrollEvent.remove('end');
-
 ```
-
 
 #### Create your own Link/Element
 > Simply just pass your component to one of the high order components (Element/Scroll)
 
 ```js
-var React   = require('react');
-var Scroll  = require('react-scroll');
-var ScrollLink = Scroll.ScrollLink;
+var React         = require('react');
+var Scroll        = require('react-scroll');
+var ScrollLink    = Scroll.ScrollLink;
 var ScrollElement = Scroll.ScrollElement;
 
 var Element = React.createClass({
@@ -340,22 +323,19 @@ var Link = React.createClass({
 });
 
 module.exports = ScrollLink(Link);
-
 ```
 
 ### Scroll Animations
 > Add a custom easing animation to the smooth option. This prop will accept a Boolean if you want the default, or any of the animations listed below
 
 ```js
-
 scroller.scrollTo('myScrollToElement', {
   duration: 1500,
   delay: 100,
-  smooth: "easeInOutQuint",
+  smooth: 'easeInOutQuint',
   containerId: 'ContainerElementID',
   ...
 })
-
 ```
 
 > List of currently available animations:
