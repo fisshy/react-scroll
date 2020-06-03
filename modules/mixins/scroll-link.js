@@ -29,6 +29,12 @@ export default (Component, customScroller) => {
   const scroller = customScroller || defaultScroller;
 
   class Link extends React.PureComponent {
+    element = null;
+    elementBounds = {
+      topBound: 0,
+      bottomBound: 0,
+    }
+
     constructor(props) {
       super(props);
       this.state = {
@@ -73,9 +79,9 @@ export default (Component, customScroller) => {
       }
 
       let to = this.props.to;
-      let element = null;
-      let elemTopBound = 0;
-      let elemBottomBound = 0;
+      let element = this.element;
+      let elemTopBound = this.elementBounds.topBound;
+      let elemBottomBound = this.elementBounds.bottomBound;
       let containerTop = 0;
 
       if (scrollSpyContainer.getBoundingClientRect) {
@@ -90,6 +96,12 @@ export default (Component, customScroller) => {
         let cords = element.getBoundingClientRect();
         elemTopBound = (cords.top - containerTop + y);
         elemBottomBound = elemTopBound + cords.height;
+
+        this.element = element
+        this.elementBounds = {
+          topBound: elemTopBound,
+          bottomBound: elemBottomBound
+        }
       }
 
       let offsetY = y - this.props.offset;
