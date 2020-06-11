@@ -54,9 +54,9 @@ const scrollHash = {
     return utils.getHash();
   },
 
-  changeHash(to) {
+  changeHash(to, saveHashHistory) {
     if (this.isInitialized() && utils.getHash() !== to) {
-      utils.pushHash(to);
+      utils.updateHash(to, saveHashHistory);
     }
   },
 
