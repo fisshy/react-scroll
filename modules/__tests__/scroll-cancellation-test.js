@@ -17,7 +17,7 @@ describe('Scroll cancelation', () => {
     window.scrollTo(0, 0);
   });
 
-  describe("when scrolling is triggered by keydown handlers", () => {
+  describe("when scrolling is triggered by keydown handlers vertically", () => {
     it("can scroll on keydown multiple times in a row", (done) => {
       const duration = 100;
       const distance = 100;
@@ -49,6 +49,48 @@ describe('Scroll cancelation', () => {
           dispatchDOMKeydownEvent(13, node.querySelector('input'));
           wait(duration * 2, () => {
             expect(window.scrollY || window.pageYOffset).toBeGreaterThanOrEqualTo(distance * 3);
+            done();
+          });
+
+        })
+
+      })
+
+    });
+  });
+
+  describe("when scrolling is triggered by keydown handlers horizontally", () => {
+    it("can scroll on keydown multiple times in a row", (done) => {
+      const duration = 100;
+      const distance = 100;
+
+      class TestComponent extends React.Component {
+        handleKeyDown = () => {
+          scroll.scrollMore(distance, { smooth: true, duration, horizontal: true });
+        }
+        render() {
+          return (
+            <div>
+              <input onKeyDown={this.handleKeyDown} />
+              <div style={{ width: "3000px", height: "100%", background: "repeating-linear-gradient(to right, white, black 100px)" }} />
+            </div>
+          );
+        }
+      }
+
+      render(<TestComponent />, node);
+
+      dispatchDOMKeydownEvent(13, node.querySelector('input'));
+      wait(duration * 2, () => {
+        expect(window.scrollX || window.pageXOffset).toBeGreaterThanOrEqualTo(distance);
+
+        dispatchDOMKeydownEvent(13, node.querySelector('input'));
+        wait(duration * 2, () => {
+          expect(window.scrollX || window.pageXOffset).toBeGreaterThanOrEqualTo(distance * 2);
+
+          dispatchDOMKeydownEvent(13, node.querySelector('input'));
+          wait(duration * 2, () => {
+            expect(window.scrollX || window.pageXOffset).toBeGreaterThanOrEqualTo(distance * 3);
             done();
           });
 

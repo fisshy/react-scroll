@@ -6,12 +6,7 @@ import expect from 'expect'
 import animateScroll from '../mixins/animate-scroll';
 import events from '../mixins/scroll-events.js';
 
-var currentPositionY = function () {
-  var supportPageOffset = window.pageXOffset !== undefined;
-  var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
-  return supportPageOffset ? window.pageYOffset : isCSS1Compat ?
-    document.documentElement.scrollTop : document.body.scrollTop;
-};
+import { renderHorizontal } from './utility'
 
 describe('AnimateScroll', () => {
 
@@ -34,6 +29,22 @@ describe('AnimateScroll', () => {
       <a onClick={() => animateScroll.scrollTo(100)}>Scroll To 100!</a>
       <a onClick={() => animateScroll.scrollMore(10)}>Scroll More!</a>
       <div style={{ height: '10000px' }}></div>
+    </div>
+
+  let wideComponent =
+    <div id="wideComponent">
+      <a onClick={() => animateScroll.scrollToTop({ horizontal: true })}>Scroll To Top!</a>
+      <a onClick={() => animateScroll.scrollTo(100, { horizontal: true })}>Scroll To 100!</a>
+      <a onClick={() => animateScroll.scrollMore(10, { horizontal: true })}>Scroll More!</a>
+      <div style={{ width: '10000px', display: 'inline-block' }}></div>
+    </div>
+
+  let wideComponent2 =
+    <div id="wideComponent2">
+      <a onClick={() => animateScroll.scrollToTop({ horizontal: true })}>Scroll To Top!</a>
+      <a onClick={() => animateScroll.scrollTo(100, { horizontal: true })}>Scroll To 100!</a>
+      <a onClick={() => animateScroll.scrollMore(10, { horizontal: true })}>Scroll More!</a>
+      <div style={{ width: '10000px', display: 'inline-block' }}></div>
     </div>
 
   beforeEach(() => {
@@ -62,7 +73,13 @@ describe('AnimateScroll', () => {
     });
   });
 
-  it('scrolls to an absolute position', (done) => {
+  it('renders a component wider than the window width', () => {
+    renderHorizontal(wideComponent, node, () => {
+      expect(node.offsetWidth > window.innerWidth).toBe(true);
+    });
+  });
+
+  it('scrolls to an absolute position vertically', (done) => {
     render(tallComponent, node, () => {
       window.scrollTo(0, 1000);
       animateScroll.scrollTo(120, { duration: duration });
@@ -74,12 +91,24 @@ describe('AnimateScroll', () => {
     });
   });
 
-  it('scrolls to a position given a node as a container ', (done) => {
+  it('scrolls to an absolute position horizontally', (done) => {
+    renderHorizontal(wideComponent, node, () => {
+      window.scrollTo(1000, 0);
+      animateScroll.scrollTo(120, { duration: duration, horizontal: true });
+
+      setTimeout(() => {
+        expect(window.scrollX || window.pageXOffset).toEqual(120);
+        done();
+      }, waitDuration);
+    });
+  });
+
+  it('scrolls to a position given a node as a container vertically', (done) => {
     render(tallComponent, node, () => {
 
       window.scrollTo(0, 0);
       node.style.cssText = "position: fixed; top: 0; bottom: 200px; width 100%; overflow: scroll";
-      document.body.style.cssText = "overflow: hidden;";
+      document.body.style.cssText += "; overflow: hidden;";
 
       animateScroll.scrollTo(400, { duration: duration, container: node });
       setTimeout(() => {
@@ -89,13 +118,42 @@ describe('AnimateScroll', () => {
     });
   });
 
-  it('scrolls to an absolute position even if current position is higher', (done) => {
+  it('scrolls to a position given a node as a container horizontally', (done) => {
+    renderHorizontal(wideComponent, node, () => {
+
+      window.scrollTo(0, 0);
+      node.style.cssText = "position: fixed; left: 0; right: 200px; height 100%; overflow: scroll";
+
+      animateScroll.scrollTo(400, { duration: duration, container: node, horizontal: true });
+      setTimeout(() => {
+        debugger;
+        expect(node.scrollLeft).toEqual(400);
+        done();
+      }, waitDuration);
+    });
+  });
+
+  it('scrolls to an absolute position even if current position is higher vertically', (done) => {
     render(tallComponent, node, () => {
       window.scrollTo(0, 1000);
       animateScroll.scrollTo(200, { duration: duration });
 
       setTimeout(() => {
         expect(window.scrollY || window.pageYOffset).toEqual(200);
+
+        done();
+      }, waitDuration);
+
+    });
+  });
+
+  it('scrolls to an absolute position even if current position is farther horizontally', (done) => {
+    renderHorizontal(wideComponent, node, () => {
+      window.scrollTo(1000, 0);
+      animateScroll.scrollTo(200, { duration: duration, horizontal: true });
+
+      setTimeout(() => {
+        expect(window.scrollX || window.pageXOffset).toEqual(200);
 
         done();
       }, waitDuration);
@@ -115,9 +173,21 @@ describe('AnimateScroll', () => {
     });
   });
 
+  it('scrolls to top horizontally', (done) => {
+    renderHorizontal(wideComponent, node, () => {
+      window.scrollTo(1000, 0);
+      animateScroll.scrollToTop({ duration: duration, horizontal: true });
+
+      setTimeout(() => {
+        expect(window.scrollX || window.pageXOffset).toEqual(0);
+        done();
+      }, waitDuration);
+    });
+  });
+
   it('scrolls to bottom', (done) => {
     render(tallComponent, node, () => {
-      animateScroll.scrollToBottom({  duration: duration });
+      animateScroll.scrollToBottom({ duration: duration });
       setTimeout(() => {
         expect(window.scrollY || window.pageYOffset).toEqual(document.documentElement.scrollTop);
         done();
@@ -125,7 +195,17 @@ describe('AnimateScroll', () => {
     });
   });
 
-  it('scrolls to a position relative to the current position', (done) => {
+  it('scrolls to bottom horizontally', (done) => {
+    renderHorizontal(wideComponent, node, () => {
+      animateScroll.scrollToBottom({ duration: duration, horizontal: true });
+      setTimeout(() => {
+        expect(window.scrollX || window.pageXOffset).toEqual(document.documentElement.scrollLeft);
+        done();
+      }, waitDuration);
+    });
+  });
+
+  it('scrolls to a position relative to the current position vertically', (done) => {
     render(tallComponent, node, () => {
       window.scrollTo(0, 111);
 
@@ -147,7 +227,29 @@ describe('AnimateScroll', () => {
     });
   });
 
-  it('can take 0 as a duration argument', (done) => {
+  it('scrolls to a position relative to the current position horizontally', (done) => {
+    renderHorizontal(wideComponent, node, () => {
+      window.scrollTo(111, 0);
+
+      animateScroll.scrollMore(10, { duration: duration, horizontal: true });
+
+      setTimeout(() => {
+        expect(window.scrollYX || window.pageXOffset).toEqual(121);
+
+        animateScroll.scrollMore(10, { duration: duration, horizontal: true });
+
+        // do it again!
+        setTimeout(() => {
+          expect(window.scrollX || window.pageXOffset).toEqual(131);
+
+          done();
+        }, waitDuration);
+
+      }, waitDuration);
+    });
+  });
+
+  it('can take 0 as a duration argument vertically', (done) => {
     render(tallComponent, node, () => {
       animateScroll.scrollTo(120, { duration: 0 });
 
@@ -158,7 +260,18 @@ describe('AnimateScroll', () => {
     });
   });
 
-  it('can take a function as a duration argument', (done) => {
+  it('can take 0 as a duration argument horizontally', (done) => {
+    renderHorizontal(wideComponent, node, () => {
+      animateScroll.scrollTo(120, { duration: 0, horizontal: true });
+
+      setTimeout(() => {
+        expect(window.scrollX || window.pageXOffset).toEqual(120);
+        done();
+      }, 100);
+    });
+  });
+
+  it('can take a function as a duration argument vertically', (done) => {
     render(tallComponent, node, () => {
       animateScroll.scrollTo(120, { duration: (v) => v });
       expect(window.scrollY || window.pageYOffset).toEqual(0);
@@ -170,19 +283,50 @@ describe('AnimateScroll', () => {
     });
   });
 
-  it('can scroll two DIVs', (done) => {
+  it('can take a function as a duration argument horizontally', (done) => {
+    renderHorizontal(wideComponent, node, () => {
+      animateScroll.scrollTo(120, { duration: (v) => v, horizontal: true });
+      expect(window.scrollX || window.pageXOffset).toEqual(0);
+
+      setTimeout(() => {
+        expect(window.scrollX || window.pageXOffset).toEqual(120);
+        done();
+      }, 150);
+    });
+  });
+
+  it('can scroll two DIVs vertically', (done) => {
     render(tallComponent, node, () => {
       render(tallComponent2, node2, () => {
         window.scrollTo(0, 0);
         node.style.cssText = "position: fixed; top: 0; bottom: 200px; width 100%; overflow: scroll";
         node2.style.cssText = "position: fixed; top: 0; bottom: 200px; width 100%; overflow: scroll";
-        document.body.style.cssText = "overflow: hidden;";
+        document.body.style.cssText += "; overflow: hidden;";
 
         animateScroll.scrollTo(300, { duration: duration, container: node });
         animateScroll.scrollTo(400, { duration: duration, container: node2 });
         setTimeout(() => {
           expect(node.scrollTop).toEqual(300);
           expect(node2.scrollTop).toEqual(400);
+          done();
+        }, waitDuration);
+      });
+    });
+  });
+
+  it('can scroll two DIVs horizontally', (done) => {
+    renderHorizontal(wideComponent, node, () => {
+      renderHorizontal(wideComponent2, node2, () => {
+        window.scrollTo(0, 0);
+        node.style.cssText = "position: fixed; left: 0; right: 200px; height 100%; overflow: scroll";
+        node2.style.cssText = "position: fixed; left: 0; right: 200px; height 100%; overflow: scroll";
+        document.body.style.cssText += "; overflow: hidden;";
+
+        animateScroll.scrollTo(300, { duration: duration, container: node, horizontal: true });
+        animateScroll.scrollTo(400, { duration: duration, container: node2, horizontal: true });
+        setTimeout(() => {
+          expect(node.scrollLeft).toEqual(300);
+          expect(node2.scrollLeft).toEqual(400);
           done();
         }, waitDuration);
       });
