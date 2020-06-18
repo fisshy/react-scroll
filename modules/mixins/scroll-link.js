@@ -1,9 +1,9 @@
-import React  from 'react';
+import React from 'react';
 
-import scrollSpy from'./scroll-spy';
-import defaultScroller from'./scroller';
-import PropTypes from'prop-types';
-import scrollHash from'./scroll-hash';
+import scrollSpy from './scroll-spy';
+import defaultScroller from './scroller';
+import PropTypes from 'prop-types';
+import scrollHash from './scroll-hash';
 
 const protoTypes = {
   to: PropTypes.string.isRequired,
@@ -11,6 +11,7 @@ const protoTypes = {
   container: PropTypes.object,
   activeClass: PropTypes.string,
   spy: PropTypes.bool,
+  horizontal: PropTypes.bool,
   smooth: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   offset: PropTypes.number,
   delay: PropTypes.number,

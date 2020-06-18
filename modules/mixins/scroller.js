@@ -1,4 +1,4 @@
-import utils  from './utils';
+import utils from './utils';
 import animateScroll from './animate-scroll';
 import events from './scroll-events';
 
@@ -27,57 +27,61 @@ export default {
 
   scrollTo(to, props) {
 
-      let target = this.get(to);
+    let target = this.get(to);
 
-      if(!target) {
-        console.warn("target Element not found");
-        return;
+    if (!target) {
+      console.warn("target Element not found");
+      return;
+    }
+
+    props = Object.assign({}, props, { absolute: false });
+
+    let containerId = props.containerId;
+    let container = props.container;
+
+    let containerElement;
+    if (containerId) {
+      containerElement = document.getElementById(containerId);
+    } else if (container && container.nodeType) {
+      containerElement = container;
+    } else {
+      containerElement = document;
+    }
+
+    props.absolute = true;
+
+    let horizontal = props.horizontal
+    let scrollOffset = utils.scrollOffset(containerElement, target, horizontal) + (props.offset || 0);
+
+    /*
+     * if animate is not provided just scroll into the view
+     */
+    if (!props.smooth) {
+      if (events.registered['begin']) {
+        events.registered['begin'](to, target);
       }
 
-      props = Object.assign({}, props, { absolute : false });
-
-      let containerId = props.containerId;
-      let container = props.container;
-
-      let containerElement;
-      if(containerId) {
-        containerElement = document.getElementById(containerId);
-      } else if(container && container.nodeType) {
-        containerElement = container;
-      } else {
-        containerElement = document;
-      }
-
-      props.absolute = true;
-
-      
-      let scrollOffset = utils.scrollOffset(containerElement, target) + (props.offset || 0);
-
-      /*
-       * if animate is not provided just scroll into the view
-       */
-      if(!props.smooth) {
-        if(events.registered['begin']) {
-          events.registered['begin'](to, target);
-        }
-
-        if (containerElement === document) {
-          window.scrollTo(0, scrollOffset);
+      if (containerElement === document) {
+        if (props.horizontal) {
+          window.scrollTo(scrollOffset, 0);
         } else {
-          containerElement.scrollTop = scrollOffset;
+          window.scrollTo(0, scrollOffset);
         }
-
-        if(events.registered['end']) {
-          events.registered['end'](to, target);
-        }
-
-        return;
+      } else {
+        containerElement.scrollTop = scrollOffset;
       }
 
-      /*
-       * Animate scrolling
-       */
+      if (events.registered['end']) {
+        events.registered['end'](to, target);
+      }
 
-      animateScroll.animateTopScroll(scrollOffset, props, to, target);
+      return;
+    }
+
+    /*
+     * Animate scrolling
+     */
+
+    animateScroll.animateTopScroll(scrollOffset, props, to, target);
   }
 };
