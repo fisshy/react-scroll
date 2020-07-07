@@ -65,37 +65,65 @@ export default (Component, customScroller) => {
 
     }
 
-    spyHandler = (y) => {
-
+    spyHandler = (x, y) => {
       let scrollSpyContainer = this.getScrollSpyContainer();
 
       if (scrollHash.isMounted() && !scrollHash.isInitialized()) {
         return;
       }
 
+      const {horizontal} = this.props;
       let to = this.props.to;
       let element = null;
-      let elemTopBound = 0;
-      let elemBottomBound = 0;
-      let containerTop = 0;
+      let isInside;
+      let isOutside;
 
-      if (scrollSpyContainer.getBoundingClientRect) {
-        let containerCords = scrollSpyContainer.getBoundingClientRect();
-        containerTop = containerCords.top;
+      if (horizontal) {
+        let elemLeftBound = 0;
+        let elemRightBound = 0;
+        let containerLeft = 0;
+
+        if (scrollSpyContainer.getBoundingClientRect) {
+          let containerCords = scrollSpyContainer.getBoundingClientRect();
+          containerLeft = containerCords.left;
+        }
+
+        if (!element || this.props.isDynamic) {
+          element = scroller.get(to);
+          if (!element) { return; }
+
+          let cords = element.getBoundingClientRect();
+          elemLeftBound = (cords.left - containerLeft + x);
+          elemRightBound = elemLeftBound + cords.width;
+        }
+
+        let offsetX = x - this.props.offset;
+        isInside = (offsetX >= Math.floor(elemLeftBound) && offsetX < Math.floor(elemRightBound));
+        isOutside = (offsetX < Math.floor(elemLeftBound) || offsetX >= Math.floor(elemRightBound));
+      } else {
+        let elemTopBound = 0;
+        let elemBottomBound = 0;
+        let containerTop = 0;
+
+        if (scrollSpyContainer.getBoundingClientRect) {
+          let containerCords = scrollSpyContainer.getBoundingClientRect();
+          containerTop = containerCords.top;
+        }
+
+        if (!element || this.props.isDynamic) {
+          element = scroller.get(to);
+          if (!element) { return; }
+
+          let cords = element.getBoundingClientRect();
+          elemTopBound = (cords.top - containerTop + y);
+          elemBottomBound = elemTopBound + cords.height;
+        }
+
+        let offsetY = y - this.props.offset;
+        isInside = (offsetY >= Math.floor(elemTopBound) && offsetY < Math.floor(elemBottomBound));
+        isOutside = (offsetY < Math.floor(elemTopBound) || offsetY >= Math.floor(elemBottomBound));
       }
 
-      if (!element || this.props.isDynamic) {
-        element = scroller.get(to);
-        if (!element) { return; }
-
-        let cords = element.getBoundingClientRect();
-        elemTopBound = (cords.top - containerTop + y);
-        elemBottomBound = elemTopBound + cords.height;
-      }
-
-      let offsetY = y - this.props.offset;
-      let isInside = (offsetY >= Math.floor(elemTopBound) && offsetY < Math.floor(elemBottomBound));
-      let isOutside = (offsetY < Math.floor(elemTopBound) || offsetY >= Math.floor(elemBottomBound));
       let activeLink = scroller.getActiveLink();
 
       if (isOutside) {
