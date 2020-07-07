@@ -36,7 +36,7 @@ describe('AnimateScroll', () => {
       <a onClick={() => animateScroll.scrollToTop({ horizontal: true })}>Scroll To Top!</a>
       <a onClick={() => animateScroll.scrollTo(100, { horizontal: true })}>Scroll To 100!</a>
       <a onClick={() => animateScroll.scrollMore(10, { horizontal: true })}>Scroll More!</a>
-      <div style={{ width: '10000px', display: 'inline-block' }}></div>
+      <div style={{ width: '10000px', height: '100px', display: 'inline-block' }}></div>
     </div>
 
   let wideComponent2 =
@@ -44,7 +44,7 @@ describe('AnimateScroll', () => {
       <a onClick={() => animateScroll.scrollToTop({ horizontal: true })}>Scroll To Top!</a>
       <a onClick={() => animateScroll.scrollTo(100, { horizontal: true })}>Scroll To 100!</a>
       <a onClick={() => animateScroll.scrollMore(10, { horizontal: true })}>Scroll More!</a>
-      <div style={{ width: '10000px', display: 'inline-block' }}></div>
+      <div style={{ width: '10000px', height: '100px', display: 'inline-block' }}></div>
     </div>
 
   beforeEach(() => {
@@ -126,7 +126,6 @@ describe('AnimateScroll', () => {
 
       animateScroll.scrollTo(400, { duration: duration, container: node, horizontal: true });
       setTimeout(() => {
-        debugger;
         expect(node.scrollLeft).toEqual(400);
         done();
       }, waitDuration);
