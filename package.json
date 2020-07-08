@@ -58,16 +58,16 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.3",
     "mocha": "^3.2.0",
-    "react": "^16.0.0",
+    "react": "^16.8.0",
     "react-addons-test-utils": "^15.5.1",
-    "react-dom": "^16.0.0",
+    "react-dom": "^16.8.0",
     "sinon": "^4.1.2",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.11.5"
   },
   "peerDependencies": {
-    "react": "^15.5.4 || ^16.0.0",
-    "react-dom": "^15.5.4 || ^16.0.0"
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
   },
   "babel": {
     "presets": [
