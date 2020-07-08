@@ -1,0 +1,35 @@
+.body {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.pageContainer {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+
+	margin-top: 100px;
+}
+
+.element {
+	width: 1000px;
+	min-width: 1000px;
+	background-color: #ededed;
+	font-size: 45px;
+	border-top:1px solid #000;
+	padding-top:55px;
+	padding-left:10px;
+}
+
+.navbar-fixed-top {
+	display: fixed;
+  top: 0;
+}
+
+.element.no-padding{
+	padding-top:0;
+}
+
+.active {
+	color:red !important;
+}
