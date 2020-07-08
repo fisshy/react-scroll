@@ -47,7 +47,7 @@ describe('Page', () => {
     })()
 
     return (
-      <div style={{ style }}>
+        <div style={style}>
         <ul>
           <li><Link to="test1" spy={true} smooth={true} duration={scrollDuration} horizontal={horizontal}>Test 1</Link></li>
           <li><Link to="test2" spy={true} smooth={true} duration={scrollDuration} horizontal={horizontal}>Test 2</Link></li>
@@ -142,7 +142,7 @@ describe('Page', () => {
 
       var target = node.querySelectorAll('.element')[2];
 
-      var expectedScrollTo = target.getBoundingClientRect().top;
+      var expectedScrollTo = target.getBoundingClientRect().left;
 
       Rtu.Simulate.click(link);
 
@@ -205,7 +205,7 @@ describe('Page', () => {
 
       var target = node.querySelectorAll('.element')[5];
 
-      var expectedScrollTo = target.getBoundingClientRect().top;
+      var expectedScrollTo = target.getBoundingClientRect().left;
 
       Rtu.Simulate.click(link);
 
@@ -277,7 +277,11 @@ describe('Page', () => {
     let onSetInactive = sinon.spy();
 
     let component =
-      <div>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'nowrap'
+        }}>
         <ul>
           <li><Link to="test1" spy={true} smooth={true} duration={scrollDuration} horizontal={true}>Test 1</Link></li>
           <li><Link to="test2" spy={true} smooth={true} duration={scrollDuration} horizontal={true}>Test 2</Link></li>

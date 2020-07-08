@@ -18,11 +18,21 @@ const scrollSpy = {
       scrollSpy.scrollSpyContainers.push(scrollSpyContainer);
       addPassiveEventListener(scrollSpyContainer, 'scroll', eventHandler);
     }
-    
   },
 
   isMounted(scrollSpyContainer) {
     return scrollSpy.scrollSpyContainers.indexOf(scrollSpyContainer) !== -1;
+  },
+
+  currentPositionX(scrollSpyContainer) {
+    if(scrollSpyContainer === document) {
+      let supportPageOffset = window.pageYOffset !== undefined;
+      let isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
+      return supportPageOffset ? window.pageXOffset : isCSS1Compat ?
+          document.documentElement.scrollLeft : document.body.scrollLeft;
+    } else {
+      return scrollSpyContainer.scrollLeft;
+    }
   },
 
   currentPositionY(scrollSpyContainer) {
@@ -38,7 +48,7 @@ const scrollSpy = {
 
   scrollHandler(scrollSpyContainer) {
     let callbacks = scrollSpy.scrollSpyContainers[scrollSpy.scrollSpyContainers.indexOf(scrollSpyContainer)].spyCallbacks || [];
-    callbacks.forEach(c => c(scrollSpy.currentPositionY(scrollSpyContainer)))
+    callbacks.forEach(c => c(scrollSpy.currentPositionX(scrollSpyContainer), scrollSpy.currentPositionY(scrollSpyContainer)));
   },
 
   addStateHandler(handler) {
@@ -47,14 +57,14 @@ const scrollSpy = {
 
   addSpyHandler(handler, scrollSpyContainer) {
     let container = scrollSpy.scrollSpyContainers[scrollSpy.scrollSpyContainers.indexOf(scrollSpyContainer)];
-    
+
     if(!container.spyCallbacks) {
       container.spyCallbacks = [];
     }
 
     container.spyCallbacks.push(handler);
 
-    handler(scrollSpy.currentPositionY(scrollSpyContainer));
+    handler(scrollSpy.currentPositionX(scrollSpyContainer), scrollSpy.currentPositionY(scrollSpyContainer));
   },
 
   updateStates() {
