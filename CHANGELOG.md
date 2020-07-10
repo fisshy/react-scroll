@@ -1,4 +1,6 @@
 #### Changelog
+> 1.8.0
+- Support for horizontal scroll
 > 1.7.16
 - Fixes issues from 1.7.15
 > 1.7.15
