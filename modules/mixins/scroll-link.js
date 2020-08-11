@@ -22,7 +22,8 @@ const protoTypes = {
   onSetActive: PropTypes.func,
   onSetInactive: PropTypes.func,
   ignoreCancelEvents: PropTypes.bool,
-  hashSpy: PropTypes.bool
+  hashSpy: PropTypes.bool,
+  saveHashHistory: PropTypes.bool
 };
 
 export default (Component, customScroller) => {
@@ -132,7 +133,8 @@ export default (Component, customScroller) => {
         }
 
         if (this.props.hashSpy && scrollHash.getHash() === to) {
-          scrollHash.changeHash();
+          const { saveHashHistory = false } = this.props
+          scrollHash.changeHash("", saveHashHistory);
         }
 
         if (this.props.spy && this.state.active) {
@@ -144,8 +146,8 @@ export default (Component, customScroller) => {
 
       if (isInside && (activeLink !== to || this.state.active === false)) {
         scroller.setActiveLink(to);
-
-        this.props.hashSpy && scrollHash.changeHash(to);
+        const { saveHashHistory = false } = this.props
+        this.props.hashSpy && scrollHash.changeHash(to, saveHashHistory);
 
         if (this.props.spy) {
           this.setState({ active: true });
