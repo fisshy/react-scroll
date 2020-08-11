@@ -1,4 +1,6 @@
 #### Changelog
+> 1.8.1
+- Better hash history
 > 1.8.0
 - Support for horizontal scroll
 > 1.7.16
