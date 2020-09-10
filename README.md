@@ -184,6 +184,8 @@ React.render(
 
 > ignoreCancelEvents - ignores events which cancel animated scrolling
 
+> horizontal - whether to scroll vertically (`false`) or horizontally (`true`) - default: `false`
+
 ```js
 <Link activeClass="active"
       to="target"
