@@ -66,8 +66,8 @@
     "webpack-dev-server": "^2.11.5"
   },
   "peerDependencies": {
-    "react": "^15.5.4 || ^16.0.0",
-    "react-dom": "^15.5.4 || ^16.0.0"
+    "react": "^15.5.4 || ^16.0.0 || ^17.0.0",
+    "react-dom": "^15.5.4 || ^16.0.0 || ^17.0.0"
   },
   "babel": {
     "presets": [
