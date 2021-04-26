@@ -111,7 +111,7 @@ const Helpers = {
           elemBottomBound = elemTopBound + cords.height;
         }
 
-        let offsetY = y - this.props.offset;
+        let offsetY = y - this.props.offset + this.props.scrolloffset;
         let isInside = (offsetY >= Math.floor(elemTopBound) && offsetY < Math.floor(elemBottomBound));
         let isOutside = (offsetY < Math.floor(elemTopBound) || offsetY >= Math.floor(elemBottomBound));
         let activeLink = scroller.getActiveLink();
