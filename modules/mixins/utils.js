@@ -27,11 +27,25 @@ const scrollOffset = (c, t, horizontal) => {
       ? t.offsetLeft
       : t.offsetLeft - c.offsetLeft;
   } else {
-    return c === document
-      ? t.getBoundingClientRect().top + (window.scrollY || window.pageYOffset)
-      : getComputedStyle(c).position !== "static"
-      ? t.offsetTop
-      : t.offsetTop - c.offsetTop;
+    if (c === document) {
+      return (
+        t.getBoundingClientRect().top + (window.scrollY || window.pageYOffset)
+      );
+    }
+
+    let parent = t.offsetParent;
+    let tOffsetTop = t.offsetTop;
+    let cOffsetTop = 0;
+
+    while (parent != c && parent !== document) {
+      tOffsetTop += parent.offsetTop;
+      cOffsetTop += parent.offsetTop;
+      parent = parent.offsetParent;
+    }
+
+    return getComputedStyle(c).position !== "static"
+      ? tOffsetTop
+      : tOffsetTop - cOffsetTop;
   }
 };
 export default {
