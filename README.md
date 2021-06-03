@@ -188,6 +188,8 @@ React.render(
 
 > horizontal - whether to scroll vertically (`false`) or horizontally (`true`) - default: `false`
 
+> spyThrottle - time of the spy throttle - can be a number
+
 ```js
 <Link activeClass="active"
       to="target"
@@ -201,6 +203,7 @@ React.render(
       onSetActive={this.handleSetActive}
       onSetInactive={this.handleSetInactive}
       ignoreCancelEvents={false}
+      spyThrottle={500}
 >
   Your name
 </Link>
