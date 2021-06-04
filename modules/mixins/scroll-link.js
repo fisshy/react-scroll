@@ -23,7 +23,8 @@ const protoTypes = {
   onSetInactive: PropTypes.func,
   ignoreCancelEvents: PropTypes.bool,
   hashSpy: PropTypes.bool,
-  saveHashHistory: PropTypes.bool
+  saveHashHistory: PropTypes.bool,
+  spyThrottle: PropTypes.number
 };
 
 export default (Component, customScroller) => {
@@ -176,7 +177,7 @@ export default (Component, customScroller) => {
         let scrollSpyContainer = this.getScrollSpyContainer();
 
         if (!scrollSpy.isMounted(scrollSpyContainer)) {
-          scrollSpy.mount(scrollSpyContainer);
+          scrollSpy.mount(scrollSpyContainer, this.props.spyThrottle);
         }
 
         if (this.props.hashSpy) {

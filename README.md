@@ -43,10 +43,11 @@ $ npm start
 ```js
 // ES6 Imports
 import * as Scroll from 'react-scroll';
-import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 // Or Access Link,Element,etc as follows
 let Link      = Scroll.Link;
+let Button    = Scroll.Button;
 let Element   = Scroll.Element;
 let Events    = Scroll.Events;
 let scroll    = Scroll.animateScroll;
@@ -57,6 +58,7 @@ var React  = require('react');
 var Scroll = require('react-scroll');
 
 var Link      = Scroll.Link;
+var Button    = Scroll.Button;
 var Element   = Scroll.Element;
 var Events    = Scroll.Events;
 var scroll    = Scroll.animateScroll;
@@ -186,6 +188,8 @@ React.render(
 
 > horizontal - whether to scroll vertically (`false`) or horizontally (`true`) - default: `false`
 
+> spyThrottle - time of the spy throttle - can be a number
+
 ```js
 <Link activeClass="active"
       to="target"
@@ -199,6 +203,7 @@ React.render(
       onSetActive={this.handleSetActive}
       onSetInactive={this.handleSetInactive}
       ignoreCancelEvents={false}
+      spyThrottle={500}
 >
   Your name
 </Link>
