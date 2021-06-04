@@ -27,7 +27,8 @@ const protoTypes = {
   onSetActive: PropTypes.func,
   onSetInactive: PropTypes.func,
   ignoreCancelEvents: PropTypes.bool,
-  hashSpy: PropTypes.bool
+  hashSpy: PropTypes.bool,
+  spyThrottle: PropTypes.number
 };
 
 const Helpers = {
@@ -166,7 +167,7 @@ const Helpers = {
           let scrollSpyContainer = this.getScrollSpyContainer();
 
           if (!scrollSpy.isMounted(scrollSpyContainer)) {
-            scrollSpy.mount(scrollSpyContainer);
+            scrollSpy.mount(scrollSpyContainer, this.props.spyThrottle);
           }
 
           if (this.props.hashSpy) {
