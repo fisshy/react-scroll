@@ -1,6 +1,6 @@
-## React Scroll
+<h1 align='center'> React Scroll</h1>
 
-Component for animating vertical scrolling.
+<p align='center'>React component for animating vertical scrolling
 
 ### Install
 
@@ -160,35 +160,152 @@ React.render(
 
 ### Props/Options
 
-> activeClass - class applied when element is reached
+<table>
+<tr>
+<td>
+activeClass
+</td>
+<td>
+ class applied when element is reached
+</td>
+</tr>
+<tr>
+<td>
+to
+</td>
+<td>
+ Target to scroll to
+</td>
+</tr>
 
-> to - target to scroll to
 
-> containerId - container to listen for scroll events and to perform scrolling in 
+<tr>
+<td>
+containerId
+</td>
+<td>
+ Container to listen for scroll events and to perform scrolling in
+</td>
+</tr>
 
-> spy - make Link selected when scroll is at its targets position
+<tr>
+<td>
+spy
+</td>
+<td>
+ Make Link selected when scroll is at its targets position
+</td>
+</tr>
 
-> hashSpy - update hash based on spy, containerId has to be set to scroll a specific element.
+<tr>
+<td>
+hashSpy
+</td>
+<td>
+Update hash based on spy, containerId has to be set to scroll a specific element
+</td>
+</tr>
 
-> smooth - animate the scrolling
+<tr>
+<td>
+smooth
+</td>
+<td>
+Animate the scrolling
+</td>
+</tr>
 
-> offset - scroll additional px ( like padding )
+<tr>
+<td>
+smooth
+</td>
+<td>
+Animate the scrolling
+</td>
+</tr>
 
-> duration - time of the scroll animation - can be a number or a function (`function (scrollDistanceInPx) { return duration; }`), that allows more granular control at run-time
+<tr>
+<td>
+offset
+</td>
+<td>
+Scroll additional px ( like padding )
+</td>
+</tr>
 
-> delay - wait x milliseconds before scroll
+<tr>
+<td>
+duration
+</td>
+<td>
+time of the scroll animation - can be a number or a function (`function (scrollDistanceInPx) { return duration; }`), that allows more granular control at run-time
+</td>
+</tr>
 
-> isDynamic - in case the distance has to be recalculated - if you have content that expands etc.
+<tr>
+<td>
+delay
+</td>
+<td>
+Wait x milliseconds before scroll</td>
+</tr>
 
-> onSetActive - invoke whenever link is being set to active
+<tr>
+<td>
+isDynamic 
+</td>
+<td>
+In case the distance has to be recalculated - if you have content that expands etc.</td>
+</tr>
 
-> onSetInactive - invoke whenever link is lose the active status
+<tr>
+<td>
+onSetActive
+</td>
+<td>
+Invoke whenever link is being set to active
+</td>
+</tr>
 
-> ignoreCancelEvents - ignores events which cancel animated scrolling
+<tr>
+<td>
+onSetInactive
+</td>
+<td>
+Invoke whenever link is lose the active status
+</td>
+</tr>
 
-> horizontal - whether to scroll vertically (`false`) or horizontally (`true`) - default: `false`
+<tr>
+<td>
+ignoreCancelEvents
+</td>
+<td>
+ Ignores events which cancel animated scrolling
+</td>
+</tr>
 
-> spyThrottle - time of the spy throttle - can be a number
+<tr>
+<td>
+horizontal 
+</td>
+<td>
+ Whether to scroll vertically (`false`) or horizontally (`true`) - default: `false`
+</td>
+</tr>
+
+<tr>
+<td>
+spyThrottle 
+</td>
+<td>
+Time of the spy throttle - can be a number
+</td>
+</tr>
+
+</table>
+
+### Full example
 
 ```js
 <Link activeClass="active"
