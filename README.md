@@ -217,15 +217,6 @@ Animate the scrolling
 
 <tr>
 <td>
-smooth
-</td>
-<td>
-Animate the scrolling
-</td>
-</tr>
-
-<tr>
-<td>
 offset
 </td>
 <td>
