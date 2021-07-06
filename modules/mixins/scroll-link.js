@@ -140,6 +140,7 @@ export default (Component, customScroller) => {
 
         if (this.props.spy && this.state.active) {
           this.setState({ active: false });
+          element.classList.remove(this.getActiveClassName());
           this.props.onSetInactive && this.props.onSetInactive(to, element);
         }
 
@@ -152,6 +153,7 @@ export default (Component, customScroller) => {
 
         if (this.props.spy) {
           this.setState({ active: true });
+          element.classList.add(this.getActiveClassName());
           this.props.onSetActive && this.props.onSetActive(to, element);
         }
       }
@@ -170,6 +172,10 @@ export default (Component, customScroller) => {
       }
 
       return document;
+    }
+
+    getActiveClassName() {
+      return this.props.activeClass || "active";
     }
 
     componentDidMount() {
