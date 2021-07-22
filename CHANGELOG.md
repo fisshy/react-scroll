@@ -1,4 +1,6 @@
 #### Changelog
+>1.8.3
+- Fix for scroll offset [PR](https://github.com/fisshy/react-scroll/pull/469)
 > 1.8.1
 - Better hash history
 > 1.8.0
