@@ -19,8 +19,10 @@ const filterElementInContainer = (container) => (element) =>
     ? container != element && container.contains(element)
     : !!(container.compareDocumentPosition(element) & 16);
 
-const isPositioned = (element) =>
-  getComputedStyle(element).position !== "static";
+const isPositioned = (element) => {
+  const position = getComputedStyle(element).position;
+  return position && position !== "static";
+};
 
 const getElementOffsetInfoUntil = (element, predicate) => {
   let offsetTop = element.offsetTop;
