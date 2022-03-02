@@ -6,8 +6,9 @@ const updateHash = (hash, historyUpdate) => {
     ? curLoc.pathname + curLoc.search + hashToUpdate
     : curLoc.pathname + curLoc.search;
   historyUpdate
-    ? history.pushState(null, "", urlToPush)
-    : history.replaceState(null, "", urlToPush);
+    ? history.pushState(history.state, "", urlToPush)
+    : history.replaceState(history.state, "", urlToPush);
+
 };
 
 const getHash = () => {
@@ -39,8 +40,8 @@ const scrollOffset = (c, t, horizontal) => {
     return c === document
       ? t.getBoundingClientRect().left + (window.scrollX || window.pageXOffset)
       : getComputedStyle(c).position !== "static"
-      ? t.offsetLeft
-      : t.offsetLeft - c.offsetLeft;
+        ? t.offsetLeft
+        : t.offsetLeft - c.offsetLeft;
   } else {
     if (c === document) {
       return (
