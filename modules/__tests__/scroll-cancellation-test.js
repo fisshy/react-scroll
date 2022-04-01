@@ -23,8 +23,9 @@ describe('Scroll cancelation', () => {
       const distance = 100;
 
       class TestComponent extends React.Component {
-        handleKeyDown = () => {
+        handleKeyDown = (e) => {
           scroll.scrollMore(distance, { smooth: true, duration });
+          e.stopPropagation();
         }
         render() {
           return (
@@ -65,8 +66,9 @@ describe('Scroll cancelation', () => {
       const distance = 100;
 
       class TestComponent extends React.Component {
-        handleKeyDown = () => {
+        handleKeyDown = (e) => {
           scroll.scrollMore(distance, { smooth: true, duration, horizontal: true });
+          e.stopPropagation();
         }
         render() {
           return (
