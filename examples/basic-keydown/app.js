@@ -49,7 +49,11 @@ class Section extends React.Component{
           <div className="container-fluid">
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav">
-                <li>  <input onKeyDown={e => {() => console.log("keydown"), scroll.scrollMore(500) }}/>
+                <li>  <input onKeyDown={e => {
+                    console.log("keydown");
+                    scroll.scrollMore(500);
+                    e.stopPropagation();
+                }}/>
                   <a onClick={() => scroll.scrollTo(100)}>Scroll To 100!</a>
                 </li>
               </ul>
