@@ -171,6 +171,14 @@ activeClass
 </tr>
 <tr>
 <td>
+activeStyle
+</td>
+<td>
+ style applied when element is reached
+</td>
+</tr>
+<tr>
+<td>
 to
 </td>
 <td>
