@@ -62,7 +62,7 @@
     "react-dom": "^16.13.1",
     "sinon": "^4.5.0",
     "webpack": "^2.7.0",
-    "webpack-dev-server": "^2.11.5"
+    "webpack-dev-server": "^4.11.1"
   },
   "peerDependencies": {
     "react": "^15.5.4 || ^16.0.0 || ^17.0.0 || ^18.0.0",
