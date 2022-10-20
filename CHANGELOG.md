@@ -1,6 +1,6 @@
 #### Changelog
 
-> 1.8.7
+> 1.8.8
 
 - Prevent unexpected spy callback removal on multiple unmount calls [PR](https://github.com/fisshy/react-scroll/pull/519)
 
