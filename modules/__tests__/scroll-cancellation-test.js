@@ -1,16 +1,14 @@
 /* React */
-import { render, unmountComponentAtNode, findDOMNode } from 'react-dom'
-import Rtu from 'react-dom/test-utils'
-import React from 'react'
-import expect from 'expect'
-import assert from 'assert';
-import scroll from '../mixins/animate-scroll.js';
+import { render, unmountComponentAtNode } from "react-dom";
+import React from "react";
+import expect from "expect";
+import scroll from "../mixins/animate-scroll.js";
 
-describe('Scroll cancelation', () => {
-  let node = document.createElement('div');
+describe("Scroll cancelation", () => {
+  let node = document.createElement("div");
   document.body.innerHtml = "";
 
-  document.body.appendChild(node)
+  document.body.appendChild(node);
 
   beforeEach(function () {
     unmountComponentAtNode(node);
@@ -26,12 +24,19 @@ describe('Scroll cancelation', () => {
         handleKeyDown = (e) => {
           scroll.scrollMore(distance, { smooth: true, duration });
           e.stopPropagation();
-        }
+        };
         render() {
           return (
             <div>
               <input onKeyDown={this.handleKeyDown} />
-              <div style={{ height: "3000px", width: "100%", background: "repeating-linear-gradient(to bottom, white, black 100px)" }} />
+              <div
+                style={{
+                  height: "3000px",
+                  width: "100%",
+                  background:
+                    "repeating-linear-gradient(to bottom, white, black 100px)",
+                }}
+              />
             </div>
           );
         }
@@ -39,24 +44,27 @@ describe('Scroll cancelation', () => {
 
       render(<TestComponent />, node);
 
-      dispatchDOMKeydownEvent(13, node.querySelector('input'));
+      dispatchDOMKeydownEvent(13, node.querySelector("input"));
       wait(duration * 2, () => {
-        expect(window.scrollY || window.pageYOffset).toBeGreaterThanOrEqualTo(distance);
+        expect(window.scrollY || window.pageYOffset).toBeGreaterThanOrEqualTo(
+          distance
+        );
 
-        dispatchDOMKeydownEvent(13, node.querySelector('input'));
+        dispatchDOMKeydownEvent(13, node.querySelector("input"));
         wait(duration * 2, () => {
-          expect(window.scrollY || window.pageYOffset).toBeGreaterThanOrEqualTo(distance * 2);
+          expect(window.scrollY || window.pageYOffset).toBeGreaterThanOrEqualTo(
+            distance * 2
+          );
 
-          dispatchDOMKeydownEvent(13, node.querySelector('input'));
+          dispatchDOMKeydownEvent(13, node.querySelector("input"));
           wait(duration * 2, () => {
-            expect(window.scrollY || window.pageYOffset).toBeGreaterThanOrEqualTo(distance * 3);
+            expect(
+              window.scrollY || window.pageYOffset
+            ).toBeGreaterThanOrEqualTo(distance * 3);
             done();
           });
-
-        })
-
-      })
-
+        });
+      });
     });
   });
 
@@ -67,14 +75,25 @@ describe('Scroll cancelation', () => {
 
       class TestComponent extends React.Component {
         handleKeyDown = (e) => {
-          scroll.scrollMore(distance, { smooth: true, duration, horizontal: true });
+          scroll.scrollMore(distance, {
+            smooth: true,
+            duration,
+            horizontal: true,
+          });
           e.stopPropagation();
-        }
+        };
         render() {
           return (
             <div>
               <input onKeyDown={this.handleKeyDown} />
-              <div style={{ width: "3000px", height: "100%", background: "repeating-linear-gradient(to right, white, black 100px)" }} />
+              <div
+                style={{
+                  width: "3000px",
+                  height: "100%",
+                  background:
+                    "repeating-linear-gradient(to right, white, black 100px)",
+                }}
+              />
             </div>
           );
         }
@@ -82,35 +101,41 @@ describe('Scroll cancelation', () => {
 
       render(<TestComponent />, node);
 
-      dispatchDOMKeydownEvent(13, node.querySelector('input'));
+      dispatchDOMKeydownEvent(13, node.querySelector("input"));
       wait(duration * 2, () => {
-        expect(window.scrollX || window.pageXOffset).toBeGreaterThanOrEqualTo(distance);
+        expect(window.scrollX || window.pageXOffset).toBeGreaterThanOrEqualTo(
+          distance
+        );
 
-        dispatchDOMKeydownEvent(13, node.querySelector('input'));
+        dispatchDOMKeydownEvent(13, node.querySelector("input"));
         wait(duration * 2, () => {
-          expect(window.scrollX || window.pageXOffset).toBeGreaterThanOrEqualTo(distance * 2);
+          expect(window.scrollX || window.pageXOffset).toBeGreaterThanOrEqualTo(
+            distance * 2
+          );
 
-          dispatchDOMKeydownEvent(13, node.querySelector('input'));
+          dispatchDOMKeydownEvent(13, node.querySelector("input"));
           wait(duration * 2, () => {
-            expect(window.scrollX || window.pageXOffset).toBeGreaterThanOrEqualTo(distance * 3);
+            expect(
+              window.scrollX || window.pageXOffset
+            ).toBeGreaterThanOrEqualTo(distance * 3);
             done();
           });
-
-        })
-
-      })
-
+        });
+      });
     });
   });
 });
 
 const wait = (ms, cb) => {
   setTimeout(cb, ms);
-}
+};
 
 const dispatchDOMKeydownEvent = (keyCode, element) => {
   const event = document.createEvent("KeyboardEvent");
-  const initMethod = typeof event.initKeyboardEvent !== 'undefined' ? "initKeyboardEvent" : "initKeyEvent";
+  const initMethod =
+    typeof event.initKeyboardEvent !== "undefined"
+      ? "initKeyboardEvent"
+      : "initKeyEvent";
   event[initMethod]("keydown", true, true, window, 0, 0, 0, 0, 0, keyCode);
   element.dispatchEvent(event);
-}
+};

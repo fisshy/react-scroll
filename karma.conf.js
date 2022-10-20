@@ -1,43 +1,36 @@
-var webpack = require('webpack')
+var webpack = require("webpack");
 
 module.exports = function (config) {
-
   config.set({
+    browsers: ["Edge"],
+    frameworks: ["mocha"],
+    reporters: ["mocha"],
 
-    browsers: [ 'Chrome', 'Firefox'],
-    frameworks: [ 'mocha' ],
-    reporters: [ 'mocha' ],
-
-    files: [
-      'tests.webpack.js',
-      'examples/basic/app.css'
-    ],
+    files: ["tests.webpack.js", "examples/basic/app.css"],
 
     preprocessors: {
-      'tests.webpack.js': [ 'webpack', 'sourcemap']
+      "tests.webpack.js": ["webpack", "sourcemap"],
     },
 
     webpack: {
-      devtool: 'inline-source-map',
+      devtool: "inline-source-map",
       module: {
         loaders: [
-          { 
-            test: /\.js$/, 
-            exclude: /node_modules/, 
-            loader: 'babel-loader',
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: "babel-loader",
             query: {
-              presets: ['es2015', 'react'],
-              plugins: ["transform-class-properties"]
-            } 
-          }
-        ]
-      }
+              presets: ["es2015", "react"],
+              plugins: ["transform-class-properties"],
+            },
+          },
+        ],
+      },
     },
 
     webpackServer: {
-      noInfo: true
-    }
-
+      noInfo: true,
+    },
   });
-
-}
+};
