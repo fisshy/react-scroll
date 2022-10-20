@@ -2,7 +2,7 @@ var webpack = require("webpack");
 
 module.exports = function (config) {
   config.set({
-    browsers: ["Edge"],
+    browsers: ["Chrome", "Firefox"],
     frameworks: ["mocha"],
     reporters: ["mocha"],
 
