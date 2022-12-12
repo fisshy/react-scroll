@@ -1,5 +1,9 @@
 #### Changelog
 
+> 1.8.9
+
+- Support setting activeStyle [PR](https://github.com/fisshy/react-scroll/pull/516)
+
 > 1.8.8
 
 - Prevent unexpected spy callback removal on multiple unmount calls [PR](https://github.com/fisshy/react-scroll/pull/519)
