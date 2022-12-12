@@ -10,6 +10,7 @@ const protoTypes = {
   containerId: PropTypes.string,
   container: PropTypes.object,
   activeClass: PropTypes.string,
+  activeStyle: PropTypes.object,
   spy: PropTypes.bool,
   horizontal: PropTypes.bool,
   smooth: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
@@ -207,6 +208,14 @@ export default (Component, customScroller) => {
         className = this.props.className;
       }
 
+      var style = {};
+
+      if (this.state && this.state.active) {
+        style = Object.assign({}, this.props.style, this.props.activeStyle);
+      } else {
+        style = Object.assign({}, this.props.style);
+      }
+
       let props = Object.assign({}, this.props);
 
       for (var prop in protoTypes) {
@@ -216,8 +225,8 @@ export default (Component, customScroller) => {
       }
 
       props.className = className;
+      props.style = style;
       props.onClick = this.handleClick;
-
 
       return React.createElement(Component, props);
     }
