@@ -6,8 +6,9 @@ import PropTypes from 'prop-types';
 
 class ElementWrapper extends React.Component{
   render() {
-    // Remove `parentBindings` from props
+    // Remove `parentBindings` and `name` from props
     let newProps = Object.assign({}, this.props);
+    delete newProps.name;
     if (newProps.parentBindings) {
       delete newProps.parentBindings;
     }
