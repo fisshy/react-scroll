@@ -68,15 +68,6 @@
     "react": "^15.5.4 || ^16.0.0 || ^17.0.0 || ^18.0.0",
     "react-dom": "^15.5.4 || ^16.0.0 || ^17.0.0 || ^18.0.0"
   },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react"
-    ],
-    "plugins": [
-      "transform-object-assign"
-    ]
-  },
   "directories": {
     "example": "examples"
   },
