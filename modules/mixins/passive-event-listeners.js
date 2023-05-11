@@ -28,6 +28,7 @@ export const addPassiveEventListener = (target, eventName, listener) => {
 
 export const removePassiveEventListener = (target, eventName, listener) => {
   target.removeEventListener(eventName, listener);
+  attachedListeners.get(eventName).delete(listener.name);
 }
 
 const attachedListeners = new Map();
