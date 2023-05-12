@@ -4,7 +4,7 @@
  * to wait for the listener to return.
  */
 export const addPassiveEventListener = (target, eventName, listener) => {
-  if (!listener.name) throw new Error('Listener must be a named function.');
+  if (!listener.name) console.warn('Listener must be a named function.');
 
   if (!attachedListeners.has(eventName)) attachedListeners.set(eventName, new Set());
   const listeners = attachedListeners.get(eventName);
