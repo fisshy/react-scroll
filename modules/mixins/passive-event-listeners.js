@@ -4,11 +4,15 @@
  * to wait for the listener to return.
  */
 export const addPassiveEventListener = (target, eventName, listener) => {
-  if (!listener.name) console.warn('Listener must be a named function.');
+  let listenerName = listener.name;
+  if (!listenerName) {
+    listenerName = eventName + new Date().getTime();
+    console.warn('Listener must be a named function.');
+  }
 
   if (!attachedListeners.has(eventName)) attachedListeners.set(eventName, new Set());
   const listeners = attachedListeners.get(eventName);
-  if (listeners.has(listener.name)) return;
+  if (listeners.has(listenerName)) return;
 
   const supportsPassiveOption = (() => {
     let supportsPassiveOption = false;
@@ -23,7 +27,7 @@ export const addPassiveEventListener = (target, eventName, listener) => {
     return supportsPassiveOption;
   })();
   target.addEventListener(eventName, listener, supportsPassiveOption ? { passive: true } : false);
-  listeners.add(listener.name);
+  listeners.add(listenerName);
 };
 
 export const removePassiveEventListener = (target, eventName, listener) => {
