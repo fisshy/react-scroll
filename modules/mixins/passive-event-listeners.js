@@ -6,7 +6,7 @@
 export const addPassiveEventListener = (target, eventName, listener) => {
   let listenerName = listener.name;
   if (!listenerName) {
-    listenerName = eventName + new Date().getTime();
+    listenerName = eventName;
     console.warn('Listener must be a named function.');
   }
 
