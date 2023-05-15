@@ -171,9 +171,10 @@ const animateTopScroll = (scrollOffset, options, to, target) => {
 
   window.clearTimeout(options.data.delayTimeout);
 
-  cancelEvents.subscribe(() => {
+  const setCancel = () => {
     options.data.cancel = true;
-  });
+  };
+  cancelEvents.subscribe(setCancel);
 
   setContainer(options);
 
