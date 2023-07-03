@@ -6,9 +6,9 @@ import ScrollLink from '../mixins/scroll-link';
 class ButtonElement extends React.Component{
   render() {
     return (
-      <input {...this.props}>
+      <button {...this.props}>
         {this.props.children}
-      </input>
+      </button>
     );
   }
 };
