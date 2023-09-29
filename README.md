@@ -7,6 +7,11 @@
 ```js
 $ npm install react-scroll
 ```
+or
+
+```
+$ yarn add react-scroll
+```
 
 ### Run
 
@@ -14,6 +19,15 @@ $ npm install react-scroll
 $ npm install
 $ npm test
 $ npm start
+```
+
+or
+
+```js
+$ yarn
+$ yarn test
+$ yarn start
+
 ```
 
 ### Examples
@@ -34,128 +48,124 @@ Live example
 
 > [Code](https://github.com/fisshy/react-scroll/blob/master/examples/basic/app.js)
 
-```js
-$ npm start
-```
-
 ### Usage
 
 ```js
-// ES6 Imports
-import * as Scroll from 'react-scroll';
-import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import React, { useEffect } from 'react';
+import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
 
-// Or Access Link,Element,etc as follows
-let Link      = Scroll.Link;
-let Button    = Scroll.Button;
-let Element   = Scroll.Element;
-let Events    = Scroll.Events;
-let scroll    = Scroll.animateScroll;
-let scrollSpy = Scroll.scrollSpy;
+const Section = () => {
 
-// ES5
-var React  = require('react');
-var Scroll = require('react-scroll');
-
-var Link      = Scroll.Link;
-var Button    = Scroll.Button;
-var Element   = Scroll.Element;
-var Events    = Scroll.Events;
-var scroll    = Scroll.animateScroll;
-var scrollSpy = Scroll.scrollSpy;
-
-var Section = React.createClass({
-  componentDidMount: function() {
-    Events.scrollEvent.register('begin', function(to, element) {
-      console.log('begin', arguments);
+  // useEffect is used to perform side effects in functional components.
+  // Here, it's used to register scroll events and update scrollSpy when the component mounts.
+  useEffect(() => {
+    
+    // Registering the 'begin' event and logging it to the console when triggered.
+    Events.scrollEvent.register('begin', (to, element) => {
+      console.log('begin', to, element);
     });
 
-    Events.scrollEvent.register('end', function(to, element) {
-      console.log('end', arguments);
+    // Registering the 'end' event and logging it to the console when triggered.
+    Events.scrollEvent.register('end', (to, element) => {
+      console.log('end', to, element);
     });
 
+    // Updating scrollSpy when the component mounts.
     scrollSpy.update();
-  },
-  componentWillUnmount: function() {
-    Events.scrollEvent.remove('begin');
-    Events.scrollEvent.remove('end');
-  },
-  scrollToTop: function() {
+
+    // Returning a cleanup function to remove the registered events when the component unmounts.
+    return () => {
+      Events.scrollEvent.remove('begin');
+      Events.scrollEvent.remove('end');
+    };
+  }, []);
+
+  // Defining functions to perform different types of scrolling.
+  const scrollToTop = () => {
     scroll.scrollToTop();
-  },
-  scrollToBottom: function() {
+  };
+
+  const scrollToBottom = () => {
     scroll.scrollToBottom();
-  },
-  scrollTo: function() {
-    scroll.scrollTo(100);
-  },
-  scrollMore: function() {
-    scroll.scrollMore(100);
-  },
-  handleSetActive: function(to) {
+  };
+
+  const scrollTo = () => {
+    scroll.scrollTo(100); // Scrolling to 100px from the top of the page.
+  };
+
+  const scrollMore = () => {
+    scroll.scrollMore(100); // Scrolling an additional 100px from the current scroll position.
+  };
+
+  // Function to handle the activation of a link.
+  const handleSetActive = (to) => {
     console.log(to);
-  },
-  render: function () {
-    return (
-      <div>
-        <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} onSetActive={this.handleSetActive}>
-          Test 1
-        </Link>
-        <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} delay={1000}>
-          Test 2 (delay)
-        </Link>
-        <Link className="test6" to="anchor" spy={true} smooth={true} duration={500}>
-          Test 6 (anchor)
-        </Link>
-        <Button activeClass="active" className="btn" type="submit" value="Test 2" to="test2" spy={true} smooth={true} offset={50} duration={500} >
-          Test 2
-        </Button>
+  };
 
-        <Element name="test1" className="element">
-          test 1
-        </Element>
+  // Rendering the component's JSX.
+  return (
+  <div>
+    {/* Link component to scroll to "test1" element with specified properties */}
+    <Link 
+      activeClass="active" 
+      to="test1" 
+      spy={true} 
+      smooth={true} 
+      offset={50} 
+      duration={500} 
+      onSetActive={handleSetActive}
+    >
+      Test 1
+    </Link>
 
-        <Element name="test2" className="element">
-          test 2
-        </Element>
+    {/* Other Link and Button components for navigation, each with their unique properties and targets */}
+    {/* ... */}
 
-        <div id="anchor" className="element">
-          test 6 (anchor)
-        </div>
+    {/* Element components that act as scroll targets */}
+    <Element name="test1" className="element">
+      test 1
+    </Element>
+    <Element name="test2" className="element">
+      test 2
+    </Element>
+    <div id="anchor" className="element">
+      test 6 (anchor)
+    </div>
 
-        <Link to="firstInsideContainer" containerId="containerElement">
-          Go to first element inside container
-        </Link>
+    {/* Links to elements inside a specific container */}
+    <Link to="firstInsideContainer" containerId="containerElement">
+      Go to first element inside container
+    </Link>
+    <Link to="secondInsideContainer" containerId="containerElement">
+      Go to second element inside container
+    </Link>
 
-        <Link to="secondInsideContainer" containerId="containerElement">
-          Go to second element inside container
-        </Link>
-        <div className="element" id="containerElement">
-          <Element name="firstInsideContainer">
-            first element inside container
-          </Element>
+    {/* Container with elements inside */}
+    <div className="element" id="containerElement">
+      <Element name="firstInsideContainer">
+        first element inside container
+      </Element>
+      <Element name="secondInsideContainer">
+        second element inside container
+      </Element>
+    </div>
 
-          <Element name="secondInsideContainer">
-            second element inside container
-          </Element>
-        </div>
-
-        <a onClick={this.scrollToTop}>To the top!</a>
-        <br/>
-        <a onClick={this.scrollToBottom}>To the bottom!</a>
-        <br/>
-        <a onClick={this.scrollTo}>Scroll to 100px from the top</a>
-        <br/>
-        <a onClick={this.scrollMore}>Scroll 100px more from the current position!</a>
-      </div>
-    );
-  }
-});
-
-React.render(
-  <Section />,
-  document.getElementById('example')
+    {/* Anchors to trigger scroll actions */}
+    <a onClick={scrollToTop}>To the top!</a>
+    <br/>
+    <a onClick={scrollToBottom}>To the bottom!</a>
+    <br/>
+    <a onClick={scrollTo}>Scroll to 100px from the top</a>
+    <br/>
+    <a onClick={scrollMore}>Scroll 100px more from the current position!</a>
+  </div>
 );
+
+};
+
+export default Section;
+
+
 ```
 
 ### Props/Options
@@ -330,28 +340,48 @@ Time of the spy throttle - can be a number
 > Scroll To Top
 
 ```js
-var Scroll = require('react-scroll');
-var scroll = Scroll.animateScroll;
+import { animateScroll } from 'react-scroll';
 
-scroll.scrollToTop(options);
+const options = {
+  // your options here, for example:
+  duration: 500,
+  smooth: true,
+};
+
+animateScroll.scrollToTop(options);
+
 ```
 
 > Scroll To Bottom
 
 ```js
-var Scroll = require('react-scroll');
-var scroll = Scroll.animateScroll;
+import { animateScroll } from 'react-scroll';
 
-scroll.scrollToBottom(options);
+const options = {
+  // Your options here, for example:
+  duration: 500,
+  smooth: true,
+};
+
+animateScroll.scrollToBottom(options);
+
 ```
 
 > Scroll To (position)
 
 ```js
-var Scroll = require('react-scroll');
-var scroll = Scroll.animateScroll;
+import { animateScroll } from 'react-scroll';
 
-scroll.scrollTo(100, options);
+const options = {
+  // Your options here, for example:
+  duration: 500,
+  smooth: true,
+};
+
+// Scroll to 100 pixels from the top of the page
+animateScroll.scrollTo(100, options);
+
+
 ```
 
 > Scroll To (Element)
@@ -359,9 +389,7 @@ scroll.scrollTo(100, options);
 animateScroll.scrollTo(positionInPixels, props = {});
 
 ```js
-var Scroll   = require('react-scroll');
-var Element  = Scroll.Element;
-var scroller = Scroll.scroller;
+import { Element, scroller } from 'react-scroll';
 
 <Element name="myScrollToElement"></Element>
 
@@ -372,17 +400,25 @@ scroller.scrollTo('myScrollToElement', {
   smooth: true,
   containerId: 'ContainerElementID',
   offset: 50, // Scrolls to element + 50 pixels down the page
-  ...
-})
+  // ... other options
+});
+
 ```
 
 > Scroll More (px)
 
 ```js
-var Scroll = require('react-scroll');
-var scroll = Scroll.animateScroll;
+import { animateScroll } from 'react-scroll';
 
-scroll.scrollMore(10, options);
+const options = {
+  // Your options here, for example:
+  duration: 500,
+  smooth: true,
+};
+
+// Scroll an additional 10 pixels down from the current scroll position
+animateScroll.scrollMore(10, options);
+
 ```
 
 ### Scroll events
@@ -390,76 +426,81 @@ scroll.scrollMore(10, options);
 > begin - start of the scrolling
 
 ```js
-var Scroll = require('react-scroll');
-var Events = Scroll.Events;
+import { Events } from 'react-scroll';
 
 Events.scrollEvent.register('begin', function(to, element) {
   console.log('begin', to, element);
 });
+
 ```
 
 > end - end of the scrolling/animation
 
 ```js
 
+import { Events } from 'react-scroll';
+
 Events.scrollEvent.register('end', function(to, element) {
   console.log('end', to, element);
 });
+
 ```
 
 > Remove events
 
 ```js
+import { Events } from 'react-scroll';
+
 Events.scrollEvent.remove('begin');
 Events.scrollEvent.remove('end');
+
 ```
 
 #### Create your own Link/Element
 > Simply just pass your component to one of the high order components (Element/Scroll)
 
 ```js
-var React         = require('react');
-var Scroll        = require('react-scroll');
-var ScrollLink    = Scroll.ScrollLink;
-var ScrollElement = Scroll.ScrollElement;
+import React from 'react';
+import { ScrollElement, ScrollLink } from 'react-scroll';
 
-var Element = React.createClass({
-  render: function () {
-    return (
-      <div {...this.props}  ref={(el) => { this.props.parentBindings.domNode = el; }}>
-        {this.props.children}
-      </div>
-    );
-  }
-});
+const Element = (props) => {
+  return (
+    <div {...props} ref={(el) => { props.parentBindings.domNode = el; }}>
+      {props.children}
+    </div>
+  );
+};
 
-module.exports = ScrollElement(Element);
+export const ScrollableElement = ScrollElement(Element);
 
-var Link = React.createClass({
-  render: function () {
-    return (
-      <a {...this.props}>
-        {this.props.children}
-      </a>
-    );
-  }
-});
+const Link = (props) => {
+  return (
+    <a {...props}>
+      {props.children}
+    </a>
+  );
+};
 
-module.exports = ScrollLink(Link);
+export const ScrollableLink = ScrollLink(Link);
+
 ```
 
 ### Scroll Animations
 > Add a custom easing animation to the smooth option. This prop will accept a Boolean if you want the default, or any of the animations listed below
 
 ```js
+import { scroller } from 'react-scroll';
+
 scroller.scrollTo('myScrollToElement', {
   duration: 1500,
   delay: 100,
   smooth: 'easeInOutQuint',
   containerId: 'ContainerElementID',
-  ...
-})
+  // ... other options
+});
+
 ```
+
 
 > List of currently available animations:
 
