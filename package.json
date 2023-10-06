@@ -1,6 +1,6 @@
 {
   "name": "react-scroll",
-  "version": "1.8.9",
+  "version": "1.9.0",
   "description": "A scroll component for React.js",
   "main": "modules",
   "repository": {

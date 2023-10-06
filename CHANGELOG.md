@@ -1,5 +1,9 @@
 #### Changelog
 
+> 1.9.0
+
+- Now uses <button> instead of <input /> [PR](https://github.com/fisshy/react-scroll/pull/559)
+
 > 1.8.9
 
 - Support setting activeStyle [PR](https://github.com/fisshy/react-scroll/pull/516)
