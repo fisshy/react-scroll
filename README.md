@@ -50,7 +50,7 @@ Live example
 
 Code example
 
-> [Next.js](https://github.com/fisshy/react-scroll/blob/master/examples/next.js/page.tsx)
+> [Next.js](https://github.com/fisshy/react-scroll/blob/master/examples/next-js/page.tsx)
 
 ### Usage
 
