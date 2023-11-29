@@ -1,5 +1,5 @@
 import throttle from "lodash.throttle";
-import { addPassiveEventListener } from './passive-event-listeners';
+import { addPassiveEventListener, removePassiveEventListener } from './passive-event-listeners';
 
 // The eventHandler will execute at a rate of 15fps by default
 const eventThrottler = (eventHandler, throttleAmount = 66)  => throttle(eventHandler, throttleAmount);
@@ -17,7 +17,9 @@ const scrollSpy = {
       }, throttle);
       scrollSpy.scrollSpyContainers.push(scrollSpyContainer);
       addPassiveEventListener(scrollSpyContainer, 'scroll', eventHandler);
+      return () => removePassiveEventListener(scrollSpyContainer, 'scroll', eventHandler);
     }
+    return () => {};
   },
 
   isMounted(scrollSpyContainer) {
