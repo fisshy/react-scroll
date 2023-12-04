@@ -38,6 +38,7 @@ export default (Component, customScroller) => {
       this.state = {
         active: false
       };
+      this.beforeUnmountCallbacks = [];
     }
 
     scrollTo = (to, props) => {
@@ -178,7 +179,8 @@ export default (Component, customScroller) => {
         let scrollSpyContainer = this.getScrollSpyContainer();
 
         if (!scrollSpy.isMounted(scrollSpyContainer)) {
-          scrollSpy.mount(scrollSpyContainer, this.props.spyThrottle);
+          const fn = scrollSpy.mount(scrollSpyContainer, this.props.spyThrottle);
+          this.beforeUnmountCallbacks.push(fn);
         }
 
         if (this.props.hashSpy) {
@@ -198,6 +200,7 @@ export default (Component, customScroller) => {
     }
     componentWillUnmount() {
       scrollSpy.unmount(this.stateHandler, this.spyHandler);
+      this.beforeUnmountCallbacks.forEach(fn => fn());
     }
     render() {
       var className = "";
