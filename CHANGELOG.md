@@ -2,7 +2,7 @@
 
 > 1.9.0
 
-- Now uses <button> instead of <input /> [PR](https://github.com/fisshy/react-scroll/pull/559)
+- Now uses `<button>` instead of `<input />` [PR](https://github.com/fisshy/react-scroll/pull/559)
 
 > 1.8.9
 
