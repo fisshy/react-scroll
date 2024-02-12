@@ -77,6 +77,7 @@ Code example
 In this example, the react-scroll library was utilized to enable smooth scrolling navigation within a single-page React application. The library provides components such as Link and Element that facilitate seamless navigation between different sections of the page.
 
 Code:
+```js
 import React from 'react';
 import { Link, Element } from 'react-scroll';
 
@@ -112,6 +113,7 @@ function App() {
 }
 
 export default App;
+```
 
 ![GIF_example](Animation_esep.gif)
 
@@ -603,28 +605,27 @@ easeInOutQuint
 A good visual reference can be found at [easings.net](http://easings.net/)
 
 ### Best Practices and Tips
--Optimize performance by limiting the number of elements with scroll events.
--Test your application on various devices and screen sizes to ensure accessibility.
+- Optimize performance by limiting the number of elements with scroll events.
+- Test your application on various devices and screen sizes to ensure accessibility.
 
 ### Troubleshooting and FAQs
-Troubleshooting and FAQs
-Q: How do I customize the scroll behavior?
-A: You can customize the scroll duration, easing function, and other parameters using the duration, smooth, and offset props.
+- Q: How do I customize the scroll behavior?
+- A: You can customize the scroll duration, easing function, and other parameters using the duration, smooth, and offset props.
 
-Q: Why is my smooth scrolling not working? This can be applied to any prop!
-A: Ensure that the smooth prop is set to true and that your browser supports smooth scrolling.
+- Q: Why is my smooth scrolling not working? This can be applied to any prop!
+- A: Ensure that the smooth prop is set to true and that your browser supports smooth scrolling.
 
 ### Contributions
-To contribute to React-Scroll, please follow these guidelines:
+- To contribute to React-Scroll, please follow these guidelines:
 
--Fork the repository and create a new branch for your changes.
--Make your changes and submit a pull request with a clear description of your work.
--Include tests and ensure all existing tests pass before submitting your changes.
+- Fork the repository and create a new branch for your changes.
+- Make your changes and submit a pull request with a clear description of your work.
+- Include tests and ensure all existing tests pass before submitting your changes.
 
 ### Changelog
 - [See the CHANGELOG](./CHANGELOG.md)
 
 ### License
-React Scroll is licensed under the MIT License. Explore this to understand terms and conditions of the license- https://opensource.org/licenses/MIT
+- React Scroll is licensed under the MIT License. Explore this to understand terms and conditions of the license- https://opensource.org/licenses/MIT
 
 
