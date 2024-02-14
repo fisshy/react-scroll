@@ -8,7 +8,7 @@
 - [Install](#install)
 - [Run](#run)
 - [Examples](#examples)
-- [Example with Image](#Example-of-using-react-scroll-with-image!)
+- [Example of Using react-scroll with image and detailed explanation!](#example-of-using-react-scroll-with-image-and-detailed-explanation)
 - [Usage](#usage)
 - [Props/Options](#Props/Options)
 - [Full example](#Full-example)
