@@ -5,10 +5,11 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
+- [Features](#features)
 - [Install](#install)
 - [Run](#run)
 - [Examples](#examples)
-- [Example of Using react-scroll with image and detailed explanation!](#example-of-using-react-scroll-with-image-and-detailed-explanation)
+- [Example of Using react-scroll with image](#example-of-using-react-scroll-with-image-and-detailed-explanation)
 - [Usage](#usage)
 - [Props/Options](#Props/Options)
 - [Full example](#Full-example)
@@ -20,8 +21,13 @@
 - [Changelog](#changelog)
 
 ### Introduction
-React-Scroll is a lightweight library for enhancing scrolling functionality in React applications. It provides a set of components and utilities to create smooth scrolling effects, navigate between sections, and customize scrolling behavior. This works with the latest versions of Google Chrome, Microsodt Edge, and Firefox. 
+React-Scroll is a lightweight library for enhancing scrolling functionality in React applications. Whether you're building a single-page application, a portfolio site, or a complex web application, React Scroll provides you with an easy-to-use solution for implementing smooth scrolling behavior. This works with the latest versions of Google Chrome, Microsodt Edge, and Firefox. 
 
+### Features
+Smooth Scrolling: Achieve seamless scrolling animations between sections of your web page.
+Customization: Customize scroll behavior to suit your application's design and user experience requirements.
+Accessibility: Ensure your scrolling functionality is accessible to all users, including those who rely on assistive technologies.
+Lightweight: Keep your bundle size small with React Scroll's minimal footprint.
 
 ### Install
 
