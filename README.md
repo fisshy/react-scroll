@@ -8,6 +8,7 @@
 - [Install](#install)
 - [Run](#run)
 - [Examples](#examples)
+- [Example with Image](#Example-of-using-react-scroll-with-image!)
 - [Usage](#usage)
 - [Props/Options](#Props/Options)
 - [Full example](#Full-example)
@@ -73,8 +74,8 @@ Code example
 > [Next.js](https://github.com/fisshy/react-scroll/blob/master/examples/_next-js/page.tsx)
 
 
-### Example of Using react-scroll with image!
-In this example, the react-scroll library was utilized to enable smooth scrolling navigation within a single-page React application. The library provides components such as Link and Element that facilitate seamless navigation between different sections of the page.
+### Example of Using react-scroll with image and detailed explanation!
+In this example, the react-scroll library was utilized to enable smooth scrolling navigation within a single-page React application. The library provides components such as Link and Element that facilitate seamless navigation between different sections of the page. Once you start your react app, you can add this code at the bottom to experience the scroll feature!
 
 Code:
 ```js
