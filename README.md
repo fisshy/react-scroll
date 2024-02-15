@@ -2,6 +2,33 @@
 
 <p align='center'>React component for animating vertical scrolling
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Install](#install)
+- [Run](#run)
+- [Examples](#examples)
+- [Example of Using react-scroll with image](#example-of-using-react-scroll-with-image-and-detailed-explanation)
+- [Usage](#usage)
+- [Props/Options](#Props/Options)
+- [Full example](#Full-example)
+- [Scroll Methods](#scroll-methods)
+- [Scroll Events](#scroll-events)
+- [Best Practices and Tips](#best-practices-and-tips)
+- [Troubleshooting and FAQs](#troubleshooting-and-faqs)
+- [Contribution](#contributions)
+- [Changelog](#changelog)
+
+### Introduction
+React-Scroll is a lightweight library for enhancing scrolling functionality in React applications. Whether you're building a single-page application, a portfolio site, or a complex web application, React Scroll provides you with an easy-to-use solution for implementing smooth scrolling behavior. This works with the latest versions of Google Chrome, Microsodt Edge, and Firefox. 
+
+### Features
+- Smooth Scrolling: Achieve seamless scrolling animations between sections of your web page.
+- Customization: Customize scroll behavior to suit your application's design and user experience requirements.
+- Accessibility: Ensure your scrolling functionality is accessible to all users, including those who rely on assistive technologies.
+- Lightweight: Keep your bundle size small with React Scroll's minimal footprint.
+
 ### Install
 
 ```js
@@ -51,6 +78,51 @@ Live example
 Code example
 
 > [Next.js](https://github.com/fisshy/react-scroll/blob/master/examples/_next-js/page.tsx)
+
+
+### Example of Using react-scroll with image and detailed explanation!
+In this example, the react-scroll library was utilized to enable smooth scrolling navigation within a single-page React application. The library provides components such as Link and Element that facilitate seamless navigation between different sections of the page. Once you start your react app, you can add this code at the bottom to experience the scroll feature!
+
+Code:
+```js
+import React from 'react';
+import { Link, Element } from 'react-scroll';
+
+function App() {
+  return (
+    <div>
+      <nav>
+        <ul>
+          <li>
+            <Link to="section1" smooth={true} duration={500}>Section 1</Link>
+          </li>
+          <li>
+            <Link to="section2" smooth={true} duration={500}>Section 2</Link>
+          </li>
+          {/* Add more navigation links as needed */}
+        </ul>
+      </nav>
+      <Element name="section1">
+        <section style={{ height: '100vh', backgroundColor: 'lightblue' }}>
+          <h1>Section 1</h1>
+          <p>This is the content of section 1</p>
+        </section>
+      </Element>
+      <Element name="section2">
+        <section style={{ height: '100vh', backgroundColor: 'lightgreen' }}>
+          <h1>Section 2</h1>
+          <p>This is the content of section 2</p>
+        </section>
+      </Element>
+      {/* Add more sections with Element components as needed */}
+    </div>
+  );
+}
+
+export default App;
+```
+
+![GIF_example](Animation_esep.gif)
 
 ### Usage
 
@@ -539,5 +611,28 @@ easeInOutQuint
 
 A good visual reference can be found at [easings.net](http://easings.net/)
 
-#### Changelog
+### Best Practices and Tips
+- Optimize performance by limiting the number of elements with scroll events.
+- Test your application on various devices and screen sizes to ensure accessibility.
+
+### Troubleshooting and FAQs
+- Q: How do I customize the scroll behavior?
+- A: You can customize the scroll duration, easing function, and other parameters using the duration, smooth, and offset props.
+
+- Q: Why is my smooth scrolling not working? This can be applied to any prop!
+- A: Ensure that the smooth prop is set to true and that your browser supports smooth scrolling.
+
+### Contributions
+- To contribute to React-Scroll, please follow these guidelines:
+
+- Fork the repository and create a new branch for your changes.
+- Make your changes and submit a pull request with a clear description of your work.
+- Include tests and ensure all existing tests pass before submitting your changes.
+
+### Changelog
 - [See the CHANGELOG](./CHANGELOG.md)
+
+### License
+- React Scroll is licensed under the MIT License. Explore this to understand terms and conditions of the license- https://opensource.org/licenses/MIT
+
+
