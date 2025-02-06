@@ -237,9 +237,6 @@ const Helpers = {
       }
 
       componentDidMount() {
-        if (typeof window === 'undefined') {
-          return false;
-        }
         this.registerElems(this.props.name);
       }
       componentDidUpdate(prevProps) {
@@ -248,13 +245,14 @@ const Helpers = {
         }
       }
       componentWillUnmount() {
-        if (typeof window === 'undefined') {
-          return false;
+        if (typeof window !== 'undefined') {
+          defaultScroller.unregister(this.props.name);
         }
-        defaultScroller.unregister(this.props.name);
       }
       registerElems(name) {
-        defaultScroller.register(name, this.childBindings.domNode);
+        if (typeof window !== 'undefined') {
+          defaultScroller.register(name, this.childBindings.domNode);
+        }
       }
       render() {
         return React.createElement(Component, Object.assign({}, this.props, { parentBindings: this.childBindings }));
