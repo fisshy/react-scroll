@@ -1,7 +1,6 @@
-"use strict";
-
 import React from "react";
-import ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom/client";
+import Scroll    from 'react-scroll';
 
 import {
   Link,
@@ -394,4 +393,10 @@ class Section extends React.Component {
   }
 }
 
-ReactDOM.render(<Section />, document.getElementById("example"));
+
+ReactDOM.createRoot(document.getElementById("example")).render(
+  <React.StrictMode>
+    <Section />
+  </React.StrictMode>
+);
+

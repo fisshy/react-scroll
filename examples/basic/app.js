@@ -1,7 +1,5 @@
-"use strict";
-
 import React from "react";
-import ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom/client";
 
 import {
   Link,
@@ -10,10 +8,10 @@ import {
   Events,
   animateScroll,
   scrollSpy,
-  scroller
+  scroller,
 } from "react-scroll";
 
-const durationFn = function(deltaTop) {
+const durationFn = function (deltaTop) {
   return deltaTop;
 };
 
@@ -24,11 +22,11 @@ class Section extends React.Component {
   }
 
   componentDidMount() {
-    Events.scrollEvent.register("begin", function() {
+    Events.scrollEvent.register("begin", function () {
       console.log("begin", arguments);
     });
 
-    Events.scrollEvent.register("end", function() {
+    Events.scrollEvent.register("end", function () {
       console.log("end", arguments);
     });
   }
@@ -40,7 +38,7 @@ class Section extends React.Component {
       duration: 800,
       delay: 0,
       smooth: "easeInOutQuart",
-      offset: offset
+      offset: offset,
     });
   }
   scrollToWithContainer() {
@@ -53,7 +51,7 @@ class Section extends React.Component {
       scroller.scrollTo("scroll-container", {
         duration: 800,
         delay: 0,
-        smooth: "easeInOutQuart"
+        smooth: "easeInOutQuart",
       });
     });
 
@@ -63,7 +61,7 @@ class Section extends React.Component {
         delay: 0,
         smooth: "easeInOutQuart",
         containerId: "scroll-container",
-        offset: 50
+        offset: 50,
       })
     );
   }
@@ -89,7 +87,7 @@ class Section extends React.Component {
                     spy={true}
                     smooth={true}
                     duration={500}
-                    offset={50}
+                    offset={-50}
                   >
                     Test 1
                   </Link>
@@ -102,7 +100,7 @@ class Section extends React.Component {
                     spy={true}
                     smooth={true}
                     duration={500}
-                    offset={-55}
+                    offset={-50}
                   >
                     Test 2
                   </Link>
@@ -310,13 +308,13 @@ class Section extends React.Component {
             position: "relative",
             height: "200px",
             overflow: "scroll",
-            marginBottom: "100px"
+            marginBottom: "100px",
           }}
         >
           <Element
             name="firstInsideContainer"
             style={{
-              marginBottom: "200px"
+              marginBottom: "200px",
             }}
           >
             first element inside container
@@ -325,7 +323,7 @@ class Section extends React.Component {
           <Element
             name="secondInsideContainer"
             style={{
-              marginBottom: "200px"
+              marginBottom: "200px",
             }}
           >
             second element inside container
@@ -346,14 +344,14 @@ class Section extends React.Component {
           style={{
             height: "200px",
             overflow: "scroll",
-            marginBottom: "100px"
+            marginBottom: "100px",
           }}
         >
           <form>
             <Element
               name="scroll-container-first-element"
               style={{
-                marginBottom: "200px"
+                marginBottom: "200px",
               }}
             >
               first element inside container
@@ -362,7 +360,7 @@ class Section extends React.Component {
             <div
               id="scroll-container-second-element"
               style={{
-                marginBottom: "200px"
+                marginBottom: "200px",
               }}
             >
               second element inside container
@@ -375,5 +373,8 @@ class Section extends React.Component {
     );
   }
 }
-
-ReactDOM.render(<Section />, document.getElementById("example"));
+ReactDOM.createRoot(document.getElementById("example")).render(
+  <React.StrictMode>
+    <Section />
+  </React.StrictMode>
+);

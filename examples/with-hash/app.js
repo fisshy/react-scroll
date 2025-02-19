@@ -1,8 +1,6 @@
-"use strict";
-
-var React     = require('react');
-var ReactDOM  = require('react-dom');
-var Scroll    = require('react-scroll');
+import React from "react";
+import * as ReactDOM from "react-dom/client";
+import Scroll    from 'react-scroll';
 
 var Link       = Scroll.Link;
 var DirectLink = Scroll.DirectLink;
@@ -53,7 +51,7 @@ class Section extends React.Component{
                 <li><Link containerId="scroll-container" activeClass="active" className="test1" to="test1"  spy={true} hashSpy={true} duration={500} saveHashHistory={false} smooth={true}>Test 1</Link></li>
                 <li><Link containerId="scroll-container" activeClass="active" className="test2" to="test2"  spy={true} hashSpy={true} duration={500} smooth={true}>Test 2</Link></li>
                 <li><Link containerId="scroll-container" activeClass="active" className="test3" to="test3"  spy={true} hashSpy={true} duration={500} smooth={true}>Test 3</Link></li>
-                <li><Link containerId="scroll-container" activeClass="active" className="test4" to="test4"  spy={true} hashSpy={true} spy={true} duration={500} smooth={true}>Test 4</Link></li>
+                <li><Link containerId="scroll-container" activeClass="active" className="test4" to="test4"  spy={true} hashSpy={true} duration={500} smooth={true}>Test 4</Link></li>
                 <li><Link containerId="scroll-container" activeClass="active" className="test5" to="test5"  spy={true} duration={500} smooth={true} delay={1000}>Test 5 ( delay )</Link></li>
                 <li><Link containerId="scroll-container" activeClass="active" className="test6" to="anchor" spy={true} duration={500} smooth={true} >Test 6 (anchor)</Link></li>
                 <li><Link containerId="scroll-container" activeClass="active" className="test7" to="test7"  spy={true} duration={durationFn}>Test 7 (duration and container)</Link></li>
@@ -144,7 +142,8 @@ class Section extends React.Component{
 }
 
 
-ReactDOM.render(
-  <Section />,
-  document.getElementById('example')
+ReactDOM.createRoot(document.getElementById("example")).render(
+  <React.StrictMode>
+    <Section />
+  </React.StrictMode>
 );

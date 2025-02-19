@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import scrollSpy from './scroll-spy';
-import defaultScroller from './scroller';
-import PropTypes from 'prop-types';
-import scrollHash from './scroll-hash';
+import scrollSpy from "./scroll-spy";
+import defaultScroller from "./scroller";
+import PropTypes from "prop-types";
+import scrollHash from "./scroll-hash";
 
 const protoTypes = {
   to: PropTypes.string.isRequired,
@@ -25,28 +25,26 @@ const protoTypes = {
   ignoreCancelEvents: PropTypes.bool,
   hashSpy: PropTypes.bool,
   saveHashHistory: PropTypes.bool,
-  spyThrottle: PropTypes.number
+  spyThrottle: PropTypes.number,
 };
 
 export default (Component, customScroller) => {
-
   const scroller = customScroller || defaultScroller;
 
   class Link extends React.PureComponent {
     constructor(props) {
       super(props);
       this.state = {
-        active: false
+        active: false,
       };
       this.beforeUnmountCallbacks = [];
     }
 
     scrollTo = (to, props) => {
       scroller.scrollTo(to, Object.assign({}, this.state, props));
-    }
+    };
 
     handleClick = (event) => {
-
       /*
        * give the posibility to override onClick
        */
@@ -66,8 +64,7 @@ export default (Component, customScroller) => {
        * do the magic!
        */
       this.scrollTo(this.props.to, this.props);
-
-    }
+    };
 
     spyHandler = (x, y) => {
       let scrollSpyContainer = this.getScrollSpyContainer();
@@ -76,7 +73,7 @@ export default (Component, customScroller) => {
         return;
       }
 
-      const {horizontal} = this.props;
+      const { horizontal } = this.props;
       let to = this.props.to;
       let element = null;
       let isInside;
@@ -94,16 +91,22 @@ export default (Component, customScroller) => {
 
         if (!element || this.props.isDynamic) {
           element = scroller.get(to);
-          if (!element) { return; }
+          if (!element) {
+            return;
+          }
 
           let cords = element.getBoundingClientRect();
-          elemLeftBound = (cords.left - containerLeft + x);
+          elemLeftBound = cords.left - containerLeft + x;
           elemRightBound = elemLeftBound + cords.width;
         }
 
         let offsetX = x - this.props.offset;
-        isInside = (offsetX >= Math.floor(elemLeftBound) && offsetX < Math.floor(elemRightBound));
-        isOutside = (offsetX < Math.floor(elemLeftBound) || offsetX >= Math.floor(elemRightBound));
+        isInside =
+          offsetX >= Math.floor(elemLeftBound) &&
+          offsetX < Math.floor(elemRightBound);
+        isOutside =
+          offsetX < Math.floor(elemLeftBound) ||
+          offsetX >= Math.floor(elemRightBound);
       } else {
         let elemTopBound = 0;
         let elemBottomBound = 0;
@@ -116,16 +119,24 @@ export default (Component, customScroller) => {
 
         if (!element || this.props.isDynamic) {
           element = scroller.get(to);
-          if (!element) { return; }
+          if (!element) {
+            return;
+          }
 
           let cords = element.getBoundingClientRect();
-          elemTopBound = (cords.top - containerTop + y);
+          
+          elemTopBound = cords.top - containerTop + y;
           elemBottomBound = elemTopBound + cords.height;
         }
 
         let offsetY = y - this.props.offset;
-        isInside = (offsetY >= Math.floor(elemTopBound) && offsetY < Math.floor(elemBottomBound));
-        isOutside = (offsetY < Math.floor(elemTopBound) || offsetY >= Math.floor(elemBottomBound));
+
+        isInside =
+          offsetY >= Math.floor(elemTopBound) &&
+          offsetY < Math.floor(elemBottomBound);
+        isOutside =
+          offsetY < Math.floor(elemTopBound) ||
+          offsetY >= Math.floor(elemBottomBound);
       }
 
       let activeLink = scroller.getActiveLink();
@@ -136,7 +147,7 @@ export default (Component, customScroller) => {
         }
 
         if (this.props.hashSpy && scrollHash.getHash() === to) {
-          const { saveHashHistory = false } = this.props
+          const { saveHashHistory = false } = this.props;
           scrollHash.changeHash("", saveHashHistory);
         }
 
@@ -144,12 +155,11 @@ export default (Component, customScroller) => {
           this.setState({ active: false });
           this.props.onSetInactive && this.props.onSetInactive(to, element);
         }
-
       }
 
       if (isInside && (activeLink !== to || this.state.active === false)) {
         scroller.setActiveLink(to);
-        const { saveHashHistory = false } = this.props
+        const { saveHashHistory = false } = this.props;
         this.props.hashSpy && scrollHash.changeHash(to, saveHashHistory);
 
         if (this.props.spy) {
@@ -157,7 +167,7 @@ export default (Component, customScroller) => {
           this.props.onSetActive && this.props.onSetActive(to, element);
         }
       }
-    }
+    };
 
     getScrollSpyContainer() {
       let containerId = this.props.containerId;
@@ -179,7 +189,10 @@ export default (Component, customScroller) => {
         let scrollSpyContainer = this.getScrollSpyContainer();
 
         if (!scrollSpy.isMounted(scrollSpyContainer)) {
-          const fn = scrollSpy.mount(scrollSpyContainer, this.props.spyThrottle);
+          const fn = scrollSpy.mount(
+            scrollSpyContainer,
+            this.props.spyThrottle
+          );
           this.beforeUnmountCallbacks.push(fn);
         }
 
@@ -193,20 +206,23 @@ export default (Component, customScroller) => {
         scrollSpy.addSpyHandler(this.spyHandler, scrollSpyContainer);
 
         this.setState({
-          container: scrollSpyContainer
+          container: scrollSpyContainer,
         });
-
       }
     }
     componentWillUnmount() {
       scrollSpy.unmount(this.stateHandler, this.spyHandler);
-      this.beforeUnmountCallbacks.forEach(fn => fn());
+      this.beforeUnmountCallbacks.forEach((fn) => fn());
     }
     render() {
       var className = "";
 
       if (this.state && this.state.active) {
-        className = ((this.props.className || "") + " " + (this.props.activeClass || "active")).trim();
+        className = (
+          (this.props.className || "") +
+          " " +
+          (this.props.activeClass || "active")
+        ).trim();
       } else {
         className = this.props.className;
       }
@@ -233,11 +249,11 @@ export default (Component, customScroller) => {
 
       return React.createElement(Component, props);
     }
-  };
+  }
 
   Link.propTypes = protoTypes;
 
   Link.defaultProps = { offset: 0 };
 
   return Link;
-}
+};

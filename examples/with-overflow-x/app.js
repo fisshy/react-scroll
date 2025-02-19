@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import { Element, scrollSpy, Events, Link } from 'react-scroll';
+import React from "react";
+import * as ReactDOM from "react-dom/client";
+import Scroll    from 'react-scroll';
 
-class App extends Component {
+var Link       = Scroll.Link;
+var Element    = Scroll.Element;
+
+class Section extends React.Component{
   constructor() {
     super();
     this.state = {
@@ -42,7 +45,11 @@ class App extends Component {
   }
 }
 
-render(<App />, document.getElementById('example'));
+ReactDOM.createRoot(document.getElementById("example")).render(
+  <React.StrictMode>
+    <Section />
+  </React.StrictMode>
+);
 
 document.body.addEventListener("scroll", () => {
 
