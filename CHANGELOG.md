@@ -1,4 +1,6 @@
 #### Changelog
+> 1.9.2
+- Supports React v19.
 
 > 1.9.0
 
